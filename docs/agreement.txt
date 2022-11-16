@@ -1,1 +1,9 @@
-
+-*-*- Group Members -*-*-
+ - Ethan Chan
+ - Jerry Chen
+ - Francis Gajitos
+ - Theo Landart
+ - Nicholas Louie
+ - Risheit Munshi (Scrum Master)
+ 
+Primary Method of Communication: Discord
