@@ -1,0 +1,17 @@
+-*-*- Group Members -*-*-
+ - Ethan Chan
+ - Jerry Chen
+ - Francis Gajitos
+ - Theo Landart
+ - Nicholas Louie
+ - Risheit Munshi (Scrum Master)
+ 
+Primary Method of Communication: Discord
+
+Standup Meeting Time: 
+ - Mondays: 10:30 P.M.
+ - Other Weedays: 10:00 P.M.
+
+Project Version Control System: Github (https://github.com/Risheit/b07-project)
+
+Branching Strategy: One branch per user story

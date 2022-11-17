@@ -1,0 +1,7 @@
+{
+  "email": string  [Primary Key]
+  "password": string
+  "userType": string {"student", “admin”}
+  “firstName”: string  
+  “lastName”: string
+}
