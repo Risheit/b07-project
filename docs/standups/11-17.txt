@@ -1,0 +1,72 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Familiarized myself with the project source code.
+
+What are you planning on doing today?
+	- Verifying a student signing in is valid
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Did some research on the Firebase API
+
+What are you planning on doing today?
+	- Finalizing planning functions
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Created a new firebase project
+
+What are you planning on doing today?
+	- Connect the firebase project to the app (will need to edit the name of the app)
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+	- NA
+
+What are you planning on doing today?
+Designer Sign Up UI
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?
+	- Looked at sample code from class
+
+What are you planning on doing today?
+	- Converting Java objects to JSON
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Nicholas
+
+What have you done since yesterday?
+	- pushed the basic app template to the repo so everyone can get started
+
+What are you planning on doing today?
+Planning what to do (signup new users)
+
+Any impediments or stumbling blocks?
+	- None
+
+
