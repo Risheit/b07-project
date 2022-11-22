@@ -1,4 +1,4 @@
-package com.example.generictemplate;
+package com.planner;
 
 import android.content.Context;
 
