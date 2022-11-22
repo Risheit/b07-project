@@ -1,0 +1,70 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Nothing
+
+What are you planning on doing today?
+	- Verifying a student signing in is valid
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Cloned repo and looked at more code
+
+What are you planning on doing today?
+	- Finish making both functions
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Nothing
+
+What are you planning on doing today?
+	- Connect the firebase project to the app (will need to edit the name of the app)
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+	- testing commits, making fragment that takes text inputs for email and password
+
+What are you planning on doing today?
+First page able to receive text inputs
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+	- Did some research on Firebase
+
+What are you planning on doing today?
+	- Adding objects to the database
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- wrote pseudocode
+
+What are you planning on doing today?
+Talk to group members to make sure everyone is on the same page regarding what I plan to do in the pseudocode
+
+Any impediments or stumbling blocks?
+	- Unsure of how other things are being implemented yet
