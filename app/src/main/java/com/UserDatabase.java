@@ -13,8 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 public class UserDatabase {
     private DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference("users");
 
-    public void addUser(String name, String email, String password){
-        User user = new User(name, email, password);
+    public void addUser(String type, String name, String email, String password){
+        User user = new User(type, name, email, password);
         ref.child("users").child("u1").setValue(user);
     }
 
