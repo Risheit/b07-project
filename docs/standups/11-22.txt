@@ -1,0 +1,71 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Started work on UserManagement Class
+
+What are you planning on doing today?
+	- Verifying a student signing in is valid
+
+Any impediments or stumbling blocks?
+	- Require a an interface for database management and a User Class
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished the add and remove student methods
+
+What are you planning on doing today?
+	- Finalize and push
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Added dependencies for Firebase in the code and rearranged some folders
+
+What are you planning on doing today?
+	- Properly rename “com.example.genericTemplate” to “com.planner”
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+	- NA
+
+What are you planning on doing today?
+NA
+
+Any impediments or stumbling blocks?
+	- None
+Note: Ethan's dealing with an illness currently and is unable to participate normally.
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+	- Created methods that read and write information to the database
+
+What are you planning on doing today?
+	- Testing correctness of my code
+
+Any impediments or stumbling blocks?
+	- Unable to determine the correctness of my code
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- created a User class and planned out other classes needed with Rishiet
+
+What are you planning on doing today?
+Finish my method for adding users
+
+Any impediments or stumbling blocks?
+	- Unsure of how other things are being implemented still
