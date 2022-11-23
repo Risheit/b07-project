@@ -1,4 +1,4 @@
-package com;
+package com.models;
 
 import static android.content.ContentValues.TAG;
 import com.google.firebase.database.DataSnapshot;
@@ -10,14 +10,18 @@ import android.util.Log;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.DatabaseReference;
 
-public class UserDatabase {
-    private DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference("users");
+public class UserDatabase implements UserDatabaseInterface {
+    private DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
 
     public void addUser(String type, String name, String email, String password){
         User user = new User(type, name, email, password);
-        ref.child("users").child("u1").setValue(user);
+        ref.child("users").child(email).setValue(user);
     }
 
+    public User getUser(String email){
+
+        return null;
+    }
     public void removeUser(String emailKey){
         Query userSearch = ref.child("users").orderByChild("email").equalTo(emailKey);
         userSearch.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -33,4 +37,8 @@ public class UserDatabase {
             }
         });
     }
+
+
 }
+
+
