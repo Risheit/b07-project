@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.planner;
 
 import android.os.Bundle;
 
