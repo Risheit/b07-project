@@ -10,6 +10,6 @@ public class UserManagement implements WriteUser, Verify {
     public boolean verify(UserDatabaseInterface db, User user) {
         User valid = db.getUser(user.getEmail());
 
-        return valid.getPassword().equals(user.getPassword());
+        return !(valid == null) && valid.getPassword().equals(user.getPassword());
     }
 }
