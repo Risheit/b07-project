@@ -23,7 +23,7 @@ public class UserDatabase {
     }
 
     public void removeUser(String emailKey){
-        Query userSearch = databaseReference.child("users").orderByChild("email").equalTo(emailKey);
+        Query userSearch = ref.child("users").orderByChild("email").equalTo(emailKey);
         userSearch.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot){
