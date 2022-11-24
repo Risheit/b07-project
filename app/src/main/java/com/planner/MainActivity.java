@@ -3,6 +3,8 @@ package com.planner;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.generictemplate.R;
+import com.example.generictemplate.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
