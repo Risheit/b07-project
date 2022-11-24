@@ -14,5 +14,5 @@ public interface Verify {
      * @return True if the user has an account within the database, and false otherwise
      */
 
-    boolean verify(UserDatabaseInterface db, User user);
+    boolean verify(User user);
 }

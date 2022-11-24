@@ -7,6 +7,16 @@ import com.models.UserDatabaseInterface;
 
 public class UserManagement implements Verify, UserSignup {
 
+    private final UserDatabaseInterface connection;
+
+    /**
+     * Instantiates a new UserManagement class.
+     * @param connection The database this management class is connected to.
+     */
+    public UserManagement(UserDatabaseInterface connection) {
+        this.connection = connection;
+    }
+
     /**
      * This method checks if the calling object (an instance of User) has an account
      * in the database.
@@ -14,8 +24,8 @@ public class UserManagement implements Verify, UserSignup {
      */
 
     @Override
-    public boolean verify(UserDatabaseInterface db, User user) {
-        User valid = db.getUser(user.getEmail());
+    public boolean verify(User user) {
+        User valid = connection.getUser(user.getEmail());
 
         return !(valid == null) && valid.getPassword().equals(user.getPassword());
     }
@@ -26,9 +36,9 @@ public class UserManagement implements Verify, UserSignup {
      */
 
     @Override
-    public boolean signupUser(User user, UserDatabaseInterface db) {
-        if (!verify (db, user)) { // verify returns false if null
-            db.addUser(user);
+    public boolean signupUser(User user) {
+        if (!verify (user)) { // verify returns false if null
+            connection.addUser(user);
             return true;
         } else {
             return false;
