@@ -1,5 +1,6 @@
 package com.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -47,5 +48,10 @@ public class SignUpActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void goToLogInActivity (View view){
+        Intent intent = new Intent (this, MainActivity.class);
+        startActivity(intent);
     }
 }
