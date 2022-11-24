@@ -45,10 +45,10 @@ public class SignUpActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        new_emailInput = (EditText) findViewById(R.id.new_emailInput);
-        first_nameInput = (EditText) findViewById(R.id.first_nameInput);
-        last_nameInput = (EditText) findViewById(R.id.last_nameInput);
-        passInput = (EditText) findViewById(R.id.passInput);
+        new_emailInput = (EditText) findViewById(R.id.signUpInputEmail);
+        first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
+        last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
+        passInput = (EditText) findViewById(R.id.editTextTextPassword2);
 
         signUpButton = (Button) findViewById(R.id.signUpButton);
 
@@ -61,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
             }
+            //User(type, email, first_name + " " + last_name, password)
         });
     }
 
