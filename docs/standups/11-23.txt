@@ -1,0 +1,72 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Finished verify method
+
+What are you planning on doing today?
+	- Designing JUnit tests
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished addStudent, removeStudent, and added getStudent
+
+What are you planning on doing today?
+	- Start documenting functions and classes
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Fixed some folder organization/renaming
+
+What are you planning on doing today?
+	- Generate sequential keys for each user when it is added using AddUser()
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+	- NA
+
+What are you planning on doing today?
+NA
+
+Any impediments or stumbling blocks?
+	- None
+Note: Ethan's dealing with an illness currently and is unable to participate normally.
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+	- Tested to make sure several functions work
+ 	- Edited Layout for first fragment
+
+What are you planning on doing today?
+	- Working on Log In and Sign In layouts
+
+Any impediments or stumbling blocks?
+	- N/A
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- finished user signup method (task for current user story) and documentation
+
+What are you planning on doing today?
+Testing/reading up API documentation
+
+Any impediments or stumbling blocks?
+	- None
