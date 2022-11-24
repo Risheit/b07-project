@@ -19,12 +19,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivitySignUpBinding;
+import com.presenters.User;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
     String email, first_name, last_name, password;
+    String type;
 
     EditText new_emailInput;
     EditText first_nameInput;
@@ -60,8 +62,9 @@ public class SignUpActivity extends AppCompatActivity {
                 first_name = first_nameInput.getText().toString();
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
+                type = "Student"; //assume all users are students?
             }
-            //User(type, email, first_name + " " + last_name, password)
+            User new_user = new User(type,first_name + " " + last_name, email, password);
         });
     }
 
