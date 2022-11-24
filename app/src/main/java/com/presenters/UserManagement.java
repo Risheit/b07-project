@@ -1,8 +1,5 @@
 package com.presenters;
 
-import android.view.View;
-import android.widget.EditText;
-
 import com.models.UserDatabaseInterface;
 
 public class UserManagement implements Verify, UserSignup {
