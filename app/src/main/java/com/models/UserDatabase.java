@@ -7,22 +7,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.presenters.User;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Query;
 import com.google.firebase.database.DatabaseReference;
 
 public class UserDatabase implements UserDatabaseInterface {
-    private DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
+    User u = null;
 
     public void addUser(User user){
         ref.child("users").child(user.getEmail()).setValue(user);
     }
 
     public User getUser(String email){
-        //if doesn't exists (still needs to be implemented)
-        return null;
+        DatabaseReference userSearch = ref.child("users").child(email);
+        userSearch.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                u = snapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+            }
+        });
+
+        return u;
     }
+
     public void removeUser(String emailKey){
-        Query userSearch = ref.child("users").orderByChild("email").equalTo(emailKey);
+        DatabaseReference userSearch = ref.child("users").child(emailKey);
         userSearch.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot){
@@ -32,7 +49,7 @@ public class UserDatabase implements UserDatabaseInterface {
             }
             @Override
             public void onCancelled(DatabaseError databaseError){
-                Log.e(TAG, "no user found", databaseError.toException());
+                Log.e(TAG, "No user found", databaseError.toException());
             }
         });
     }
