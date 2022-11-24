@@ -20,11 +20,18 @@ import com.planner.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    String password, email;
+    EditText emailInput;
+    EditText passwordInput;
+    Button logInButton;
+    boolean tracker = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        emailInput = (EditText) findViewById(R.id.inputEmail2);
+        passwordInput = (EditText) findViewById(R.id.inputPassword2);
+        logInButton = (Button) findViewById(R.id.logInButton3);
+
+        logInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                email = emailInput.getText().toString();
+                password = passwordInput.getText().toString();
+                if(!password.equals(new UserDatabase().getUser(email).getPassword())){
+                    tracker = false;
+                }
+            }
+        });
 
 //        binding.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -84,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void goToHomeActivity (View view){
-        Intent intent = new Intent (this, HomePageActivity.class);
-        startActivity(intent);
+
+        if(tracker == true){
+            Intent intent = new Intent (this, HomePageActivity.class);
+            startActivity(intent);
+        }
     }
 }
