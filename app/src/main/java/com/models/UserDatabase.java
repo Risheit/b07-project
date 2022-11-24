@@ -13,13 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 public class UserDatabase implements UserDatabaseInterface {
     private DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
 
-    public void addUser(String type, String name, String email, String password){
-        User user = new User(type, name, email, password);
-        ref.child("users").child(email).setValue(user);
+    public void addUser(User user){
+        ref.child("users").child(user.getEmail()).setValue(user);
     }
 
     public User getUser(String email){
-
+        //if doesn't exists (still needs to be implemented)
         return null;
     }
     public void removeUser(String emailKey){
