@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     EditText emailInput;
     EditText passwordInput;
     Button logInButton;
-    boolean tracker = true;
+    boolean track = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
                 if(!password.equals(new UserDatabase().getUser(email).getPassword())){
-                    tracker = false;
+                    track = false;
                 }
             }
         });
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void goToHomeActivity (View view){
 
-        if(tracker == true){
+        if(track == true){
             Intent intent = new Intent (this, HomePageActivity.class);
             startActivity(intent);
         }
