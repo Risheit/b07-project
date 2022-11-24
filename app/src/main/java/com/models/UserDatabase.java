@@ -1,6 +1,7 @@
 package com.models;
 
-import static android.content.ContentValues.TAG;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,11 +19,46 @@ public class UserDatabase implements UserDatabaseInterface {
     User u = null;
 
     public void addUser(User user){
-        ref.child("users").child(user.getEmail()).setValue(user);
+        /*
+        addUser() adds a user with the given properties to the database with a unique key
+
+        the unique key is read from the database's "uniqueVal" value that is then incremented to
+        ensure that it will always have a different value each time it is read
+         */
+        ref.child("uniqueVal").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("UserDatabase", "Error reading uniqueVal", task.getException());
+                } else {
+                    // if we get here, then there has been no error reading "uniqueVal" (ie the task
+                    // was successful)
+                    // first we read the "uniqueVal" value in the database
+                    int un = task.getResult().getValue(Integer.class);
+
+                    // increment the uniqueVal value in the database so that it will be unique the
+                    // next time we call it
+                    ref.child("uniqueVal").setValue(un + 1);
+
+                    // now we can add the user with our new unique key
+                    ref.child("users").child(String.valueOf(un)).setValue(user);
+                    /*
+                    note: the above line MUST be inside this else{} statement so that we can add
+                    the user to the database AFTER we read the uniqueVal value into un.
+
+                    i.e., if the line is outside of the onComplete() method, the user will likely
+                    be added BEFORE the task is completed and before it is assigned a value,
+                    resulting in unwanted behaviour. this is because the OnCompleteListener runs
+                    asynchronously to the rest of the code (the rest of the addUser() method does
+                    not wait for the task to finish before running)
+                     */
+                }
+            }
+        });
     }
 
     public User getUser(String email){
-        DatabaseReference userSearch = ref.child("users").child(email);
+        DatabaseReference userSearch = ref.child("users").child("email");
         userSearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -39,17 +75,25 @@ public class UserDatabase implements UserDatabaseInterface {
     }
 
     public void removeUser(String emailKey){
-        DatabaseReference userSearch = ref.child("users").child(emailKey);
-        userSearch.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*
+        removeUser() deletes the users with the given email from the database
+
+        by design, there should only be one user per email, but the design of the function deletes
+        all users with the given email regardless.
+         */
+        Query userQuery = ref.child("users").orderByChild("email").equalTo(emailKey);
+
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot){
-                for (DataSnapshot deletedUser: snapshot.getChildren()){
-                    deletedUser.getRef().removeValue();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot s: snapshot.getChildren()) {
+                    s.getRef().removeValue();
                 }
             }
+
             @Override
-            public void onCancelled(DatabaseError databaseError){
-                Log.e(TAG, "No user found", databaseError.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("UserDatabase", "Error deleting the user");
             }
         });
     }
