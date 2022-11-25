@@ -12,23 +12,35 @@
         android:theme="@style/Theme.GenericTemplate.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/SignUpHeader"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="0dp"
+            android:background="@color/black"
             app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="744dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/LogInButton"
+        android:layout_width="27dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="28dp"
+        android:background="#00008B"
+        android:backgroundTint="#00008B"
+        android:text=""
+        android:textColor="#FDFDFD"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
