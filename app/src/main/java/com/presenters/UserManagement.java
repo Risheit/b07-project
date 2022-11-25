@@ -23,12 +23,15 @@ public class UserManagement implements Verify, UserSignup {
 
     @Override
     public boolean verify(User user) {
+        if (user == null)
+            return false;
+
         User valid = connection.getUser(user.getEmail());
 
-        return !(valid == null) && valid.getPassword().equals(user.getPassword());
+        return valid.getPassword().equals(user.getPassword());
     }
 
-    /***
+    /**
      Takes a object user of type User and adds that user to the connected database
      if it does not exist already, returns true if user is added, false if not
      */
