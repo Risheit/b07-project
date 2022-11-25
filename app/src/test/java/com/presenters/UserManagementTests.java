@@ -69,7 +69,7 @@ public class UserManagementTests {
         User user = new User("student", "test student", "charlesmj@gmail.com",
                 "");
         management.signupUser(user);
-        assertNull(dbMock.getUser(user.getEmail()));
+        assertNotEquals(user, dbMock.getUser(user.getEmail()));
     }
 
     @Test
