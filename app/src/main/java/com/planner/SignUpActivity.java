@@ -18,8 +18,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.UserDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
 import com.presenters.User;
+import com.presenters.UserManagement;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -65,6 +67,8 @@ public class SignUpActivity extends AppCompatActivity {
                 type = "Student"; //assume all users are students?
             }
             User new_user = new User(type,first_name + " " + last_name, email, password);
+            UserManagement um = new UserManagement(new UserDatabase());
+            um.signupUser(new_user);
         });
     }
 
