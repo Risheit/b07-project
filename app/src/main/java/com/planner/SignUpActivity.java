@@ -18,13 +18,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.UserDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
+import com.presenters.User;
+import com.presenters.UserManagement;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
     String email, first_name, last_name, password;
+    String type;
 
     EditText new_emailInput;
     EditText first_nameInput;
@@ -45,10 +49,10 @@ public class SignUpActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        new_emailInput = (EditText) findViewById(R.id.new_emailInput);
-        first_nameInput = (EditText) findViewById(R.id.first_nameInput);
-        last_nameInput = (EditText) findViewById(R.id.last_nameInput);
-        passInput = (EditText) findViewById(R.id.passInput);
+        new_emailInput = (EditText) findViewById(R.id.signUpInputEmail);
+        first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
+        last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
+        passInput = (EditText) findViewById(R.id.editTextTextPassword2);
 
         signUpButton = (Button) findViewById(R.id.signUpButton);
 
@@ -60,7 +64,11 @@ public class SignUpActivity extends AppCompatActivity {
                 first_name = first_nameInput.getText().toString();
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
+                type = "Student"; //assume all users are students?
             }
+            User new_user = new User(type,first_name + " " + last_name, email, password);
+            UserManagement um = new UserManagement(new UserDatabase());
+            um.signupUser(new_user);
         });
     }
 
