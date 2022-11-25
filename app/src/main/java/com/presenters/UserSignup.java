@@ -8,8 +8,9 @@ import com.models.UserDatabaseInterface;
 
 public interface UserSignup {
     /***
-    Takes a object user of type User and a UserDatabaseInterface db; adds user to the database
-     if it does not exist already, returns true if user is added, false if not
+     This function adds an user to the database if it does not exist already, otherwise does nothing
+     @param user is the object to be added
+     @returns true if user is added, false if not
      */
     boolean signupUser(User user);
 }

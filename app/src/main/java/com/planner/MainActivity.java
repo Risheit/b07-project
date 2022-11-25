@@ -2,16 +2,13 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.generictemplate.R;
-import com.example.generictemplate.databinding.ActivityMainBinding;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,11 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.models.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 

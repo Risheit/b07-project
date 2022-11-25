@@ -2,17 +2,11 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.generictemplate.R;
-import com.example.generictemplate.databinding.ActivitySignUpBinding;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -65,10 +59,10 @@ public class SignUpActivity extends AppCompatActivity {
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
                 type = "Student"; //assume all users are students?
+                User new_user = new User(type,first_name + " " + last_name, email, password);
+                UserManagement um = new UserManagement(new UserDatabase());
+                um.signupUser(new_user);
             }
-            User new_user = new User(type,first_name + " " + last_name, email, password);
-            UserManagement um = new UserManagement(new UserDatabase());
-            um.signupUser(new_user);
         });
     }
 
