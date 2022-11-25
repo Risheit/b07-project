@@ -1,0 +1,74 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Wrote JUnit test cases for the UserManagement class
+
+What are you planning on doing today?
+	- Designing a view for displaying courses in a list method
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished documenting all code in presenter file and some of the view
+
+What are you planning on doing today?
+	- Start planning CourseManagement class
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Fixed addUser() and removeUser() and added unique key generation for added users
+
+What are you planning on doing today?
+	- Fix getUser()
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+	- modify to allow function to take user input from sign up
+	- take the user input and add the user into the database
+
+What are you planning on doing today?
+Add a courses view
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+	- Redid the Entire UI, turning fragments into activities
+ 	- Implemented Buttons to navigate between activities
+	- Implemented Log In functions to get data from 
+
+What are you planning on doing today?
+	- Fixing up the Log in and Sign Up functions
+
+Any impediments or stumbling blocks?
+	- Program crashes when clicking button
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- fixed methods and read documentation
+	- planned next steps
+
+What are you planning on doing today?
+Create course object /database
+
+Any impediments or stumbling blocks?
+	- None
