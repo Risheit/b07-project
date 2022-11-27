@@ -1,0 +1,70 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Nothing
+
+What are you planning on doing today?
+	- Designing a view for displaying courses in a list method
+
+Any impediments or stumbling blocks?
+	- Need a course class to understand how I would display them
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Implemented the addCourse and getCourse methods for the presenter folder
+
+What are you planning on doing today?
+	-  Research ways to getUser from database and complete getListofClasses
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Tried many ways to fix getUser() but ended up with nothing (the asynchronous nature of reading from firebase makes it difficult/impossible to return a value in a method)
+
+What are you planning on doing today?
+	- Fix getUser() or come up with a different way to implement it
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Implemented the add a course screen
+
+What are you planning on doing today?
+Implement the add a course view
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+	- Debug in login and signup UI
+
+What are you planning on doing today?
+	- Redo the UI for several activities
+
+Any impediments or stumbling blocks?
+	-Include function in xml doesn’t work
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- created course object
+
+What are you planning on doing today?
+Figure out database things
+
+Any impediments or stumbling blocks?
+	- None
