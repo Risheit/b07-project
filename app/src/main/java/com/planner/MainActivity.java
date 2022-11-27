@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
-                if(!password.equals(new UserDatabase().getUser(email).getPassword())){
-                    track = false;
-                }
+//                if(!password.equals(new UserDatabase().getUser(email).getPassword())){
+//                    track = false;
+//                }else{
+                    goToHomeActivity(view);
+//                }
             }
         });
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -100,10 +101,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void goToHomeActivity (View view){
+        Intent intent = new Intent (this, HomePageActivity.class);
+        startActivity(intent);
 
-        if(track == true){
-            Intent intent = new Intent (this, HomePageActivity.class);
-            startActivity(intent);
-        }
     }
 }
