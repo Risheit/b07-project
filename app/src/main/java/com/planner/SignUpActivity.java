@@ -26,14 +26,17 @@ public class SignUpActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
-    String email, first_name, last_name, password, commaEmail;
+    String email, first_name, last_name, password, commaEmail, conPass;
     String type;
 
     EditText new_emailInput;
     EditText first_nameInput;
     EditText last_nameInput;
     EditText passInput;
+    EditText confirmPass;
     Button signUpButton;
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,9 @@ public class SignUpActivity extends AppCompatActivity {
         first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
         last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
         passInput = (EditText) findViewById(R.id.editTextTextPassword2);
+        confirmPass = (EditText) findViewById(R.id.ConfirmPassword);
         signUpButton = (Button) findViewById(R.id.NewAccountButton);
+
 
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +67,10 @@ public class SignUpActivity extends AppCompatActivity {
                 first_name = first_nameInput.getText().toString();
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
+                conPass = confirmPass.getText().toString();
                 type = "Student"; //assume all users are students?
                 User new_user = new User(type,first_name + " " + last_name, email, password);
-                if(email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty()){
+                if(email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() || conPass.isEmpty()){
                     Toast.makeText(SignUpActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
                 }else{
                     ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -73,9 +79,17 @@ public class SignUpActivity extends AppCompatActivity {
                             if(snapshot.hasChild(commaEmail)){
                                 Toast.makeText(SignUpActivity.this, "An account has already been created with this email", Toast.LENGTH_SHORT).show();
                             }else{
-                                ref.child("users").child(commaEmail).setValue(new_user);
-                                startActivity(new Intent(SignUpActivity.this, HomePageActivity.class));
-                                finish();
+                                if(conPass.equals(password)){
+                                    ref.child("users").child(commaEmail).setValue(new_user);
+                                    name = first_name + " " + last_name;
+                                    Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
+                                    intent.putExtra("name", name);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         }
 

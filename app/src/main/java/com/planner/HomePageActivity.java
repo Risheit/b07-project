@@ -1,13 +1,10 @@
 package com.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,7 +16,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
-
+    TextView welcomeTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +30,11 @@ public class HomePageActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        welcomeTxt = (TextView) findViewById(R.id.textView4);
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+        System.out.println(name);
+        welcomeTxt.setText("Welcome " + name);
     }
 
     @Override

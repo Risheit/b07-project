@@ -5,6 +5,8 @@ public class User {
     private String email;
     private String password;
 
+    public User(){
+    }
     /**
      * This constructor returns an instance of a User
      * @param type  Indicates whether a User is a student or admin
