@@ -7,30 +7,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.UserDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.planner.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    String password, email;
+    String password, email, commaEmail;
     EditText emailInput;
     EditText passwordInput;
     Button logInButton;
-    boolean track = true;
+    Button signUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -43,25 +48,50 @@ public class MainActivity extends AppCompatActivity {
         emailInput = (EditText) findViewById(R.id.inputEmail2);
         passwordInput = (EditText) findViewById(R.id.inputPassword2);
         logInButton = (Button) findViewById(R.id.logInButton3);
+        signUpButton = (Button) findViewById(R.id.signUpButton);
+
+
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 email = emailInput.getText().toString();
+                commaEmail = email.replace('.', ',');
                 password = passwordInput.getText().toString();
-                if(!password.equals(new UserDatabase().getUser(email).getPassword())){
-                    track = false;
+                if(email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
+                }else{
+                    ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(commaEmail)){
+                                String dbPassword = snapshot.child(commaEmail).child("password").getValue(String.class);
+                                if(dbPassword.equals(password)){
+                                    startActivity(new Intent(MainActivity.this, HomePageActivity.class));
+                                    finish();
+                                }else{
+                                    Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(MainActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         });
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            }
+        });
 
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
 
     }
@@ -95,15 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void goToSignUpActivity (View view){
-        Intent intent = new Intent (this, SignUpActivity.class);
-        startActivity(intent);
-    }
-    public void goToHomeActivity (View view){
 
-        if(track == true){
-            Intent intent = new Intent (this, HomePageActivity.class);
-            startActivity(intent);
-        }
-    }
+
+
+
+
+
+
+
+
 }

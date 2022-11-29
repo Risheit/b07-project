@@ -5,30 +5,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.UserDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.planner.databinding.ActivitySignUpBinding;
 import com.presenters.User;
-import com.presenters.UserManagement;
 
 public class SignUpActivity extends AppCompatActivity {
-
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
-    String email, first_name, last_name, password;
+    String email, first_name, last_name, password, commaEmail;
     String type;
 
     EditText new_emailInput;
     EditText first_nameInput;
     EditText last_nameInput;
     EditText passInput;
-
     Button signUpButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +51,41 @@ public class SignUpActivity extends AppCompatActivity {
         first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
         last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
         passInput = (EditText) findViewById(R.id.editTextTextPassword2);
-
-        signUpButton = (Button) findViewById(R.id.signUpButton);
+        signUpButton = (Button) findViewById(R.id.NewAccountButton);
 
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 email = new_emailInput.getText().toString();
+                commaEmail = email.replace('.', ',');
                 first_name = first_nameInput.getText().toString();
                 last_name = last_nameInput.getText().toString();
                 password = passInput.getText().toString();
                 type = "Student"; //assume all users are students?
                 User new_user = new User(type,first_name + " " + last_name, email, password);
-                UserManagement um = new UserManagement(new UserDatabase());
-                um.signupUser(new_user);
+                if(email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty()){
+                    Toast.makeText(SignUpActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
+                }else{
+                    ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(commaEmail)){
+                                Toast.makeText(SignUpActivity.this, "An account has already been created with this email", Toast.LENGTH_SHORT).show();
+                            }else{
+                                ref.child("users").child(commaEmail).setValue(new_user);
+                                startActivity(new Intent(SignUpActivity.this, HomePageActivity.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -73,8 +97,4 @@ public class SignUpActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void goToLogInActivity (View view){
-        Intent intent = new Intent (this, MainActivity.class);
-        startActivity(intent);
-    }
 }
