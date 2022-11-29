@@ -2,6 +2,8 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityAdminHomePageBinding binding;
     TextView welcomeText;
+    Button addCourseButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +34,21 @@ public class AdminHomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         welcomeText = (TextView) findViewById(R.id.textView14);
+        addCourseButton = (Button) findViewById(R.id.AddCourseButton);
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         System.out.println(name);
         welcomeText.setText("Welcome Admin: " + name);
+
+        addCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminHomePageActivity.this, AddCourseActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
