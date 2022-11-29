@@ -14,7 +14,7 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_add_course);
 
-        Button BackButton = findViewById(R.id.add_course_backButton);
+        Button BackButton = findViewById(R.id.BackButton);
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -22,7 +22,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button DoneButton = findViewById(R.id.add_course_doneButton);
+        Button DoneButton = findViewById(R.id.DoneButton);
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
