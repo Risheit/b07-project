@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.planner.databinding.FragmentSecond3Binding;
 
@@ -29,13 +28,7 @@ public class Second3Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(Second3Fragment.this)
-                        .navigate(R.id.action_Second3Fragment_to_First3Fragment);
-            }
-        });
+
     }
 
     @Override

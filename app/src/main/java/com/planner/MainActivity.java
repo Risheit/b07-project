@@ -68,11 +68,20 @@ public class MainActivity extends AppCompatActivity {
                             if(snapshot.hasChild(commaEmail)){
                                 String dbPassword = snapshot.child(commaEmail).child("password").getValue(String.class);
                                 if(dbPassword.equals(password)){
-                                    name = snapshot.child(commaEmail).child("name").getValue(String.class);
-                                    Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-                                    intent.putExtra("name", name);
-                                    startActivity(intent);
-                                    finish();
+                                    if(snapshot.child(commaEmail).child("type").getValue(String.class).equals("Student")){
+                                        name = snapshot.child(commaEmail).child("name").getValue(String.class);
+                                        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
+                                        intent.putExtra("name", name);
+                                        startActivity(intent);
+                                        finish();
+                                    }else{
+                                        name = snapshot.child(commaEmail).child("name").getValue(String.class);
+                                        Intent intent = new Intent(MainActivity.this, AdminHomePageActivity.class);
+                                        intent.putExtra("name", name);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
                                 }else{
                                     Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                                 }
