@@ -58,16 +58,18 @@ public class UserDatabase implements UserDatabaseInterface {
     }
 
     public User getUser(String email){
-        DatabaseReference userSearch = ref.child("users").child("email");
+        Query userSearch = ref.child("users").orderByChild("email").equalTo(email);
         userSearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                u = snapshot.getValue(User.class);
+                for(DataSnapshot s: snapshot.getChildren()) {
+                    u = s.getValue(User.class);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("The read failed: " + error.getCode());
+                Log.e("UserDatabase", "Error retrieving the user");
             }
         });
 
