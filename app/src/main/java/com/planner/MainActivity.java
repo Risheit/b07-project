@@ -9,31 +9,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.models.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
+import com.presenters.users.User;
+import com.presenters.users.UserLoginActions;
 import com.presenters.users.UserManagement;
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
+    private UserManagement manager;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    String password, email, commaEmail;
     EditText emailInput;
     EditText passwordInput;
     Button logInButton;
     Button signUpButton;
-    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,71 +38,73 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.SignUpHeader);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController,
+                appBarConfiguration);
 
-        emailInput = (EditText) findViewById(R.id.inputEmail2);
-        passwordInput = (EditText) findViewById(R.id.inputPassword2);
-        logInButton = (Button) findViewById(R.id.logInButton3);
-        signUpButton = (Button) findViewById(R.id.signUpButton);
+        emailInput = findViewById(R.id.inputEmail2);
+        passwordInput = findViewById(R.id.inputPassword2);
+        logInButton = findViewById(R.id.logInButton3);
+        signUpButton = findViewById(R.id.signUpButton);
 
+        // Instantiate database and reference
+        manager = new UserManagement(new UserDatabase(
+                "https://b07-project-e5893-default-rtdb.firebaseio.com/"));
 
+        // When the log in button is clicked
+        logInButton.setOnClickListener(view -> {
+            String email = emailInput.getText().toString();
+            String password = passwordInput.getText().toString();
 
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                email = emailInput.getText().toString();
-                commaEmail = email.replace('.', ',');
-                password = passwordInput.getText().toString();
-                if(email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
-                }else{
-                    ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(commaEmail)){
-                                String dbPassword = snapshot.child(commaEmail).child("password").getValue(String.class);
-                                if(dbPassword.equals(password)){
-                                    if(snapshot.child(commaEmail).child("type").getValue(String.class).equals("Student")){
-                                        name = snapshot.child(commaEmail).child("name").getValue(String.class);
-                                        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-                                        intent.putExtra("name", name);
-                                        startActivity(intent);
-                                        finish();
-                                    }else{
-                                        name = snapshot.child(commaEmail).child("name").getValue(String.class);
-                                        Intent intent = new Intent(MainActivity.this, AdminHomePageActivity.class);
-                                        intent.putExtra("name", name);
-                                        startActivity(intent);
-                                        finish();
-                                    }
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please Enter All Possible Fields",
+                        Toast.LENGTH_SHORT).show();
+            } else { // Attempt to Log In
+                manager.login(email, password, new UserLoginActions() {
+                    @Override
+                    public void studentLoginSuccess(User user) {
+                        String name = user.getName();
 
-                                }else{
-                                    Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-                                Toast.makeText(MainActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                        // Open Student view
+                        Intent intent = new Intent(MainActivity.this,
+                                HomePageActivity.class);
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void adminLoginSuccess(User user) {
+                        String name = user.getName();
 
-                        }
-                    });
-                }
+                        // Open Admin view
+                        Intent intent = new Intent(MainActivity.this,
+                                AdminHomePageActivity.class);
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void incorrectPassword(User user) {
+                        Toast.makeText(MainActivity.this, "Incorrect Password",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void invalidEmail() {
+                        Toast.makeText(MainActivity.this, "Invalid Email",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-            }
-        });
 
 
-
+        signUpButton.setOnClickListener(view ->
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class)));
     }
 
     @Override
@@ -134,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
