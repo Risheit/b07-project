@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.planner.databinding.ActivitySignUpBinding;
-import com.presenters.User;
+import com.presenters.users.User;
 
 public class SignUpActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
