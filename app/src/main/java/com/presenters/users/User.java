@@ -1,4 +1,4 @@
-package com.presenters;
+package com.presenters.users;
 public class User {
     private String type;
     private String name;

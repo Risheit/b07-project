@@ -1,6 +1,7 @@
 package com.presenters;
 
 import com.models.UserDatabaseInterface;
+import com.presenters.users.User;
 
 import java.util.HashMap;
 

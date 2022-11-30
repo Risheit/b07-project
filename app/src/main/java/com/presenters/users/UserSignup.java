@@ -1,10 +1,6 @@
-package com.presenters;
+package com.presenters.users;
 
-import android.view.View;
-import android.widget.EditText;
-
-import com.models.UserDatabase;
-import com.models.UserDatabaseInterface;
+import com.presenters.users.User;
 
 public interface UserSignup {
     /***

@@ -1,6 +1,6 @@
-package com.presenters;
+package com.presenters.users;
 
-import com.models.UserDatabaseInterface;
+import com.presenters.users.User;
 
 /**
  * This is an interface that verifies is a user has an account within the database
