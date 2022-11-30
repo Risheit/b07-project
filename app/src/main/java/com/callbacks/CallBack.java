@@ -9,5 +9,5 @@ public interface CallBack<T> {
      *
      * @param previousData The data that this callback method receives upon calling.
      */
-    T method(T previousData);
+    void method(T previousData);
 }

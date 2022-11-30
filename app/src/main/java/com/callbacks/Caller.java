@@ -17,8 +17,8 @@ public class Caller<T> {
      * @param callBack The Callback containing the method to be run.
      */
     public Caller<T> then(@NonNull CallBack<T> callBack) {
-        T newData = callBack.method(data);
-        return new Caller<>(newData);
+        callBack.method(data); // Possibly modifies data
+        return this; // Allow chaining
     }
 
     /**
