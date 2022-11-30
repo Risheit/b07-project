@@ -1,7 +1,5 @@
 package com.presenters.users;
 
-import com.callbacks.Caller;
-import com.models.ModelManager;
 import com.models.UserDatabase;
 import com.models.onGetDataListener;
 
