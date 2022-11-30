@@ -56,7 +56,7 @@ public class UserDatabase implements UserDatabaseInterface {
         });
     }
 
-    public void getUser(String email, final onGetDataListener<User> then){
+    public void getUser(String email, final onGetDataListener<User> then) {
         DatabaseReference userSearch = ref.child("users");
         String commaEmail = email.replace('.', ',');
 
@@ -71,6 +71,7 @@ public class UserDatabase implements UserDatabaseInterface {
             public void onCancelled(@NonNull DatabaseError error) {
                 then.onFailure();
                 System.out.println("The read failed: " + error.getCode());
+                Log.e("UserDatabase", "Error retrieving the user");
             }
         });
     }
