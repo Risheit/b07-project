@@ -57,12 +57,13 @@ public class UserDatabase implements UserDatabaseInterface {
     }
 
     public void getUser(String email, final onGetDataListener<User> then){
-        DatabaseReference userSearch = ref.child("users").child("email");
+        DatabaseReference userSearch = ref.child("users");
+        String commaEmail = email.replace('.', ',');
 
         userSearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User u = snapshot.getValue(User.class);
+                User u = snapshot.child(commaEmail).getValue(User.class);
                 then.onSuccess(u);
             }
 
