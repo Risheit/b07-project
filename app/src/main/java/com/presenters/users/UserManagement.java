@@ -6,6 +6,8 @@ import com.models.onGetDataListener;
 public class UserManagement {
 
     private final UserDatabase connection;
+    private final String studentConnection = "Student";
+    private final String adminConnection = "Admin";
 
     /**
      * Instantiates a new UserManagement class.
@@ -39,10 +41,12 @@ public class UserManagement {
                             actions.incorrectPassword(user);
                         }
 
-                        if (user.getType().equals("student")){ // Student Account
+                        if (user.getType().equals(studentConnection)){ // Student Account
                             actions.studentLoginSuccess(user);
-                        } else { // Admin Account
+                        } else if (user.getType().equals(adminConnection)) { // Admin Account
                             actions.adminLoginSuccess(user);
+                        } else {
+                            System.out.println("Database type that isn't student or admin exists.");
                         }
 
                     }
