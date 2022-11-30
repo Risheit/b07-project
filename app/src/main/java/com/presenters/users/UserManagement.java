@@ -33,13 +33,13 @@ public class UserManagement {
 
                         dbPassword = user.getPassword();
                         if (!dbPassword.equals(password)) {
-                            actions.incorrectPassword();
+                            actions.incorrectPassword(user);
                         }
 
                         if (user.getType().equals("student")){ // Student Account
-                            actions.studentLoginSuccess();
+                            actions.studentLoginSuccess(user);
                         } else { // Admin Account
-                            actions.adminLoginSuccess();
+                            actions.adminLoginSuccess(user);
                         }
 
                     }
