@@ -1,6 +1,7 @@
 package com.presenters;
 
 import com.models.UserDatabaseInterface;
+import com.models.onGetDataListener;
 import com.presenters.users.User;
 
 import java.util.HashMap;
@@ -19,8 +20,8 @@ public class DatabaseMock implements UserDatabaseInterface {
     }
 
     @Override
-    public User getUser(String email) {
-        return users.get(email);
+    public void getUser(String email, onGetDataListener<User> then) {
+        // TODO: Fix Tests
     }
 
     @Override
