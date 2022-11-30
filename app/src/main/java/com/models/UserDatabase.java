@@ -15,8 +15,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.DatabaseReference;
 
 public class UserDatabase implements UserDatabaseInterface {
-    private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
-    User u = null;
+    private final DatabaseReference ref;
+
+    public UserDatabase(String dbRefString) {
+        // dbRefString = "https://b07-project-e5893-default-rtdb.firebaseio.com/"
+        this.ref =  FirebaseDatabase.getInstance(dbRefString).getReference();
+    }
 
     public void addUser(User user){
         /*
@@ -25,53 +29,51 @@ public class UserDatabase implements UserDatabaseInterface {
         the unique key is read from the database's "uniqueVal" value that is then incremented to
         ensure that it will always have a different value each time it is read
          */
-        ref.child("uniqueVal").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("UserDatabase", "Error reading uniqueVal", task.getException());
-                } else {
-                    // if we get here, then there has been no error reading "uniqueVal" (ie the task
-                    // was successful)
-                    // first we read the "uniqueVal" value in the database
-                    int un = task.getResult().getValue(Integer.class);
+        ref.child("uniqueVal").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("UserDatabase", "Error reading uniqueVal", task.getException());
+            } else {
+                // if we get here, then there has been no error reading "uniqueVal" (ie the task
+                // was successful)
+                // first we read the "uniqueVal" value in the database
+                int un = task.getResult().getValue(Integer.class);
 
-                    // increment the uniqueVal value in the database so that it will be unique the
-                    // next time we call it
-                    ref.child("uniqueVal").setValue(un + 1);
+                // increment the uniqueVal value in the database so that it will be unique the
+                // next time we call it
+                ref.child("uniqueVal").setValue(un + 1);
 
-                    // now we can add the user with our new unique key
-                    ref.child("users").child(String.valueOf(un)).setValue(user);
-                    /*
-                    note: the above line MUST be inside this else{} statement so that we can add
-                    the user to the database AFTER we read the uniqueVal value into un.
+                // now we can add the user with our new unique key
+                ref.child("users").child(String.valueOf(un)).setValue(user);
+                /*
+                note: the above line MUST be inside this else{} statement so that we can add
+                the user to the database AFTER we read the uniqueVal value into un.
 
-                    i.e., if the line is outside of the onComplete() method, the user will likely
-                    be added BEFORE the task is completed and before it is assigned a value,
-                    resulting in unwanted behaviour. this is because the OnCompleteListener runs
-                    asynchronously to the rest of the code (the rest of the addUser() method does
-                    not wait for the task to finish before running)
-                     */
-                }
+                i.e., if the line is outside of the onComplete() method, the user will likely
+                be added BEFORE the task is completed and before it is assigned a value,
+                resulting in unwanted behaviour. this is because the OnCompleteListener runs
+                asynchronously to the rest of the code (the rest of the addUser() method does
+                not wait for the task to finish before running)
+                 */
             }
         });
     }
 
-    public User getUser(String email){
+    public void getUser(String email, final onGetDataListener<User> then){
         DatabaseReference userSearch = ref.child("users").child("email");
+
         userSearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                u = snapshot.getValue(User.class);
+                User u = snapshot.getValue(User.class);
+                then.onSuccess(u);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                then.onFailure();
                 System.out.println("The read failed: " + error.getCode());
             }
         });
-
-        return u;
     }
 
     public void removeUser(String emailKey){
