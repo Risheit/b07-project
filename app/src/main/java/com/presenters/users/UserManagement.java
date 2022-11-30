@@ -11,11 +11,16 @@ public class UserManagement {
      * Instantiates a new UserManagement class.
      * @param connection The database this management class is connected to.
      */
-
     public UserManagement(UserDatabase connection) {
         this.connection = connection;
     }
 
+    /**
+     * Asynchronous method that attempts to log a user in given an email and password.
+     * @param email The user's email.
+     * @param password The user's password.
+     * @param actions Actions to take depending on result of log in attempt.
+     */
     public void login(String email, String password, UserLoginActions actions) {
         connection.getUser(
                 email,
@@ -51,8 +56,9 @@ public class UserManagement {
     }
 
     /**
-     * This function adds an user to the database if it does not exist already, otherwise does nothing
-     * @param user is the object to be added
+     * This function adds an user to the database if it does not exist already, otherwise does
+     * nothing.
+     * @param user is the object to be added.
      */
     public void signupUser(User user) {
         connection.getUser(user.getEmail(), new onGetDataListener<User>() {
