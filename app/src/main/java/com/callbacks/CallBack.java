@@ -3,10 +3,11 @@ package com.callbacks;
 public interface CallBack<T> {
 
     /**
-     * The method run as a callback from an instance of a Caller. Takes in the data currently
-     * being held by the Caller instance to allow for the chaining of methods.
+     * Method acts as a wrapper for other non-callback methods. It takes in old data from a caller instance
+     * and possibly modifies it. This is done by creating a class that overrides it and implementing
+     * Method.
      *
-     * @param receivedData The data that this callback method receives upon calling.
+     * @param previousData The data that this callback method receives upon calling.
      */
-    T method(T receivedData);
+    T method(T previousData);
 }
