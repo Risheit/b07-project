@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                 type = "Student"; //assume all users are students?
                 User new_user = new User(type,first_name + " " + last_name, email, password);
                 if(email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() || conPass.isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Please Enter All Fields", Toast.LENGTH_SHORT).show();
                 }else{
                     ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

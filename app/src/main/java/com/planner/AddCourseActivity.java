@@ -16,9 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
-import com.presenters.Course;
-
-import java.util.ArrayList;
 
 public class AddCourseActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
@@ -61,8 +58,9 @@ public class AddCourseActivity extends AppCompatActivity {
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddCourseActivity.this, HomePageActivity.class);
+                Intent intent = new Intent(AddCourseActivity.this, AdminHomePageActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         Button DoneButton = findViewById(R.id.DoneButton);

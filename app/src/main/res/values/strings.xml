@@ -14,4 +14,5 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_activity_admin_home_page">AdminHomePage</string>
+    <string name="title_activity_course_list">CourseList</string>
 </resources>

@@ -20,38 +20,59 @@ public class UserDatabase implements UserDatabaseInterface {
         this.ref =  FirebaseDatabase.getInstance(dbRefString).getReference();
     }
 
-    public void addUser(User user){
-        /*
-        addUser() adds a user with the given properties to the database with a unique key
+//    public void addUser(User user){
+//        /*
+//        addUser() adds a user with the given properties to the database with a unique key
+//
+//        the unique key is read from the database's "uniqueVal" value that is then incremented to
+//        ensure that it will always have a different value each time it is read
+//         */
+//
+//        ref.child("uniqueVal").get().addOnCompleteListener(task -> {
+//            if (!task.isSuccessful()) {
+//                Log.e("UserDatabase", "Error reading uniqueVal", task.getException());
+//            } else {
+//                // if we get here, then there has been no error reading "uniqueVal" (ie the task
+//                // was successful)
+//                // first we read the "uniqueVal" value in the database
+//                int un = task.getResult().getValue(Integer.class);
+//
+//                // increment the uniqueVal value in the database so that it will be unique the
+//                // next time we call it
+//                ref.child("uniqueVal").setValue(un + 1);
+//
+//                // now we can add the user with our new unique key
+//                ref.child("users").child(String.valueOf(un)).setValue(user);
+//                /*
+//                note: the above line MUST be inside this else{} statement so that we can add
+//                the user to the database AFTER we read the uniqueVal value into un.
+//
+//                i.e., if the line is outside of the onComplete() method, the user will likely
+//                be added BEFORE the task is completed and before it is assigned a value,
+//                resulting in unwanted behaviour. this is because the OnCompleteListener runs
+//                asynchronously to the rest of the code (the rest of the addUser() method does
+//                not wait for the task to finish before running)
+//                 */
+//            }
+//        });
+//    }
 
-        the unique key is read from the database's "uniqueVal" value that is then incremented to
-        ensure that it will always have a different value each time it is read
-         */
-        ref.child("uniqueVal").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("UserDatabase", "Error reading uniqueVal", task.getException());
-            } else {
-                // if we get here, then there has been no error reading "uniqueVal" (ie the task
-                // was successful)
-                // first we read the "uniqueVal" value in the database
-                int un = task.getResult().getValue(Integer.class);
 
-                // increment the uniqueVal value in the database so that it will be unique the
-                // next time we call it
-                ref.child("uniqueVal").setValue(un + 1);
+    public void addUser(User user) {
+        String commaEmail = user.getEmail().replace('.', ',');
+        ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(commaEmail)){
+                }else{
+                    ref.child("users").child(commaEmail).setValue(user);
+                }
+            }
 
-                // now we can add the user with our new unique key
-                ref.child("users").child(String.valueOf(un)).setValue(user);
-                /*
-                note: the above line MUST be inside this else{} statement so that we can add
-                the user to the database AFTER we read the uniqueVal value into un.
-
-                i.e., if the line is outside of the onComplete() method, the user will likely
-                be added BEFORE the task is completed and before it is assigned a value,
-                resulting in unwanted behaviour. this is because the OnCompleteListener runs
-                asynchronously to the rest of the code (the rest of the addUser() method does
-                not wait for the task to finish before running)
-                 */
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+                Log.e("UserDatabase", "Error Adding the user");
             }
         });
     }

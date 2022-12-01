@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ADD8E6"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <fragment
@@ -14,18 +15,61 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/nav_graph3" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="319dp"
-        android:layout_height="193dp"
-        android:layout_marginTop="140dp"
+        android:layout_width="407dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="92dp"
         android:text="Welcome"
+        android:textAlignment="center"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="411dp"
+        android:layout_height="93dp"
+        android:background="#00008B"
+        android:text="HOME PAGE"
+        android:textAlignment="center"
+        android:textColor="#FBFBFB"
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="300dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="52dp"
+        android:backgroundTint="#00008B"
+        android:text="Course Timeline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_content_home_page"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="56dp"
+        android:backgroundTint="#00008B"
+        android:text="Course List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_content_home_page"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
