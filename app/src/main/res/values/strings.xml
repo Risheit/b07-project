@@ -14,4 +14,9 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_activity_admin_home_page">AdminHomePage</string>
+    <string name="title_activity_working_admin_homepage">WorkingAdminHomepage</string>
+    <string name="title_activity_work_admin_homepage">WorkAdminHomepage</string>
+    <string name="title_activity_admin_home">AdminHome</string>
+    <string name="title_activity_ad">AdActivity</string>
+    <string name="title_activity_admin">AdminActivity</string>
 </resources>
