@@ -2,6 +2,7 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +16,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.CourseDatabase;
 import com.models.UserDatabase;
+import com.models.onGetDataListener;
 import com.planner.databinding.ActivityMainBinding;
+import com.presenters.Course;
 import com.presenters.users.User;
 import com.presenters.users.UserLoginActions;
 import com.presenters.users.UserManagement;
+
+import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity {
     private UserManagement manager;
@@ -29,9 +35,13 @@ public class MainActivity extends AppCompatActivity {
     EditText passwordInput;
     Button logInButton;
     Button signUpButton;
+    public static CourseDatabase courseDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        courseDB = new CourseDatabase();
+
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
