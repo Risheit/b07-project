@@ -15,8 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
-import com.presenters.Course;
+import com.models.course.Course;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ public class AddCourseActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
+
+    CourseDatabase courseDB = CourseDatabase.getInstance();
 
     String course_code, name, ses_offer, prerequisite;
 
@@ -107,7 +110,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 boolean allCoursesExist = true;
 
                 for(String code: listOfPrerequisites){
-                    if(MainActivity.courseDB.getCourse(code) == null){
+                    if(courseDB.getCourse(code) == null){
                         Toast.makeText(AddCourseActivity.this,
                                 "One or more of your prerequisite courses is not registered in " +
                                         "the database. Addition cancelled", Toast.LENGTH_SHORT).show();
@@ -118,7 +121,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 if(allCoursesExist){
                     for(String code: listOfPrerequisites){
-                        Course c = MainActivity.courseDB.getCourse(code);
+                        Course c = courseDB.getCourse(code);
                         prerequisites.add(c);
                     }
                 }
@@ -139,13 +142,19 @@ public class AddCourseActivity extends AppCompatActivity {
                     Toast.makeText(AddCourseActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
                 }
 
-                else {
+                //the course is already in the database
+                if(courseDB.getCourse(course_code) != null){
+                    Toast.makeText(AddCourseActivity.this,
+                            "Course already in database", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(courseDB.getCourse(course_code) == null) {
                     //add the course to the database
-                    MainActivity.courseDB.addCourse(new_course);
+                    courseDB.addCourse(new_course);
                 }
 
                     //navigates back to the Home Page
-                    Intent intent = new Intent(AddCourseActivity.this, HomePageActivity.class);
+                    Intent intent = new Intent(AddCourseActivity.this, AdminHomePageActivity.class);
                     startActivity(intent);
                 }
         });

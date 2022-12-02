@@ -1,9 +1,4 @@
-package com.presenters;
-
-import com.models.CourseDatabaseInterface;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.models.course;
 
 public class CourseManagement implements AddNewCourse, CheckCourse, RetrieveCourse, DeleteCourse{
 
@@ -12,7 +7,6 @@ public class CourseManagement implements AddNewCourse, CheckCourse, RetrieveCour
     /**
      * Instantiates a new CourseManagement class.
      * @param listOfCourses     an adapter interface that contains database-accessing methods
-     * @return  an instance of a CourseManagement class
      */
 
     public CourseManagement(CourseDatabaseInterface listOfCourses) {
@@ -31,9 +25,7 @@ public class CourseManagement implements AddNewCourse, CheckCourse, RetrieveCour
     @Override
     public boolean doesCourseExist(String code) {
         Course c = listOfCourses.getCourse(code);
-        if(c == null)
-            return false;
-        return true;
+        return c != null;
     }
 
     /**
@@ -68,7 +60,7 @@ public class CourseManagement implements AddNewCourse, CheckCourse, RetrieveCour
     /***
      This function deletes a course from the master list of courses
      @param code   the  code of the course you want to delete
-     @returns true if the course was successfully removed, false otherwise
+     @return true if the course was successfully removed, false otherwise
      */
 
     @Override

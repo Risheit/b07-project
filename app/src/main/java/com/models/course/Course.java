@@ -1,4 +1,4 @@
-package com.presenters;
+package com.models.course;
 
 import java.util.ArrayList;
 import java.util.List;
