@@ -1,4 +1,4 @@
-package com.models;
+package com.models.users;
 
 import android.util.Log;
 
@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.presenters.users.User;
+import com.models.onGetDataListener;
 
 public class UserDatabase implements UserDatabaseInterface {
     private final DatabaseReference ref;
@@ -63,8 +63,7 @@ public class UserDatabase implements UserDatabaseInterface {
         ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild(commaEmail)){
-                }else{
+                if (!snapshot.hasChild(commaEmail)) {
                     ref.child("users").child(commaEmail).setValue(user);
                 }
             }

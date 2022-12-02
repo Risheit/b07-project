@@ -1,4 +1,4 @@
-package com.presenters.users;
+package com.models.users;
 
 public interface UserLoginActions {
     void studentLoginSuccess(User user);

@@ -1,13 +1,16 @@
-package com.presenters;
+package com.models;
 
-import com.models.UserDatabaseInterface;
+import com.models.users.UserDatabaseInterface;
 import com.models.onGetDataListener;
-import com.presenters.users.User;
+import com.models.users.User;
 
 import java.util.HashMap;
 
+/**
+ * A class that imitates the User Database model to allow for easier testing.
+ */
 public class DatabaseMock implements UserDatabaseInterface {
-    HashMap<String, User> users;
+    HashMap<String, User> users; // email as key
 
     public DatabaseMock() {
         super();
@@ -21,7 +24,13 @@ public class DatabaseMock implements UserDatabaseInterface {
 
     @Override
     public void getUser(String email, onGetDataListener<User> then) {
-        // TODO: Fix Tests
+        // We don't consider then.onFailure as our database can't fail to "connect".
+        User user = users.get(email);
+        then.onSuccess(user);
+    }
+
+    public User getUserSynchronous(String email) {
+        return users.get(email);
     }
 
     @Override

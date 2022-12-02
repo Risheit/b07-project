@@ -1,4 +1,4 @@
-package com.presenters.users;
+package com.models.users;
 public class User {
     private String type;
     private String name;
@@ -13,7 +13,6 @@ public class User {
      * @param name  The full name of the user
      * @param email  The email that the user's account is linked to
      * @param password  The password of the user's account
-     * @return a User with each of its fields as the parameters of the constructor
      */
 
     public User(String type, String name, String email, String password) {

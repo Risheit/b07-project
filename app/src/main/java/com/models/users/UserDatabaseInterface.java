@@ -1,6 +1,7 @@
-package com.models;
+package com.models.users;
 
-import com.presenters.users.User;
+import com.models.onGetDataListener;
+import com.models.users.User;
 
 /**
  * This is an interface to manage all of the users within a firebase realtime database.

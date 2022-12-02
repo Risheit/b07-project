@@ -2,6 +2,7 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,37 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // some example uses are commented here
+        
+//        MainActivity.courseDB.addCourse(new Course(
+//                "Techniques of the Calculus of Several Variables I",
+//                "MATB41",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.addCourse(new Course(
+//                "Introduction to Computer Science II",
+//                "CSCA48",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.addCourse(new Course(
+//                "The Politics of Equality and Inequality in Canada",
+//                "POLD55",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.editCourse(new Course(
+//                "Introduction to Computer Science II",
+//                "CSCA48",
+//                new ArrayList<String>()), "MATB41");
+
+        String o = "";
+        for(int i = 0; i<MainActivity.courseDB.courses.size(); i++) {
+            if(i < MainActivity.courseDB.courses.size() - 1)
+                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode()) + ", ";
+            else
+                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode());
+        }
+        Log.e("courses in the database", o);
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -1,11 +1,10 @@
-package com.presenters.users;
+package com.models.users;
 
-import com.models.UserDatabase;
 import com.models.onGetDataListener;
 
 public class UserManagement {
 
-    private final UserDatabase connection;
+    private final UserDatabaseInterface connection;
     private final String studentConnection = "Student";
     private final String adminConnection = "Admin";
 
@@ -13,7 +12,7 @@ public class UserManagement {
      * Instantiates a new UserManagement class.
      * @param connection The database this management class is connected to.
      */
-    public UserManagement(UserDatabase connection) {
+    public UserManagement(UserDatabaseInterface connection) {
         this.connection = connection;
     }
 
@@ -39,6 +38,7 @@ public class UserManagement {
                         dbPassword = user.getPassword();
                         if (!dbPassword.equals(password)) {
                             actions.incorrectPassword(user);
+                            return;
                         }
 
                         if (user.getType().equals(studentConnection)){ // Student Account

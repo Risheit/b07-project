@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,24 +14,32 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.UserDatabase;
+import com.models.course.CourseDatabase;
+import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
-import com.presenters.users.User;
-import com.presenters.users.UserLoginActions;
-import com.presenters.users.UserManagement;
+import com.presenters.MainActivityPresenter;
 
 public class MainActivity extends AppCompatActivity {
-    private UserManagement manager;
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    ActivityMainBinding binding;
+
     EditText emailInput;
     EditText passwordInput;
     Button logInButton;
     Button signUpButton;
 
+    private MainActivityPresenter presenter;
+    public static CourseDatabase courseDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        presenter = new MainActivityPresenter(this, new UserDatabase(
+                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
+        ));
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -49,62 +56,8 @@ public class MainActivity extends AppCompatActivity {
         logInButton = findViewById(R.id.logInButton3);
         signUpButton = findViewById(R.id.signUpButton);
 
-        // Instantiate database and reference
-        manager = new UserManagement(new UserDatabase(
-                "https://b07-project-e5893-default-rtdb.firebaseio.com/"));
-
-        // When the log in button is clicked
-        logInButton.setOnClickListener(view -> {
-            String email = emailInput.getText().toString();
-            String password = passwordInput.getText().toString();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please Enter All Possible Fields",
-                        Toast.LENGTH_SHORT).show();
-            } else { // Attempt to Log In
-                manager.login(email, password, new UserLoginActions() {
-                    @Override
-                    public void studentLoginSuccess(User user) {
-                        String name = user.getName();
-
-                        // Open Student view
-                        Intent intent = new Intent(MainActivity.this,
-                                HomePageActivity.class);
-                        intent.putExtra("name", name);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void adminLoginSuccess(User user) {
-                        String name = user.getName();
-
-                        // Open Admin view
-                        Intent intent = new Intent(MainActivity.this,
-                                AdminHomePageActivity.class);
-                        intent.putExtra("name", name);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void incorrectPassword(User user) {
-                        Toast.makeText(MainActivity.this, "Incorrect Password",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void invalidEmail() {
-                        Toast.makeText(MainActivity.this, "Invalid Email",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
-
-        signUpButton.setOnClickListener(view ->
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class)));
+        logInButton.setOnClickListener(view -> presenter.onLoginButtonClicked());
+        signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
     }
 
     @Override
@@ -137,13 +90,36 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public void openStudentHomepage(String studentName) {
+        Intent intent = new Intent(MainActivity.this,
+                HomePageActivity.class);
+        intent.putExtra("name", studentName);
+        startActivity(intent);
+        finish();
+    }
 
+    public void openAdminHomepage(String adminName) {
+        Intent intent = new Intent(MainActivity.this,
+                AdminHomePageActivity.class);
+        intent.putExtra("name", adminName);
+        startActivity(intent);
+        finish();
+    }
 
+    public void openSignUpPage() {
+        startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+    }
 
+    public void displayErrorNotification(String errorName) {
+        Toast.makeText(MainActivity.this, errorName,
+                Toast.LENGTH_SHORT).show();
+    }
 
+    public EditText getEmailInput() {
+        return emailInput;
+    }
 
-
-
-
-
+    public EditText getPasswordInput() {
+        return passwordInput;
+    }
 }

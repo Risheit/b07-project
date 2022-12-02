@@ -3,31 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Second4Fragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-        app:layout_constraintBottom_toTopOf="@id/button_second"
->>>>>>> 98f4652fb48b5a9f3f72847303cb7b129971d5ad
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<<<<<<< HEAD
-=======
     <Button
-        android:id="@+id/button_second"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:text="ADD COURSE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
->>>>>>> 98f4652fb48b5a9f3f72847303cb7b129971d5ad
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="144dp"
+        android:layout_height="127dp"
+        android:text="WELCOME"
+        android:textColor="#0B0A0A"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.257" />
 </androidx.constraintlayout.widget.ConstraintLayout>
