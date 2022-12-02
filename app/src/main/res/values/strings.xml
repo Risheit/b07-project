@@ -15,4 +15,7 @@
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_activity_admin_home_page">AdminHomePage</string>
     <string name="title_activity_course_list">CourseList</string>
+    <string name="title_activity_remove_course2">RemoveCourse2Activity</string>
+    <string name="title_activity_add_course2">AddCourse2Activity</string>
+    <string name="title_activity_course_timeline">CourseTimelineActivity</string>
 </resources>

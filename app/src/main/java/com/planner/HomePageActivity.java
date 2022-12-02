@@ -2,7 +2,6 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityHomePageBinding;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -23,41 +21,41 @@ public class HomePageActivity extends AppCompatActivity {
     TextView welcomeTxt;
     String name, outputName;
     Button courseListButton;
-    CourseDatabase courseDB = CourseDatabase.getInstance();
+    Button courseTimelineButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // some example uses are commented here
         
-//        courseDB.addCourse(new Course(
+//        MainActivity.courseDB.addCourse(new Course(
 //                "Techniques of the Calculus of Several Variables I",
 //                "MATB41",
 //                new ArrayList<String>()));
 //
-//        courseDB.addCourse(new Course(
+//        MainActivity.courseDB.addCourse(new Course(
 //                "Introduction to Computer Science II",
 //                "CSCA48",
 //                new ArrayList<String>()));
 //
-//        courseDB.addCourse(new Course(
+//        MainActivity.courseDB.addCourse(new Course(
 //                "The Politics of Equality and Inequality in Canada",
 //                "POLD55",
 //                new ArrayList<String>()));
 //
-//        courseDB.editCourse(new Course(
+//        MainActivity.courseDB.editCourse(new Course(
 //                "Introduction to Computer Science II",
 //                "CSCA48",
 //                new ArrayList<String>()), "MATB41");
 
-        String o = "";
-        for(int i = 0; i<courseDB.courses.size(); i++) {
-            if(i < courseDB.courses.size() - 1)
-                o = o + String.valueOf(courseDB.courses.get(i).getCode()) + ", ";
-            else
-                o = o + String.valueOf(courseDB.courses.get(i).getCode());
-        }
-        Log.e("courses in the database", o);
+//        String o = "";
+//        for(int i = 0; i<MainActivity.courseDB.courses.size(); i++) {
+//            if(i < MainActivity.courseDB.courses.size() - 1)
+//                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode()) + ", ";
+//            else
+//                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode());
+//        }
+//        Log.e("courses in the database", o);
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -69,6 +67,7 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         welcomeTxt = (TextView) findViewById(R.id.textView4);
         courseListButton = (Button) findViewById(R.id.button5);
+        courseTimelineButton = (Button) findViewById(R.id.button4);
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -84,6 +83,15 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent1 = new Intent(HomePageActivity.this, CourseList.class);
                 startActivity(intent1);
+                finish();
+            }
+        });
+
+        courseTimelineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(HomePageActivity.this, CourseTimelineActivity.class);
+                startActivity(intent2);
                 finish();
             }
         });

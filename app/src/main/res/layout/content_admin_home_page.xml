@@ -36,8 +36,8 @@
         android:id="@+id/AddCourseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="208dp"
         android:backgroundTint="#00008B"
         android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,6 +52,8 @@
         android:text="Remove Course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.735"
         app:layout_constraintStart_toEndOf="@+id/AddCourseButton"
-        app:layout_constraintTop_toTopOf="@+id/textView14" />
+        app:layout_constraintTop_toTopOf="@+id/textView14"
+        app:layout_constraintVertical_bias="0.619" />
 </androidx.constraintlayout.widget.ConstraintLayout>

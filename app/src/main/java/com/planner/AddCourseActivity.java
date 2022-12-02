@@ -35,6 +35,7 @@ public class AddCourseActivity extends AppCompatActivity {
     EditText course_codeInput;
     EditText ses_offerInput;
     EditText prereqInput;
+    Button BackButton;
 
 
     @Override
@@ -47,7 +48,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.SignUpHeader);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_add_course);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -61,7 +62,7 @@ public class AddCourseActivity extends AppCompatActivity {
         prereqInput = findViewById(R.id.editTextTextPersonName5);
 
 
-        Button BackButton = findViewById(R.id.BackButton);
+        BackButton = (Button) findViewById(R.id.AddCourseBackButton);
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
