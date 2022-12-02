@@ -1,12 +1,16 @@
 package com.models.users;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class User {
     private String type;
     private String name;
     private String email;
     private String password;
+    private final Set<String> courseCodesTaken;
+    private final Set<String> courseCodesPlanned;
 
-    public User(){
-    }
     /**
      * This constructor returns an instance of a User
      * @param type  Indicates whether a User is a student or admin
@@ -20,6 +24,28 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.courseCodesTaken = new HashSet<>();
+        this.courseCodesPlanned = new HashSet<>();
+    }
+
+    /**
+     * This constructor returns an instance of a User
+     * @param type  Indicates whether a User is a student or admin
+     * @param name  The full name of the user
+     * @param email  The email that the user's account is linked to
+     * @param password  The password of the user's account
+     * @param courseCodesTaken  The courses that the user has already represented by its code
+     * @param courseCodesPlanned The courses that the user plans to take represented by its code
+     */
+
+    public User(String type, String name, String email, String password, Set<String> courseCodesTaken,
+                Set<String> courseCodesPlanned) {
+        this.type = type;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.courseCodesTaken = courseCodesTaken;
+        this.courseCodesPlanned = courseCodesPlanned;
     }
 
     /**
@@ -92,4 +118,67 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * This method retrieves the calling object's (an instance of User)
+     * taken courses.
+     * @return A set of codes representing the courses the user has taken.
+     */
+
+    public Set<String> getCourseCodesTaken() {
+        return courseCodesTaken;
+    }
+
+    /**
+     * This method adds a course to the set containing the courses this user has taken.
+     * @param courseCode  The code of the course to be added
+     * @return True if the course is added, false if the user has already taken this course.
+     */
+
+    public boolean addTakenCourse(String courseCode) {
+        return this.courseCodesTaken.add(courseCode);
+    }
+
+    /**
+     * This method removes a course from the set containing the courses this user has taken.
+     * @param courseCode  The code of the course to be added
+     * @return True if the course is removed successfully, false otherwise.
+     */
+
+    public boolean removeTakenCourse(String courseCode) {
+        return this.courseCodesTaken.remove(courseCode);
+    }
+
+    /**
+     * This method retrieves the calling object's (an instance of User)
+     * planned courses.
+     * @return A set of codes representing the courses the user has planned.
+     */
+
+    public Set<String> getCourseCodesPlanned() {
+        return courseCodesPlanned;
+    }
+
+    /**
+     * This method adds a course to the set containing the courses this user has planned to take.
+     * @param courseCode  The code of the course to be added
+     * @return True if the course is added, false if the user has already planned to take
+     *         this course.
+     */
+
+    public boolean addPlannedCourse(String courseCode) {
+        return this.courseCodesPlanned.add(courseCode);
+    }
+
+    /**
+     * This method removes a course from the set containing the courses this user has planned to
+     * take.
+     * @param courseCode  The code of the course to be added
+     * @return True if the course is removed successfully, false otherwise.
+     */
+
+    public boolean removePlannedCourse(String courseCode) {
+        return this.courseCodesPlanned.remove(courseCode);
+    }
+
 }
