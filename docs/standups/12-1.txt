@@ -1,0 +1,72 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Designed some tests for the User Login Page Presenter
+
+What are you planning on doing today?
+	- Finish writing tests for Presenter and extend the User Object to work with courses.
+
+Any impediments or stumbling blocks?
+	- None.
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished AddCourseActivity and RemoveCourseActivity
+
+What are you planning on doing today?
+Write the Course Object
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Implemented addCourse(), removeCourse(), editCourse(), and getCourse() using local storage
+
+What are you planning on doing today?
+	- Change CourseDatabase.java to conform to Singleton
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Trying to fix issue with AdminHomePageActivity
+Implement button navigation in EditCourseActivity
+
+What are you planning on doing today?
+Fix issue with AdminHomePageActivity
+Implement navigation for all the activities
+
+Any impediments or stumbling blocks?
+	- merge conflicts keep corrupting all my code
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+Research on fragments, research on listviews, trying to implement s
+
+What are you planning on doing today?
+
+Fixing navigation, polishing up UI
+Any impediments or stumbling blocks?
+N/A
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+Finished edit course but haven’t tested it because I am having some problems with resources
+
+What are you planning on doing today?
+Testing the edit course page
+
+Any impediments or stumbling blocks?
+	- can’t launch app right now
