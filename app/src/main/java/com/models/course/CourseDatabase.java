@@ -13,11 +13,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CourseDatabase implements CourseDatabaseInterface {
+final public class CourseDatabase implements CourseDatabaseInterface {
     private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
+    private static CourseDatabase courseDB;
     public ArrayList<Course> courses;
 
-    public CourseDatabase() {
+    private CourseDatabase() {
         courses = new ArrayList<>();
 
         ref.child("courses").addValueEventListener(new ValueEventListener() {
@@ -42,6 +43,12 @@ public class CourseDatabase implements CourseDatabaseInterface {
                 Log.e("CourseDatabase", "Error updating the local arraylist");
             }
         });
+    }
+
+    public static CourseDatabase getInstance() {
+        if(courseDB == null)
+            courseDB = new CourseDatabase();
+        return courseDB;
     }
 
     @Override

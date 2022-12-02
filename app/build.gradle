@@ -47,6 +47,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    testImplementation "org.mockito:mockito-core:3.12.4"
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
