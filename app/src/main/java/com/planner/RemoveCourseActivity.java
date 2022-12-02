@@ -12,10 +12,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityRemoveCourseBinding;
 import com.models.course.Course;
 
 public class RemoveCourseActivity extends AppCompatActivity{
+
+    CourseDatabase courseDB = CourseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class RemoveCourseActivity extends AppCompatActivity{
                         "Please enter the course code", Toast.LENGTH_SHORT).show();
             }
 
-            Course c =  MainActivity.courseDB.getCourse(courseCode);
+            Course c =  courseDB.getCourse(courseCode);
 
             if(c == null){
                 Toast.makeText(RemoveCourseActivity.this,
@@ -56,7 +59,7 @@ public class RemoveCourseActivity extends AppCompatActivity{
             }
 
             else {
-                MainActivity.courseDB.removeCourse(courseCode);
+                courseDB.removeCourse(courseCode);
             }
 
             Intent intent1 = new Intent(RemoveCourseActivity.this, AdminHomePageActivity.class);
