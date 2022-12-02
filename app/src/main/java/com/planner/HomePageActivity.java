@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityHomePageBinding;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -22,38 +23,39 @@ public class HomePageActivity extends AppCompatActivity {
     TextView welcomeTxt;
     String name, outputName;
     Button courseListButton;
+    CourseDatabase courseDB = CourseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // some example uses are commented here
         
-//        MainActivity.courseDB.addCourse(new Course(
+//        courseDB.addCourse(new Course(
 //                "Techniques of the Calculus of Several Variables I",
 //                "MATB41",
 //                new ArrayList<String>()));
 //
-//        MainActivity.courseDB.addCourse(new Course(
+//        courseDB.addCourse(new Course(
 //                "Introduction to Computer Science II",
 //                "CSCA48",
 //                new ArrayList<String>()));
 //
-//        MainActivity.courseDB.addCourse(new Course(
+//        courseDB.addCourse(new Course(
 //                "The Politics of Equality and Inequality in Canada",
 //                "POLD55",
 //                new ArrayList<String>()));
 //
-//        MainActivity.courseDB.editCourse(new Course(
+//        courseDB.editCourse(new Course(
 //                "Introduction to Computer Science II",
 //                "CSCA48",
 //                new ArrayList<String>()), "MATB41");
 
         String o = "";
-        for(int i = 0; i<MainActivity.courseDB.courses.size(); i++) {
-            if(i < MainActivity.courseDB.courses.size() - 1)
-                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode()) + ", ";
+        for(int i = 0; i<courseDB.courses.size(); i++) {
+            if(i < courseDB.courses.size() - 1)
+                o = o + String.valueOf(courseDB.courses.get(i).getCode()) + ", ";
             else
-                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode());
+                o = o + String.valueOf(courseDB.courses.get(i).getCode());
         }
         Log.e("courses in the database", o);
 

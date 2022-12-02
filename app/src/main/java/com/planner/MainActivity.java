@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
     Button signUpButton;
 
     private MainActivityPresenter presenter;
-    public static CourseDatabase courseDB;
+    CourseDatabase courseDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        courseDB = new CourseDatabase();
+        courseDB = CourseDatabase.getInstance();
 
         super.onCreate(savedInstanceState);
 
