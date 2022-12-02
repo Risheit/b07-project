@@ -24,12 +24,13 @@ public class DatabaseMock implements UserDatabaseInterface {
 
     @Override
     public void getUser(String email, onGetDataListener<User> then) {
-        // Imitate asynchronous behaviour of the real getUser by running getUser on separate thread.
         // We don't consider then.onFailure as our database can't fail to "connect".
-        new Thread(() -> {
-            User user = users.get(email);
-            then.onSuccess(user);
-        }).start();
+        User user = users.get(email);
+        then.onSuccess(user);
+    }
+
+    public User getUserSynchronous(String email) {
+        return users.get(email);
     }
 
     @Override
