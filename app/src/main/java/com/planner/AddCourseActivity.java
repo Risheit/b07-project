@@ -139,13 +139,19 @@ public class AddCourseActivity extends AppCompatActivity {
                     Toast.makeText(AddCourseActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
                 }
 
-                else {
+                //the course is already in the database
+                if(MainActivity.courseDB.getCourse(course_code) != null){
+                    Toast.makeText(AddCourseActivity.this,
+                            "Course already in database", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(MainActivity.courseDB.getCourse(course_code) == null) {
                     //add the course to the database
                     MainActivity.courseDB.addCourse(new_course);
                 }
 
                     //navigates back to the Home Page
-                    Intent intent = new Intent(AddCourseActivity.this, HomePageActivity.class);
+                    Intent intent = new Intent(AddCourseActivity.this, AdminHomePageActivity.class);
                     startActivity(intent);
                 }
         });

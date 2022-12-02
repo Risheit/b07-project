@@ -20,6 +20,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
     private ActivityAdminHomePageBinding binding;
     TextView welcomeText;
     Button addCourseButton;
+    Button deleteCourseButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
 
         welcomeText = (TextView) findViewById(R.id.textView14);
         addCourseButton = (Button) findViewById(R.id.AddCourseButton);
+        deleteCourseButton = findViewById(R.id.DeleteCourseButton);
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         System.out.println(name);
@@ -47,6 +49,12 @@ public class AdminHomePageActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        });
+
+        deleteCourseButton.setOnClickListener(view -> {
+            Intent intent1 = new Intent(AdminHomePageActivity.this, RemoveCourseActivity.class);
+            startActivity(intent1);
+            finish();
         });
 
     }
