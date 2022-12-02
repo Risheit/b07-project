@@ -14,9 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivityHomePageBinding;
-import com.presenters.Course;
-
-import java.util.ArrayList;
 
 public class HomePageActivity extends AppCompatActivity {
 

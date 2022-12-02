@@ -13,7 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivityRemoveCourseBinding;
-import com.presenters.Course;
+import com.models.course.Course;
 
 public class RemoveCourseActivity extends AppCompatActivity{
 

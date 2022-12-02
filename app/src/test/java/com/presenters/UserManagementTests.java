@@ -1,9 +1,9 @@
 package com.presenters;
 
-import com.models.UserDatabaseInterface;
-import com.presenters.users.User;
-import com.presenters.users.UserLoginActions;
-import com.presenters.users.UserManagement;
+import com.models.users.UserDatabaseInterface;
+import com.models.users.User;
+import com.models.users.UserLoginActions;
+import com.models.users.UserManagement;
 
 import org.junit.*;
 import static org.junit.Assert.*;

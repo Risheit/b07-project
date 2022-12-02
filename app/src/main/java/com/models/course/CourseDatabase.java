@@ -1,4 +1,4 @@
-package com.models;
+package com.models.course;
 
 import android.util.Log;
 
@@ -10,17 +10,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.presenters.Course;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CourseDatabase implements CourseDatabaseInterface {
     private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
     public ArrayList<Course> courses;
 
     public CourseDatabase() {
-        courses = new ArrayList<Course>();
+        courses = new ArrayList<>();
 
         ref.child("courses").addValueEventListener(new ValueEventListener() {
             @Override

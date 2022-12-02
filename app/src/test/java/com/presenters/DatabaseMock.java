@@ -1,8 +1,8 @@
 package com.presenters;
 
-import com.models.UserDatabaseInterface;
+import com.models.users.UserDatabaseInterface;
 import com.models.onGetDataListener;
-import com.presenters.users.User;
+import com.models.users.User;
 
 import java.util.HashMap;
 

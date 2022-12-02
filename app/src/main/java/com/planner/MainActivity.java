@@ -2,10 +2,8 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,17 +14,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.CourseDatabase;
-import com.models.UserDatabase;
-import com.models.onGetDataListener;
+import com.models.course.CourseDatabase;
+import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
-import com.presenters.Course;
 import com.presenters.MainActivityPresenter;
-import com.presenters.users.User;
-import com.presenters.users.UserLoginActions;
-import com.presenters.users.UserManagement;
-
-import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;

@@ -1,7 +1,5 @@
-package com.presenters.users;
+package com.models.users;
 
-import com.models.UserDatabase;
-import com.models.UserDatabaseInterface;
 import com.models.onGetDataListener;
 
 public class UserManagement {

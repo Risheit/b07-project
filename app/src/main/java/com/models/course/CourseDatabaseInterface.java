@@ -1,6 +1,4 @@
-package com.models;
-
-import com.presenters.Course;
+package com.models.course;
 
 public interface CourseDatabaseInterface {
     /***
