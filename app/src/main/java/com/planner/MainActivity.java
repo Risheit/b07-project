@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        courseDB = new CourseDatabase();
+
         super.onCreate(savedInstanceState);
 
         presenter = new MainActivityPresenter(this, new UserDatabase(
