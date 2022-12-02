@@ -40,6 +40,7 @@ public class UserManagement {
                         dbPassword = user.getPassword();
                         if (!dbPassword.equals(password)) {
                             actions.incorrectPassword(user);
+                            return;
                         }
 
                         if (user.getType().equals(studentConnection)){ // Student Account
