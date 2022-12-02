@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         courseDB = CourseDatabase.getInstance();
 
         super.onCreate(savedInstanceState);
-
+    
         presenter = new MainActivityPresenter(this, new UserDatabase(
                 "https://b07-project-e5893-default-rtdb.firebaseio.com/"
         ));

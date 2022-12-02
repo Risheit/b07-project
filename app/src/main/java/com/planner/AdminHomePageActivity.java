@@ -38,21 +38,25 @@ public class AdminHomePageActivity extends AppCompatActivity {
         addCourseButton = (Button) findViewById(R.id.AddCourseButton);
         deleteCourseButton = findViewById(R.id.DeleteCourseButton);
         Intent intent = getIntent();
+
         String name = intent.getStringExtra("name");
-        System.out.println(name);
-        welcomeText.setText("Welcome Admin: " + name);
+        if(null != name){
+            welcomeText.setText("Welcome Admin: " + name);
+        }else{
+            welcomeText.setText("Welcome Admin");
+        }
 
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdminHomePageActivity.this, AddCourseActivity.class);
+                Intent intent = new Intent(AdminHomePageActivity.this, AddCourse2Activity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
         deleteCourseButton.setOnClickListener(view -> {
-            Intent intent1 = new Intent(AdminHomePageActivity.this, RemoveCourseActivity.class);
+            Intent intent1 = new Intent(AdminHomePageActivity.this, RemoveCourse2Activity.class);
             startActivity(intent1);
             finish();
         });
