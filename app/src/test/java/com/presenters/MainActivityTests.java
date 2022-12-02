@@ -1,4 +1,4 @@
-package com.planner;
+package com.presenters;
 
 import org.junit.Test;
 
