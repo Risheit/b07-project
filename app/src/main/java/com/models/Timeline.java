@@ -29,9 +29,7 @@ public class Timeline {
 
         Timeline timeline = new Timeline();
 
-        for (Course planned: coursesPlanned) {
-            timeline.placeCourseOnTimeline(coursesTaken, planned);
-        }
+        coursesPlanned.forEach(planned -> timeline.placeCourseOnTimeline(coursesTaken, planned));
 
         return timeline;
     }
@@ -47,9 +45,8 @@ public class Timeline {
             return;
         }
 
-        for (Course prereq : coursePlanned.getPrerequisites()) {
-            placeCourseOnTimeline(coursesTaken, prereq);
-        }
+        coursePlanned.getPrerequisites().forEach(
+                prereq -> placeCourseOnTimeline(coursesTaken, prereq));
 
         do {
             if ((iSession != null && iSession.anyCoursesInSession(prereqs))
@@ -87,13 +84,11 @@ public class Timeline {
      */
 
     private Session findSessionByName(String season, Integer year) {
-        for (Session session : timeline) {
-            if (season.equals(session.getSeason()) && year.equals(session.getYear())) {
-                return session;
-            }
-        }
-
-        return null;
+        return timeline.stream()
+                .filter(session -> season.equals(session.getSeason())
+                        && year.equals(session.getYear()))
+                .findFirst()
+                .orElse(null);
     }
 
     private void addToSession(String season, Integer year, Course course) {

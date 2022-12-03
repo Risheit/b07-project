@@ -12,6 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 final public class CourseDatabase implements CourseDatabaseInterface {
     private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
@@ -27,15 +28,18 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                 // if the courses object in the database changes in any way, clear and refill
                 // the local storage
                 courses.clear();
-                for(DataSnapshot s : snapshot.getChildren()) {
-                    // parsing the name, code, sessionalDates, prerequisites
-                    String name = s.child("name").getValue(String.class);
-                    String code = s.child("code").getValue(String.class);
-                    ArrayList<String> sessionalDates = (ArrayList<String>) s.child("sessionalDates").getValue();
-                    ArrayList<Course> prerequisites = (ArrayList<Course>) s.child("prerequisites").getValue();
-                    Course course = new Course(name, code, sessionalDates, prerequisites);
-                    courses.add(course);
-                }
+                snapshot.getChildren()
+                        .forEach(s -> {
+                            // parsing the name, code, sessionalDates, prerequisites
+                            String name = s.child("name").getValue(String.class);
+                            String code = s.child("code").getValue(String.class);
+                            ArrayList<String> sessionalDates
+                                    = (ArrayList<String>) s.child("sessionalDates").getValue();
+                            ArrayList<Course> prerequisites
+                                    = (ArrayList<Course>) s.child("prerequisites").getValue();
+                            Course course = new Course(name, code, sessionalDates, prerequisites);
+                            courses.add(course);
+                        });
             }
 
             @Override
@@ -96,13 +100,16 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         courseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s: snapshot.getChildren()) {
-                    String name = course.getName();
-                    String code = course.getCode();
-                    ArrayList<String> sessionalDates = (ArrayList<String>) course.getSessionalDates();
-                    ArrayList<Course> prerequisites = (ArrayList<Course>) course.getPrerequisites();
-                    s.getRef().setValue(new Course(name, code, sessionalDates, prerequisites));
-                }
+                snapshot.getChildren()
+                        .forEach(s -> {
+                            String name = course.getName();
+                            String code = course.getCode();
+                            ArrayList<String> sessionalDates
+                                    = (ArrayList<String>) course.getSessionalDates();
+                            ArrayList<Course> prerequisites
+                                    = (ArrayList<Course>) course.getPrerequisites();
+                            s.getRef().setValue(new Course(name, code, sessionalDates, prerequisites));
+                        });
             }
 
             @Override
@@ -130,9 +137,7 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         courseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s: snapshot.getChildren()) {
-                    s.getRef().removeValue();
-                }
+                snapshot.getChildren().forEach(s -> s.getRef().removeValue());
             }
 
             @Override
