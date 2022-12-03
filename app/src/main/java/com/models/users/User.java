@@ -1,20 +1,28 @@
 package com.models.users;
 
-import java.sql.Array;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class User {
     private String type;
     private String name;
     private String email;
     private String password;
-    private String[] courseCodesTaken;
-    private String[] courseCodesPlanned;
+    private Map<String, String> courseCodesTaken;  // Key and value are identical
+    private Map<String, String> courseCodesPlanned; // Key and value are identical
+
+    private final String dummyCourseTaken = "dTaken";
+    private final String dummyCoursePlanned = "dPlan";
 
     public User() {
-        
+        this.courseCodesTaken = new HashMap<>();
+        courseCodesTaken.put(dummyCourseTaken, dummyCourseTaken);
+
+        this.courseCodesPlanned = new HashMap<>();
+        courseCodesPlanned.put(dummyCourseTaken, dummyCoursePlanned);
     }
 
     /**
@@ -30,8 +38,12 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.courseCodesTaken = new String[]{};
-        this.courseCodesPlanned = new String[]{};
+
+        this.courseCodesTaken = new HashMap<>();
+        courseCodesTaken.put(dummyCourseTaken, dummyCourseTaken);
+
+        this.courseCodesPlanned = new HashMap<>();
+        courseCodesPlanned.put(dummyCourseTaken, dummyCoursePlanned);
     }
 
     /**
@@ -44,15 +56,27 @@ public class User {
      * @param courseCodesPlanned The courses that the user plans to take represented by its code
      */
 
-    public User(String type, String name, String email, String password, String[] courseCodesTaken,
-                String[] courseCodesPlanned) {
+    public User(String type, String name, String email, String password, Set<String> courseCodesTaken,
+                Set<String> courseCodesPlanned) {
         this.type = type;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.setCourseCodesTaken(courseCodesTaken);
+        this.setCourseCodesPlanned(courseCodesPlanned);
+    }
 
-        setCourseCodesTaken(new HashSet<>(Arrays.asList(courseCodesTaken)));
-        setCourseCodesPlanned(new HashSet<>(Arrays.asList(courseCodesPlanned)));
+    private static Set<String> mapToSet(Map<String, String> map) {
+        return new HashSet<>(map.keySet());
+    }
+
+    private static Map<String, String> setToMap(Set<String> set) {
+        Map<String, String> map = new HashMap<>();
+        for (String entry : set) {
+            map.put(entry, entry);
+        }
+
+        return map;
     }
 
     /**
@@ -133,7 +157,9 @@ public class User {
      */
 
     public Set<String> getCourseCodesTaken() {
-        return new HashSet<>(Arrays.asList(courseCodesTaken));
+        Set<String> set = mapToSet(courseCodesTaken);
+        set.remove(dummyCourseTaken);
+        return set;
     }
 
     /**
@@ -142,7 +168,9 @@ public class User {
      */
 
     public void setCourseCodesTaken(Set<String> courseCodesTaken) {
-        this.courseCodesTaken = courseCodesTaken.toArray(new String[0]);
+        Map<String, String> map = setToMap(courseCodesTaken);
+        map.put(dummyCourseTaken, dummyCourseTaken);
+        this.courseCodesTaken = map;
     }
 
     /**
@@ -184,7 +212,9 @@ public class User {
      */
 
     public Set<String> getCourseCodesPlanned() {
-        return new HashSet<>(Arrays.asList(courseCodesPlanned));
+        Set<String> set = mapToSet(courseCodesPlanned);
+        set.remove(dummyCoursePlanned);
+        return set;
     }
 
     /**
@@ -193,7 +223,9 @@ public class User {
      */
 
     public void setCourseCodesPlanned(Set<String> courseCodesPlanned) {
-        this.courseCodesPlanned = courseCodesPlanned.toArray(new String[0]);
+        Map<String, String> map = setToMap(courseCodesPlanned);
+        map.put(dummyCoursePlanned, dummyCoursePlanned);
+        this.courseCodesPlanned = map;
     }
 
     /**
