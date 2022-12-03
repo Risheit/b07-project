@@ -26,9 +26,7 @@ import com.models.users.User;
 import com.presenters.SignUpActivityPresenter;
 
 public class SignUpActivity extends AppCompatActivity {
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
-    private ActivitySignUpBinding binding;
 
     private SignUpActivityPresenter presenter;
 
@@ -37,31 +35,38 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText last_nameInput;
     private EditText passInput;
     private EditText confirmPass;
-    Button signUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new SignUpActivityPresenter(this, new UserDatabase(
-                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
-        ));
+        ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        Button signUpButton = (Button) findViewById(R.id.NewAccountButton);
 
-        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.SignUpHeader);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavController navController = Navigation.findNavController(
+                this,
+                R.id.nav_host_fragment_content_sign_up
+        );
+        NavigationUI.setupActionBarWithNavController(
+                this, navController,
+                appBarConfiguration
+        );
 
         new_emailInput = (EditText) findViewById(R.id.signUpInputEmail);
         first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
         last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
         passInput = (EditText) findViewById(R.id.editTextTextPassword2);
         confirmPass = (EditText) findViewById(R.id.ConfirmPassword);
-        signUpButton = (Button) findViewById(R.id.NewAccountButton);
+
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+
+        presenter = new SignUpActivityPresenter(this, new UserDatabase(
+                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
+        ));
+
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.SignUpHeader);
 
         signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
     }
