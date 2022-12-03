@@ -19,27 +19,33 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.models.users.UserDatabase;
+import com.models.users.UserManagement;
 import com.planner.databinding.ActivitySignUpBinding;
 import com.models.users.User;
+import com.presenters.SignUpActivityPresenter;
 
 public class SignUpActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
-    String email, first_name, last_name, password, commaEmail, conPass;
-    String type;
 
-    EditText new_emailInput;
-    EditText first_nameInput;
-    EditText last_nameInput;
-    EditText passInput;
-    EditText confirmPass;
+    private SignUpActivityPresenter presenter;
+
+    private EditText new_emailInput;
+    private EditText first_nameInput;
+    private EditText last_nameInput;
+    private EditText passInput;
+    private EditText confirmPass;
     Button signUpButton;
-    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new SignUpActivityPresenter(this, new UserDatabase(
+                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
+        ));
 
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -57,51 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPass = (EditText) findViewById(R.id.ConfirmPassword);
         signUpButton = (Button) findViewById(R.id.NewAccountButton);
 
-
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                email = new_emailInput.getText().toString();
-                commaEmail = email.replace('.', ',');
-                first_name = first_nameInput.getText().toString();
-                last_name = last_nameInput.getText().toString();
-                password = passInput.getText().toString();
-                conPass = confirmPass.getText().toString();
-                type = "Student"; //assume all users are students?
-                User new_user = new User(type,first_name + " " + last_name, email, password);
-                if(email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() || conPass.isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "Please Enter All Fields", Toast.LENGTH_SHORT).show();
-                }else{
-                    ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(commaEmail)){
-                                Toast.makeText(SignUpActivity.this, "An account has already been created with this email", Toast.LENGTH_SHORT).show();
-                            }else{
-                                if(conPass.equals(password)){
-                                    ref.child("users").child(commaEmail).setValue(new_user);
-                                    name = first_name + " " + last_name;
-                                    Intent intent = new Intent(SignUpActivity.this, HomePageActivity.class);
-                                    intent.putExtra("name", name);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-
-            }
-        });
+        signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
     }
 
     @Override
@@ -111,4 +73,28 @@ public class SignUpActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public EditText getNew_emailInput() {
+        return new_emailInput;
+    }
+
+    public EditText getFirst_nameInput() {
+        return first_nameInput;
+    }
+
+    public EditText getLast_nameInput() {
+        return last_nameInput;
+    }
+
+    public EditText getPassInput() {
+        return passInput;
+    }
+
+    public EditText getConfirmPass() {
+        return confirmPass;
+    }
+
+    public void displayErrorNotification(String errorName) {
+        Toast.makeText(SignUpActivity.this, errorName,
+                Toast.LENGTH_SHORT).show();
+    }
 }
