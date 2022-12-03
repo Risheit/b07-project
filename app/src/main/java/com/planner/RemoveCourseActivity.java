@@ -23,14 +23,14 @@ public class RemoveCourseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.content_remove_course);
+        setContentView(R.layout.content_remove_course);
 
         com.planner.databinding.ActivityRemoveCourseBinding binding = ActivityRemoveCourseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_course_list);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
