@@ -22,6 +22,7 @@ public class HomePageActivity extends AppCompatActivity {
     String name, outputName;
     Button courseListButton;
     Button courseTimelineButton;
+    Button loginBackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,7 @@ public class HomePageActivity extends AppCompatActivity {
         welcomeTxt = (TextView) findViewById(R.id.textView4);
         courseListButton = (Button) findViewById(R.id.button5);
         courseTimelineButton = (Button) findViewById(R.id.button4);
+        loginBackButton = (Button) findViewById(R.id.backbutton23);
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -95,6 +97,17 @@ public class HomePageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        loginBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(HomePageActivity.this, MainActivity.class);
+                startActivity(intent3);
+                finish();
+            }
+        });
+
+
     }
 
 
