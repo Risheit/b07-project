@@ -18,7 +18,11 @@ public class User {
     private final String dummyCoursePlanned = "dPlan";
 
     public User() {
+        this.courseCodesTaken = new HashMap<>();
+        courseCodesTaken.put(dummyCourseTaken, dummyCourseTaken);
 
+        this.courseCodesPlanned = new HashMap<>();
+        courseCodesPlanned.put(dummyCourseTaken, dummyCoursePlanned);
     }
 
     /**
@@ -58,7 +62,8 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-
+        this.setCourseCodesTaken(courseCodesTaken);
+        this.setCourseCodesPlanned(courseCodesPlanned);
     }
 
     private static Set<String> mapToSet(Map<String, String> map) {
