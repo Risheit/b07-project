@@ -64,6 +64,7 @@ public class UserDatabase implements UserDatabaseInterface {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.hasChild(commaEmail)) {
+                    Log.i("UserDatabase", "Database to be modified in addUser");
                     ref.child("users").child(commaEmail).setValue(user);
                 }
             }
