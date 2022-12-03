@@ -41,9 +41,11 @@ public class AddCourse2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityAddCourse2Binding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_add_course2);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
@@ -76,7 +78,7 @@ public class AddCourse2Activity extends AppCompatActivity {
                 //ses_offer.split(",") returns an array of strings, which is what the Course constructor needs?
 
                 //uses split to create an array of session dates
-                String[] listOfSessions = ses_offer.split(", ");
+                String[] listOfSessions = ses_offer.split(",");
 
                 //creates an array list of strings directly from the array's contents
                 ArrayList<String> sessionDates = new ArrayList<>(Arrays.asList(listOfSessions));
@@ -105,7 +107,7 @@ public class AddCourse2Activity extends AppCompatActivity {
                     boolean allCoursesExist = true;
 
                     for(String code: listOfPrerequisites){
-                        if(null == courseDB.getCourse(code) && !code.equals("")){
+                        if(null == courseDB.getCourse(  code) && !code.equals("")){
                             Toast.makeText(AddCourse2Activity.this,
                                     "One or more of your prerequisite courses is not registered in " +
                                             "the database. Addition cancelled", Toast.LENGTH_SHORT).show();
@@ -119,6 +121,7 @@ public class AddCourse2Activity extends AppCompatActivity {
                             Course c = courseDB.getCourse(code);
                             prerequisites.add(c);
                         }
+
                         Course new_course = new Course(course_code, name, sessionDates, prerequisites);
                         //have the different session offerings be split by a comma
                         ses_offer = ses_offerInput.getText().toString();

@@ -21,6 +21,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
     TextView welcomeText;
     Button addCourseButton;
     Button deleteCourseButton;
+    Button editCourseButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,9 @@ public class AdminHomePageActivity extends AppCompatActivity {
 
         welcomeText = (TextView) findViewById(R.id.textView14);
         addCourseButton = (Button) findViewById(R.id.AddCourseButton);
-        deleteCourseButton = findViewById(R.id.DeleteCourseButton);
+        deleteCourseButton = (Button) findViewById(R.id.DeleteCourseButton);
+        editCourseButton = (Button) findViewById(R.id.button12);
+
         Intent intent = getIntent();
 
         String name = intent.getStringExtra("name");
@@ -59,6 +62,15 @@ public class AdminHomePageActivity extends AppCompatActivity {
             Intent intent1 = new Intent(AdminHomePageActivity.this, RemoveCourse2Activity.class);
             startActivity(intent1);
             finish();
+        });
+
+        editCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(AdminHomePageActivity.this, EditCourseActivity.class);
+                startActivity(intent2);
+                finish();
+            }
         });
 
     }

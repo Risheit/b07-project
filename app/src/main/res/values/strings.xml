@@ -18,4 +18,5 @@
     <string name="title_activity_remove_course2">RemoveCourse2Activity</string>
     <string name="title_activity_add_course2">AddCourse2Activity</string>
     <string name="title_activity_course_timeline">CourseTimelineActivity</string>
+    <string name="title_activity_edit_course">EditCourseActivity</string>
 </resources>
