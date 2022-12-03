@@ -13,6 +13,10 @@ public class User {
     private String[] courseCodesTaken;
     private String[] courseCodesPlanned;
 
+    public User() {
+        
+    }
+
     /**
      * This constructor returns an instance of a User
      * @param type  Indicates whether a User is a student or admin
