@@ -13,7 +13,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.models.onGetDataListener;
 
 public class UserDatabase implements UserDatabaseInterface {
+
     private final DatabaseReference ref;
+    private final String userSection = "users";
 
     public UserDatabase(String dbRefString) {
         // dbRefString = "https://b07-project-e5893-default-rtdb.firebaseio.com/"
@@ -60,12 +62,12 @@ public class UserDatabase implements UserDatabaseInterface {
 
     public void addUser(User user) {
         String commaEmail = user.getEmail().replace('.', ',');
-        ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(userSection).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.hasChild(commaEmail)) {
                     Log.i("UserDatabase", "Database to be modified in addUser");
-                    ref.child("users").child(commaEmail).setValue(user);
+                    ref.child(userSection).child(commaEmail).setValue(user);
                 }
             }
 
@@ -78,7 +80,7 @@ public class UserDatabase implements UserDatabaseInterface {
     }
 
     public void getUser(String email, final onGetDataListener<User> then) {
-        DatabaseReference userSearch = ref.child("users");
+        DatabaseReference userSearch = ref.child(userSection);
         String commaEmail = email.replace('.', ',');
 
         userSearch.addValueEventListener(new ValueEventListener() {
@@ -104,7 +106,7 @@ public class UserDatabase implements UserDatabaseInterface {
         by design, there should only be one user per email, but the design of the function deletes
         all users with the given email regardless.
          */
-        Query userQuery = ref.child("users").orderByChild("email").equalTo(emailKey);
+        Query userQuery = ref.child(userSection).orderByChild("email").equalTo(emailKey);
 
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class User {
     private String type;
@@ -137,6 +136,7 @@ public class User {
      * @return A string representing their password for the account.
      */
 
+
     public String getPassword() {
         return password;
     }
@@ -152,14 +152,33 @@ public class User {
 
     /**
      * This method retrieves the calling object's (an instance of User)
-     * taken courses.
+     * taken courses. Prefer the use of {@code getCourseCodesTakenAsSet} instead, as the
+     * retrieved data from this method is unfiltered and contains data intended for internal use
+     * that may cause issues in other code.
+     *
+     * This method exists to allow compatibility with Firebase.
      * @return A set of codes representing the courses the user has taken.
      */
 
-    public Set<String> getCourseCodesTaken() {
+    public Map<String, String> getCourseCodesTaken() {
+        return courseCodesTaken;
+    }
+
+    /**
+     * This method retrieves the calling object's (an instance of User)
+     * taken courses as a set.
+     * @return A set of codes representing the courses the user has taken.
+     */
+
+    public Set<String> getCourseCodesTakenAsSet() {
         Set<String> set = mapToSet(courseCodesTaken);
         set.remove(dummyCourseTaken);
         return set;
+    }
+
+    public void setCourseCodesTaken(Map<String, String> courseCodesTaken) {
+        this.courseCodesTaken = courseCodesTaken;
+        this.courseCodesTaken.put(dummyCourseTaken, dummyCourseTaken);
     }
 
     /**
@@ -180,7 +199,7 @@ public class User {
      */
 
     public boolean addTakenCourse(String courseCode) {
-        Set<String> courseCodesTaken = this.getCourseCodesTaken();
+        Set<String> courseCodesTaken = this.getCourseCodesTakenAsSet();
         boolean result = courseCodesTaken.add(courseCode);
         if (result) {
             setCourseCodesTaken(courseCodesTaken);
@@ -196,7 +215,7 @@ public class User {
      */
 
     public boolean removeTakenCourse(String courseCode) {
-        Set<String> courseCodesTaken = this.getCourseCodesTaken();
+        Set<String> courseCodesTaken = this.getCourseCodesTakenAsSet();
         boolean result = courseCodesTaken.remove(courseCode);
         if (result) {
             setCourseCodesTaken(courseCodesTaken);
@@ -207,14 +226,34 @@ public class User {
 
     /**
      * This method retrieves the calling object's (an instance of User)
+     * planned courses. Prefer the use of {@code getCourseCodesPlannedAsSet} instead, as the
+     * retrieved data from this method is unfiltered and contains data intended for internal use
+     * that may cause issues in other code.
+     *
+     * This method exists to allow compatibility with Firebase.
+     * @return A set of codes representing the courses the user has planned.
+     */
+
+
+    public Map<String, String> getCourseCodesPlanned() {
+        return courseCodesPlanned;
+    }
+
+    /**
+     * This method retrieves the calling object's (an instance of User)
      * planned courses.
      * @return A set of codes representing the courses the user has planned.
      */
 
-    public Set<String> getCourseCodesPlanned() {
+    public Set<String> getCourseCodesPlannedAsSet() {
         Set<String> set = mapToSet(courseCodesPlanned);
         set.remove(dummyCoursePlanned);
         return set;
+    }
+
+    public void setCourseCodesPlanned(Map<String, String> courseCodesPlanned) {
+        this.courseCodesPlanned = courseCodesPlanned;
+        this.courseCodesPlanned.put(dummyCoursePlanned, dummyCoursePlanned);
     }
 
     /**
@@ -236,7 +275,7 @@ public class User {
      */
 
     public boolean addPlannedCourse(String courseCode) {
-        Set<String> courseCodesPlanned = this.getCourseCodesPlanned();
+        Set<String> courseCodesPlanned = this.getCourseCodesPlannedAsSet();
         boolean result = courseCodesPlanned.add(courseCode);
         if (result) {
             setCourseCodesPlanned(courseCodesPlanned);
@@ -253,7 +292,7 @@ public class User {
      */
 
     public boolean removePlannedCourse(String courseCode) {
-        Set<String> courseCodesPlanned = this.getCourseCodesPlanned();
+        Set<String> courseCodesPlanned = this.getCourseCodesPlannedAsSet();
         boolean result = courseCodesPlanned.remove(courseCode);
         if (result) {
             setCourseCodesPlanned(courseCodesPlanned);
