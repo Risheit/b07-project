@@ -27,11 +27,13 @@ public class MainActivityPresenter {
             manager.login(email, password, new UserLoginActions() {
                 @Override
                 public void studentLoginSuccess(User user) {
+                    MainActivity.currentUser = user;
                     view.openStudentHomepage(user.getName());
                 }
 
                 @Override
                 public void adminLoginSuccess(User user) {
+                    MainActivity.currentUser = user;
                     view.openAdminHomepage(user.getName());
                 }
 

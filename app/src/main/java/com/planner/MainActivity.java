@@ -15,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.models.course.CourseDatabase;
+import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
 import com.presenters.MainActivityPresenter;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityPresenter presenter;
     CourseDatabase courseDB;
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

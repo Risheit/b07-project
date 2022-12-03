@@ -16,19 +16,23 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivityCourseListBinding;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class CourseList extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityCourseListBinding binding;
     Button backButton;
-    // Listview
 
+    // Listview
     ListView listView;
+
+    ArrayList<String> a = new ArrayList<String>(MainActivity.currentUser.getCourseCodesTaken());
 
     //Data that is to be displayed on the list
     //modify so that it displays the list of courses that the student has already taken
-    String[] noteList = {"Note1", "Note2", "Note3", "Note4"};
-    
+    String[] noteList = a.toArray(new String[0]);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
