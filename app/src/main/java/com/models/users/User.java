@@ -61,8 +61,8 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.setCourseCodesTaken(courseCodesTaken);
-        this.setCourseCodesPlanned(courseCodesPlanned);
+        this.setCourseCodesTakenFromSet(courseCodesTaken);
+        this.setCourseCodesPlannedFromSet(courseCodesPlanned);
     }
 
     private static Set<String> mapToSet(Map<String, String> map) {
@@ -182,11 +182,12 @@ public class User {
     }
 
     /**
-     *  This method modifies the calling object's (an instance of User) set of courses taken.
+     *  This method modifies the calling object's (an instance of User) set of courses taken from a
+     *  given set.
      * @param courseCodesTaken  The new courses taken for the user
      */
 
-    public void setCourseCodesTaken(Set<String> courseCodesTaken) {
+    public void setCourseCodesTakenFromSet(Set<String> courseCodesTaken) {
         Map<String, String> map = setToMap(courseCodesTaken);
         map.put(dummyCourseTaken, dummyCourseTaken);
         this.courseCodesTaken = map;
@@ -202,7 +203,7 @@ public class User {
         Set<String> courseCodesTaken = this.getCourseCodesTakenAsSet();
         boolean result = courseCodesTaken.add(courseCode);
         if (result) {
-            setCourseCodesTaken(courseCodesTaken);
+            setCourseCodesTakenFromSet(courseCodesTaken);
         }
 
         return result;
@@ -218,7 +219,7 @@ public class User {
         Set<String> courseCodesTaken = this.getCourseCodesTakenAsSet();
         boolean result = courseCodesTaken.remove(courseCode);
         if (result) {
-            setCourseCodesTaken(courseCodesTaken);
+            setCourseCodesTakenFromSet(courseCodesTaken);
         }
 
         return result;
@@ -251,17 +252,23 @@ public class User {
         return set;
     }
 
+    /**
+     *  This method modifies the calling object's (an instance of User) set of courses planned.
+     * @param courseCodesPlanned  The new courses planned for the user
+     */
+
     public void setCourseCodesPlanned(Map<String, String> courseCodesPlanned) {
         this.courseCodesPlanned = courseCodesPlanned;
         this.courseCodesPlanned.put(dummyCoursePlanned, dummyCoursePlanned);
     }
 
     /**
-     *  This method modifies the calling object's (an instance of User) set of courses planned.
+     *  This method modifies the calling object's (an instance of User) set of courses planned from
+     *  a given set.
      * @param courseCodesPlanned  The new courses planned for the user
      */
 
-    public void setCourseCodesPlanned(Set<String> courseCodesPlanned) {
+    public void setCourseCodesPlannedFromSet(Set<String> courseCodesPlanned) {
         Map<String, String> map = setToMap(courseCodesPlanned);
         map.put(dummyCoursePlanned, dummyCoursePlanned);
         this.courseCodesPlanned = map;
@@ -278,7 +285,7 @@ public class User {
         Set<String> courseCodesPlanned = this.getCourseCodesPlannedAsSet();
         boolean result = courseCodesPlanned.add(courseCode);
         if (result) {
-            setCourseCodesPlanned(courseCodesPlanned);
+            setCourseCodesPlannedFromSet(courseCodesPlanned);
         }
 
         return result;
@@ -295,7 +302,7 @@ public class User {
         Set<String> courseCodesPlanned = this.getCourseCodesPlannedAsSet();
         boolean result = courseCodesPlanned.remove(courseCode);
         if (result) {
-            setCourseCodesPlanned(courseCodesPlanned);
+            setCourseCodesPlannedFromSet(courseCodesPlanned);
         }
 
         return result;
