@@ -3,7 +3,9 @@ package com.planner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,6 +20,13 @@ public class CourseList extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityCourseListBinding binding;
     Button backButton;
+    // Listview
+    ListView listView;
+
+    //Data that is to be displayed on the list
+    //modify so that it displays the list of courses that the student has already taken
+    String[] noteList = {"Note1", "Note2", "Note3", "Note4"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +49,14 @@ public class CourseList extends AppCompatActivity {
                 finish();
             }
         });
+        listView = findViewById(R.id.listviewy);
+
+        // Array Adapter
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                noteList);
+
+        listView.setAdapter(adapter);
 
     }
 
