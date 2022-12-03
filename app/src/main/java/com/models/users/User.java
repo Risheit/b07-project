@@ -1,5 +1,7 @@
 package com.models.users;
 
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,8 +10,8 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private final Set<String> courseCodesTaken;
-    private final Set<String> courseCodesPlanned;
+    private String[] courseCodesTaken;
+    private String[] courseCodesPlanned;
 
     /**
      * This constructor returns an instance of a User
@@ -24,8 +26,8 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.courseCodesTaken = new HashSet<>();
-        this.courseCodesPlanned = new HashSet<>();
+        this.courseCodesTaken = new String[]{};
+        this.courseCodesPlanned = new String[]{};
     }
 
     /**
@@ -38,14 +40,15 @@ public class User {
      * @param courseCodesPlanned The courses that the user plans to take represented by its code
      */
 
-    public User(String type, String name, String email, String password, Set<String> courseCodesTaken,
-                Set<String> courseCodesPlanned) {
+    public User(String type, String name, String email, String password, String[] courseCodesTaken,
+                String[] courseCodesPlanned) {
         this.type = type;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.courseCodesTaken = courseCodesTaken;
-        this.courseCodesPlanned = courseCodesPlanned;
+
+        setCourseCodesTaken(new HashSet<>(Arrays.asList(courseCodesTaken)));
+        setCourseCodesPlanned(new HashSet<>(Arrays.asList(courseCodesPlanned)));
     }
 
     /**
@@ -126,7 +129,16 @@ public class User {
      */
 
     public Set<String> getCourseCodesTaken() {
-        return courseCodesTaken;
+        return new HashSet<>(Arrays.asList(courseCodesTaken));
+    }
+
+    /**
+     *  This method modifies the calling object's (an instance of User) set of courses taken.
+     * @param courseCodesTaken  The new courses taken for the user
+     */
+
+    public void setCourseCodesTaken(Set<String> courseCodesTaken) {
+        this.courseCodesTaken = courseCodesTaken.toArray(new String[0]);
     }
 
     /**
@@ -136,7 +148,13 @@ public class User {
      */
 
     public boolean addTakenCourse(String courseCode) {
-        return this.courseCodesTaken.add(courseCode);
+        Set<String> courseCodesTaken = this.getCourseCodesTaken();
+        boolean result = courseCodesTaken.add(courseCode);
+        if (result) {
+            setCourseCodesTaken(courseCodesTaken);
+        }
+
+        return result;
     }
 
     /**
@@ -146,7 +164,13 @@ public class User {
      */
 
     public boolean removeTakenCourse(String courseCode) {
-        return this.courseCodesTaken.remove(courseCode);
+        Set<String> courseCodesTaken = this.getCourseCodesTaken();
+        boolean result = courseCodesTaken.remove(courseCode);
+        if (result) {
+            setCourseCodesTaken(courseCodesTaken);
+        }
+
+        return result;
     }
 
     /**
@@ -156,7 +180,16 @@ public class User {
      */
 
     public Set<String> getCourseCodesPlanned() {
-        return courseCodesPlanned;
+        return new HashSet<>(Arrays.asList(courseCodesPlanned));
+    }
+
+    /**
+     *  This method modifies the calling object's (an instance of User) set of courses planned.
+     * @param courseCodesPlanned  The new courses planned for the user
+     */
+
+    public void setCourseCodesPlanned(Set<String> courseCodesPlanned) {
+        this.courseCodesPlanned = courseCodesPlanned.toArray(new String[0]);
     }
 
     /**
@@ -167,7 +200,13 @@ public class User {
      */
 
     public boolean addPlannedCourse(String courseCode) {
-        return this.courseCodesPlanned.add(courseCode);
+        Set<String> courseCodesPlanned = this.getCourseCodesPlanned();
+        boolean result = courseCodesPlanned.add(courseCode);
+        if (result) {
+            setCourseCodesPlanned(courseCodesPlanned);
+        }
+
+        return result;
     }
 
     /**
@@ -178,7 +217,12 @@ public class User {
      */
 
     public boolean removePlannedCourse(String courseCode) {
-        return this.courseCodesPlanned.remove(courseCode);
-    }
+        Set<String> courseCodesPlanned = this.getCourseCodesPlanned();
+        boolean result = courseCodesPlanned.remove(courseCode);
+        if (result) {
+            setCourseCodesPlanned(courseCodesPlanned);
+        }
 
+        return result;
+    }
 }
