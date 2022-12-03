@@ -1,5 +1,7 @@
 package com.models;
 
+import android.util.Pair;
+
 import com.models.course.Course;
 
 import java.util.ArrayList;
@@ -9,6 +11,10 @@ public class Session {
     private String season;
     private int year;
     private List<Course> sessionCourses;
+
+    public static String fall = "Fall";
+    public static String winter = "Winter";
+    public static String summer = "Summer";
 
     public Session(String season, int year, List<Course> sessionCourses){
         this.season = season;
@@ -82,5 +88,7 @@ public class Session {
         sessionCourses.clear();
     }
 
-    //public static (String, String) getCurrentSession(){}
+    public static Pair<String, Integer> getCurrentSession() {
+        return new Pair<>(fall, 2023);
+    }
 }
