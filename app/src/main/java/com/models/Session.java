@@ -6,8 +6,9 @@ import com.models.course.Course;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Session {
+public class Session implements Comparable<Session>{
     private String season;
     private int year;
     private List<Course> sessionCourses;
@@ -70,7 +71,7 @@ public class Session {
         return false;
     }
 
-    public boolean editCourseinList(Course toEdit, String name, String code,
+    public boolean editCourseInList(Course toEdit, String name, String code,
                                     ArrayList<String> sessionalDates,
                                     ArrayList<Course> prerequisites){
 
@@ -90,5 +91,58 @@ public class Session {
 
     public static Pair<String, Integer> getCurrentSession() {
         return new Pair<>(fall, 2023);
+    }
+
+    /*
+    public void moveToNextSession(){
+        if(season.equals(winter))   {setSeason(summer);}
+        if(season.equals(summer))   {setSeason(fall);}
+        else{
+            setSeason(winter);
+            setYear(year+1);
+        }
+    }
+     */
+
+    public static Pair<String, Integer> moveToNextSession(Pair<String, Integer> sessionDate){
+        String newSeason = sessionDate.first;
+        int newYear = sessionDate.second;
+
+        if(newSeason.equals(winter))   {newSeason = summer;}
+        if(newSeason.equals(summer))   {newSeason = fall;}
+        else{
+            newSeason = winter;
+            newYear++;
+        }
+
+        Pair<String, Integer> newSession = new Pair<>(newSeason, newYear);
+        return newSession;
+    }
+
+    @Override
+    public int compareTo(Session s) {
+        int seasonNum1 = 0;
+        int seasonNum2 = 0;
+
+        if(season.equals(summer))   {seasonNum1 = 1;}
+        if(season.equals(fall))     {seasonNum1 = 2;}
+        if(s.season.equals(summer)) {seasonNum2 = 1;}
+        if(s.season.equals(fall))   {seasonNum2 = 2;}
+
+        int sessionNum1 = year + seasonNum1;
+        int sessionNum2 = year + seasonNum2;
+
+        if(sessionNum1 < sessionNum2)   {return -1;}
+        if(sessionNum1 == sessionNum2)   {return 0;}
+        else    {return 1;}
+    }
+
+    public boolean anyCoursesInSession(List<Course> listOfCourses){
+        for(Course c: listOfCourses){
+            if(sessionCourses.contains(c)){
+                return true;
+            }
+        }
+        return false;
     }
 }
