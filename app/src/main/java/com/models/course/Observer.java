@@ -1,6 +1,4 @@
-package com.presenters;
-
-import com.presenters.Course;
+package com.models.course;
 
 public abstract class Observer {
     Course course;

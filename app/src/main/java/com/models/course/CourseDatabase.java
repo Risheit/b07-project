@@ -99,8 +99,8 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                 for(DataSnapshot s: snapshot.getChildren()) {
                     String name = course.getName();
                     String code = course.getCode();
-                    ArrayList<String> sessionalDates = course.getSessionalDates();
-                    ArrayList<Course> prerequisites = course.getPrerequisites();
+                    ArrayList<String> sessionalDates = (ArrayList<String>) course.getSessionalDates();
+                    ArrayList<Course> prerequisites = (ArrayList<Course>) course.getPrerequisites();
                     s.getRef().setValue(new Course(name, code, sessionalDates, prerequisites));
                 }
             }

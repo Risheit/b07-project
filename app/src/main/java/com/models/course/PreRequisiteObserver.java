@@ -1,4 +1,4 @@
-package com.presenters;
+package com.models.course;
 
 /***
  * Observer class only to be initiated after the prerequisite course has been already

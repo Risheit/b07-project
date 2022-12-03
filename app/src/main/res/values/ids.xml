@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="oldIDField" type="id">oldIDField</item>
-    <item name="newNameField" type="id">newNameField</item>
-    <item name="newSessionField" type="id">newSessionField</item>
-    <item name="newPrerequisiteField" type="id">newPrerequisiteField</item>
-    <item name="newIDField" type="id">newIDField</item>
-    <item name="editCourseButton" type="id">editCourseButton</item>
-</resources>
