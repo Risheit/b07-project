@@ -1,0 +1,71 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Finish writing tests for Presenter and changed the SignUp view to follow MVP
+
+What are you planning on doing today?
+	- extend the User Object to work with courses.
+
+Any impediments or stumbling blocks?
+	- None.
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished implementing Session class
+
+What are you planning on doing today?
+Get my emulator to work so that I can start testinf
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Change CourseDatabase.java to conform to Singleton
+
+What are you planning on doing today?
+	- Help connect CourseList activity to the backend stuff
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Implemented button navigations to HomePageActivity and AdminHomePageActivity
+Modified CourseList to display a list, but not of the right items
+
+What are you planning on doing today?
+Get CourseList to display the appropriate courses
+
+Any impediments or stumbling blocks?
+NA
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+Fixed navigation, Fixed Add Course and Remove Course Activities
+Edited UI
+
+What are you planning on doing today?
+Polishing UI
+Any impediments or stumbling blocks?
+N/A
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+Finished testing edit course
+
+What are you planning on doing today?
+Adding functionality to add to list courses that user can take
+
+Any impediments or stumbling blocks?
+	- none
