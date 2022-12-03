@@ -99,6 +99,28 @@ public class UserDatabase implements UserDatabaseInterface {
         });
     }
 
+    public void editUser(User user, String emailKey) {
+        /*
+        editUser() edits the user with the corresponding emailKey with the properties
+        of user
+         */
+        Query userQuery = ref.child(userSection).orderByChild("email").equalTo(emailKey);
+
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot s: snapshot.getChildren()) {
+                    s.getRef().setValue(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("UserDatabase", "Error deleting the user");
+            }
+        });
+    }
+
     public void removeUser(String emailKey){
         /*
         removeUser() deletes the users with the given email from the database
