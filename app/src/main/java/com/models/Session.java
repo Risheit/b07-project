@@ -1,5 +1,7 @@
 package com.models;
 
+import androidx.annotation.NonNull;
+
 import com.models.course.Course;
 
 import java.util.ArrayList;
@@ -163,5 +165,11 @@ public class Session implements Comparable<Session>{
                 && this.year == session.year
                 && Objects.equals(this.sessionCourses, session.sessionCourses)
                 );
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return season + " " + year + ": " + sessionCourses;
     }
 }

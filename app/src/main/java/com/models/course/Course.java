@@ -1,5 +1,7 @@
 package com.models.course;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -109,5 +111,11 @@ public class Course {
         }
 
         return this.code.equals(((Course) other).code);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return code;
     }
 }

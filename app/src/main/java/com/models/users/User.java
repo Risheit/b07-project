@@ -1,5 +1,7 @@
 package com.models.users;
 
+import androidx.annotation.NonNull;
+
 import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.models.course.CourseDatabaseInterface;
@@ -265,5 +267,11 @@ public class User {
                 && Objects.equals(this.courseCodesTaken, user.courseCodesTaken)
                 && Objects.equals(this.courseCodesPlanned, user.courseCodesPlanned)
                 );
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name + ", " + email;
     }
 }
