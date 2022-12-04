@@ -7,12 +7,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseTimelineBinding;
 
 public class CourseTimelineActivity extends AppCompatActivity implements ViewActions {
@@ -62,11 +70,22 @@ public class CourseTimelineActivity extends AppCompatActivity implements ViewAct
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_course_timeline);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         backButton = (Button) findViewById(R.id.button9);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // update the database
+                /*
+                note: its updated here instead of when the page is generated because it would cause
+                crashes when the checklist caused the user to actually update in the database
+                (i.e. the list of planned courses actually changed). i couldnt figure out why
+                but this solution works
+                 */
+                UserDatabase u = new UserDatabase();
+                u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
+
                 Intent intent = new Intent(CourseTimelineActivity.this, HomePageActivity.class);
                 startActivity(intent);
                 finish();

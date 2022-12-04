@@ -4,20 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.models.course.CourseDatabase;
-import com.models.users.UserDatabase;
 
 import java.util.ArrayList;
 
-public class CourseTimelineAdd extends AppCompatActivity {
+public class CourseTimelineAdd extends AppCompatActivity implements ViewActions {
 
     Button backButton;
     Button generateButton;
@@ -49,27 +46,22 @@ public class CourseTimelineAdd extends AppCompatActivity {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("before", MainActivity.currentUser.getCourseCodesPlanned().toString());
                 // get the checked entries in the list and add them all to selectedCodes
                 SparseBooleanArray selected = listView.getCheckedItemPositions();
                 ArrayList<String> selectedCodes = new ArrayList<>();
-                for(int i=0; i<selected.size(); i++) {
-                    int pos = selected.keyAt(i);
-                    if(selected.valueAt(i) == true)
+
+
+                for(int ind=0; ind<selected.size(); ind++) {
+                    int pos = selected.keyAt(ind);
+                    if(selected.valueAt(ind))
                         selectedCodes.add((String)listView.getItemAtPosition(pos));
                 }
 
                 // add all the selected codes to the courses the user wants to take
                 MainActivity.currentUser.setCourseCodesPlanned(selectedCodes);
 
-                // update the database
-                UserDatabase u = new UserDatabase("https://b07-project-e5893-default-rtdb.firebaseio.com/");
-                u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
-
-                Log.e("after", MainActivity.currentUser.getCourseCodesPlanned().toString());
-
-                Intent intent = new Intent(CourseTimelineAdd.this, CourseTimelineActivity.class);
-                startActivity(intent);
+                Intent timeline_intent = new Intent(CourseTimelineAdd.this, CourseTimelineActivity.class);
+                startActivity(timeline_intent);
                 finish();
             }
         });
