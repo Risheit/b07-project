@@ -20,7 +20,10 @@ public class Timeline {
     }
 
     public static Timeline makeTimeline(User user, CourseDatabaseInterface cd) {
-        User copy = new User(user);
+        User copy = new User(user.getType(), user.getName(), user.getEmail(), user.getPassword());
+        user.getCourseCodesPlanned().forEach(copy::addPlannedCourse);
+        user.getCourseCodesTaken().forEach(copy::addTakenCourse);
+
         Timeline timeline = new Timeline();
 
         // Add all planned course prerequisites to the user's list of courses

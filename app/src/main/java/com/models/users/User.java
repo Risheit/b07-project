@@ -6,6 +6,8 @@ import com.models.course.CourseDatabaseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class User {
     private String type;
@@ -17,22 +19,12 @@ public class User {
 
 
     public User() {
+        type = "Student";
+        name = "";
+        email = "";
+        password = "";
         courseCodesTaken = new ArrayList<>();
         courseCodesPlanned = new ArrayList<>();
-    }
-
-    /**
-     * Constructs an instance of a User by deep copying values of the given user. No references
-     * to the original user are maintained.
-     * @param user the user to deep copy
-     */
-    public User(User user) {
-        this.type = user.type;
-        this.name = user.name;
-        this.email = user.email;
-        this.password = user.password;
-        this.courseCodesTaken = new ArrayList<>(courseCodesTaken);
-        this.courseCodesPlanned = new ArrayList<>(courseCodesPlanned);
     }
 
     /**
