@@ -53,12 +53,9 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
         signUpButton = (Button) findViewById(R.id.NewAccountButton);
         backButton = (Button) findViewById(R.id.ReturnToLogIn);
 
-        backButton.setOnClickListener(view -> {
-            Intent intent1 = new Intent(SignUpActivity.this, MainActivity.class);
-            startActivity(intent1);
-            finish();
-        });
 
+        // Setup Listeners
+        backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
         signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
     }
 
