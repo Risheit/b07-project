@@ -65,12 +65,14 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
     }
 
     private void displayWelcomeText() {
-        Intent givenIntent = getIntent();
+        String name2 = MainActivity.currentUser.getName();
+
+//        Intent givenIntent = getIntent();
         TextView welcomeText = (TextView) findViewById(R.id.textView14);
+//
+//        String name = givenIntent.getStringExtra("name") == null ? ""
+//                : ": " + givenIntent.getStringExtra("name");
 
-        String name = givenIntent.getStringExtra("name") == null ? ""
-                : ": " + givenIntent.getStringExtra("name");
-
-        welcomeText.setText(String.format(getResources().getString(R.string.welcome_admin), name));
+        welcomeText.setText("Welcome Admin: " + name2);
     }
 }

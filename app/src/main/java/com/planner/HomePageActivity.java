@@ -12,8 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.models.course.Course;
-import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityHomePageBinding;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -25,9 +23,11 @@ public class HomePageActivity extends AppCompatActivity {
     Button courseListButton;
     Button courseTimelineButton;
     Button loginBackButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String name2 = MainActivity.currentUser.getName();
 
         // some example uses are commented here
         
@@ -73,14 +73,15 @@ public class HomePageActivity extends AppCompatActivity {
         courseTimelineButton = (Button) findViewById(R.id.button4);
         loginBackButton = (Button) findViewById(R.id.backbutton23);
 
-        Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        if(null != name){
-            outputName = name;
-            welcomeTxt.setText("Welcome " + outputName);
-        }else{
-            welcomeTxt.setText("Welcome");
-        }
+//        Intent intent = getIntent();
+//        name = intent.getStringExtra("name");
+//        if(null != name){
+//            outputName = name;
+//            welcomeTxt.setText("Welcome " + outputName);
+//        }else{
+//            welcomeTxt.setText("Welcome");
+//        }
+        welcomeTxt.setText("Welcome " + name2);
 
         courseListButton.setOnClickListener(new View.OnClickListener() {
             @Override
