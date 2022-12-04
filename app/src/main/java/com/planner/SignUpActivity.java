@@ -1,11 +1,8 @@
 package com.planner;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -22,7 +19,6 @@ import com.presenters.SignUpActivityPresenter;
 public class SignUpActivity extends AppCompatActivity {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
-    private ActivitySignUpBinding binding;
 
     private SignUpActivityPresenter presenter;
 
@@ -42,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
                 "https://b07-project-e5893-default-rtdb.firebaseio.com/"
         ));
 
-        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.SignUpHeader);
@@ -96,10 +92,5 @@ public class SignUpActivity extends AppCompatActivity {
 
     public EditText getConfirmPass() {
         return confirmPass;
-    }
-
-    public void displayErrorNotification(String errorName) {
-        Toast.makeText(SignUpActivity.this, errorName,
-                Toast.LENGTH_SHORT).show();
     }
 }

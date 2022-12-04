@@ -109,9 +109,7 @@ public class UserDatabase implements UserDatabaseInterface {
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s: snapshot.getChildren()) {
-                    s.getRef().setValue(user);
-                }
+                snapshot.getChildren().forEach(s -> s.getRef().setValue(user));
             }
 
             @Override
@@ -133,9 +131,7 @@ public class UserDatabase implements UserDatabaseInterface {
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s: snapshot.getChildren()) {
-                    s.getRef().removeValue();
-                }
+                snapshot.getChildren().forEach(s -> s.getRef().removeValue());
             }
 
             @Override

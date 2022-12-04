@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -90,7 +89,9 @@ public class AddCourse2Activity extends AppCompatActivity {
 
                 prerequisite = prereqInput.getText().toString();
                 if(course_code.isEmpty() || ses_offer.isEmpty() || name.isEmpty()) {
-                    Toast.makeText(AddCourse2Activity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
+                    ViewActions.displayErrorNotification(
+                            AddCourse2Activity.this,
+                            "Please Enter All Possible Fields");
                 }else{
                     /* steps
                 1. parse the course codes and place them in an array
@@ -107,10 +108,10 @@ public class AddCourse2Activity extends AppCompatActivity {
                     boolean allCoursesExist = true;
 
                     for(String code: listOfPrerequisites){
-                        if(null == courseDB.getCourse(  code) && !code.equals("")){
-                            Toast.makeText(AddCourse2Activity.this,
-                                    "One or more of your prerequisite courses is not registered in " +
-                                            "the database. Addition cancelled", Toast.LENGTH_SHORT).show();
+                        if(null == courseDB.getCourse(code) && !code.equals("")){
+                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                                    "One or more of your prerequisite courses is not " +
+                                            "registered in the database. Addition cancelled");
                             allCoursesExist = false;
                             break;
                         }
@@ -137,14 +138,15 @@ public class AddCourse2Activity extends AppCompatActivity {
 
                         //the course is already in the database
                         if(courseDB.getCourse(course_code) != null){
-                            Toast.makeText(AddCourse2Activity.this,
-                                    "Course already in database", Toast.LENGTH_SHORT).show();
+                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                                    "Course already in database");
                         }
 
                         else if(courseDB.getCourse(course_code) == null) {
                             //add the course to the database
                             courseDB.addCourse(new_course);
-                            Toast.makeText(AddCourse2Activity.this, "Course Added", Toast.LENGTH_SHORT).show();
+                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                                    "Course Added");
 
                         }
                         Intent intent = new Intent(AddCourse2Activity.this, AdminHomePageActivity.class);
