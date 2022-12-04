@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import android.text.Editable;
 import android.widget.EditText;
 
-import com.models.DatabaseMock;
+import com.models.UserDatabaseMock;
 import com.models.users.User;
 import com.planner.MainActivity;
 
@@ -31,7 +31,7 @@ public class MainActivityTests {
     @Before
     public void setUp() {
         // Initialize Mocks
-        DatabaseMock model = new DatabaseMock();
+        UserDatabaseMock model = new UserDatabaseMock();
         EditText emailInput = mock(EditText.class);
         EditText passwordInput = mock(EditText.class);
 

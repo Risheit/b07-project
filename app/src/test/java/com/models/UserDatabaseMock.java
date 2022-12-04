@@ -1,7 +1,6 @@
 package com.models;
 
 import com.models.users.UserDatabaseInterface;
-import com.models.onGetDataListener;
 import com.models.users.User;
 
 import java.util.HashMap;
@@ -9,10 +8,10 @@ import java.util.HashMap;
 /**
  * A class that imitates the User Database model to allow for easier testing.
  */
-public class DatabaseMock implements UserDatabaseInterface {
+public class UserDatabaseMock implements UserDatabaseInterface {
     HashMap<String, User> users; // email as key
 
-    public DatabaseMock() {
+    public UserDatabaseMock() {
         super();
         users = new HashMap<>();
     }
