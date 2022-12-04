@@ -3,14 +3,11 @@ package com.models.users;
 import androidx.annotation.NonNull;
 
 import com.models.course.Course;
-import com.models.course.CourseDatabase;
 import com.models.course.CourseDatabaseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class User {
     private String type;
