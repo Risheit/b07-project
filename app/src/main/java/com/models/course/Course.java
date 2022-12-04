@@ -2,6 +2,7 @@ package com.models.course;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Course {
     private String name;
@@ -94,5 +95,19 @@ public class Course {
         code = course.code;
         sessionalDates = course.getSessionalDates();
         prerequisites = course.getPrerequisites();
+    }
+
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Course) || this.hashCode() != other.hashCode()) {
+            return false;
+        }
+
+        return this.code.equals(((Course) other).code);
     }
 }

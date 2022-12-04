@@ -6,6 +6,7 @@ import com.models.course.CourseDatabaseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -234,5 +235,35 @@ public class User {
     public List<Course> getWantedCourseCodes (CourseDatabaseInterface cd) {
         List<Course> courseList = cd.getCourseListFromString(getCourseCodesPlanned());
         return getTakeableCourses(cd, courseList);
+    }
+
+
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + type.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + courseCodesTaken.hashCode();
+        result = 31 * result + courseCodesPlanned.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof User) || this.hashCode() != other.hashCode()) {
+            return false;
+        }
+
+        User user = (User) other;
+        return (Objects.equals(this.type, user.type)
+                && Objects.equals(this.name, user.name)
+                && Objects.equals(this.email, user.email)
+                && Objects.equals(this.password, user.password)
+                && Objects.equals(this.courseCodesTaken, user.courseCodesTaken)
+                && Objects.equals(this.courseCodesPlanned, user.courseCodesPlanned)
+                );
     }
 }

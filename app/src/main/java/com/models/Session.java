@@ -4,6 +4,7 @@ import com.models.course.Course;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Session implements Comparable<Session>{
     private String season;
@@ -127,8 +128,8 @@ public class Session implements Comparable<Session>{
         if(s.season.equals(summer)) {seasonNum2 = 1;}
         if(s.season.equals(fall))   {seasonNum2 = 2;}
 
-        int sessionNum1 = year + seasonNum1;
-        int sessionNum2 = year + seasonNum2;
+        int sessionNum1 = year * 10 + seasonNum1;
+        int sessionNum2 = s.year * 10 + seasonNum2;
 
         return Integer.compare(sessionNum1, sessionNum2);
     }
@@ -140,5 +141,27 @@ public class Session implements Comparable<Session>{
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + season.hashCode();
+        result = 31 * result + Integer.hashCode(year);
+        result = 31 * result + sessionCourses.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Session) || this.hashCode() != other.hashCode()) {
+            return false;
+        }
+
+        Session session = (Session) other;
+        return (Objects.equals(this.season, session.season)
+                && this.year == session.year
+                && Objects.equals(this.sessionCourses, session.sessionCourses)
+                );
     }
 }
