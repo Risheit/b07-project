@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#00008B"
-            app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
+            android:visibility="gone"
+            app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay"
+            tools:layout_height="0" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

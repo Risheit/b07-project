@@ -62,7 +62,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
@@ -104,6 +103,8 @@ public class HomePageActivity extends AppCompatActivity {
         loginBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // sign out
+                MainActivity.currentUser = null;
                 Intent intent3 = new Intent(HomePageActivity.this, MainActivity.class);
                 startActivity(intent3);
                 finish();

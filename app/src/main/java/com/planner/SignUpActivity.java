@@ -41,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.SignUpHeader);
+        //getSupportActionBar().hide();
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
