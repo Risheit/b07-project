@@ -18,10 +18,10 @@ public class UserManagementTests {
         dbMock = new UserDatabaseMock();
         management = new UserManagement(dbMock);
 
-        user1 = new User("Student", "Charles Mominjay", "charlesmj@gmail.com",
-                "password123");
-        user2 = new User("Admin", "Admin Man", "admin@adminmail.ca",
-                "ComplexAdminPassword");
+        user1 = new User(UserManagement.studentConnection, "Charles Mominjay",
+                "charlesmj@gmail.com", "password123");
+        user2 = new User(UserManagement.adminConnection, "Admin Man",
+                "admin@adminmail.ca", "ComplexAdminPassword");
 
         dbMock.addUser(user1);
         dbMock.addUser(user2);
@@ -179,7 +179,7 @@ public class UserManagementTests {
 
     @Test
     public void testSignupUserSuccess() {
-        User user = new User("student", "test student", "newmail@mail.ca",
+        User user = new User(UserManagement.studentConnection, "test student", "newmail@mail.ca",
                 "abc123");
         management.signupUser(user);
         assertEquals(user, ((UserDatabaseMock)dbMock).getUserSynchronous(user.getEmail()));
@@ -187,7 +187,7 @@ public class UserManagementTests {
 
     @Test
     public void testSignupUserSameEmail() {
-        User user = new User("student", "test student", user1.getEmail(),
+        User user = new User(UserManagement.studentConnection, "test student", user1.getEmail(),
                 "");
         management.signupUser(user);
         assertNotEquals(user, ((UserDatabaseMock)dbMock).getUserSynchronous(user.getEmail()));

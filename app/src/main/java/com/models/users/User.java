@@ -19,7 +19,7 @@ public class User {
 
 
     public User() {
-        type = "Student";
+        type = UserManagement.studentConnection;
         name = "";
         email = "";
         password = "";

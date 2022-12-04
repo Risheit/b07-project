@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.models.UserDatabaseMock;
 import com.models.users.User;
+import com.models.users.UserManagement;
 import com.planner.MainActivity;
 
 import org.junit.Before;
@@ -41,10 +42,10 @@ public class MainActivityTests {
         view = mock(MainActivity.class);
         presenter = new MainPresenter(view, model);
 
-        user1 = new User("Student", "Charles Mominjay", "charlesmj@gmail.com",
-                "password123");
-        user2 = new User("Admin", "Admin Man", "admin@adminmail.ca",
-                "ComplexAdminPassword");
+        user1 = new User(UserManagement.studentConnection, "Charles Mominjay",
+                "charlesmj@gmail.com", "password123");
+        user2 = new User(UserManagement.adminConnection, "Admin Man",
+                "admin@adminmail.ca", "ComplexAdminPassword");
 
         model.addUser(user1);
         model.addUser(user2);

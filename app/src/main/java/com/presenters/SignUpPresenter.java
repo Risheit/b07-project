@@ -22,7 +22,7 @@ public class SignUpPresenter {
         String last_name = view.getLast_nameInput().getText().toString();
         String password = view.getPassInput().getText().toString();
         String conPass = view.getConfirmPass().getText().toString();
-        String type = "Student"; //assume all users are students?
+        String type = UserManagement.studentConnection; //assume all users are students?
 
         User new_user = new User(type,first_name + " " + last_name, email, password);
         System.out.println(email);

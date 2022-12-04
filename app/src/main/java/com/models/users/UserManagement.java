@@ -4,9 +4,10 @@ import com.models.onGetDataListener;
 
 public class UserManagement {
 
+    public static final String studentConnection = "Student";
+    public static final String adminConnection = "Admin";
+
     private final UserDatabaseInterface connection;
-    private final String studentConnection = "Student";
-    private final String adminConnection = "Admin";
 
     /**
      * Instantiates a new UserManagement class.
