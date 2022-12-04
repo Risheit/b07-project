@@ -93,7 +93,7 @@ public class CourseList extends AppCompatActivity implements ViewActions {
                 MainActivity.currentUser.setCourseCodesTaken(newTaken);
 
                 // edit the user in the database
-                UserDatabase u = new UserDatabase("https://b07-project-e5893-default-rtdb.firebaseio.com/");
+                UserDatabase u = new UserDatabase();
                 u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
 
                 // update the noteList to remove that value. this is not ideal but its the easiest

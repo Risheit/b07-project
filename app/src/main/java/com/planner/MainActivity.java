@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
         // called at the start of the program so we can load all the courses into the arraylist
         CourseDatabase.getInstance();
 
-        presenter = new MainPresenter(this, new UserDatabase(
-                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
-        ));
+        presenter = new MainPresenter(this, new UserDatabase());
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

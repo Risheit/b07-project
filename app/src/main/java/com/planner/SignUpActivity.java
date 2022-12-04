@@ -33,9 +33,7 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new SignUpPresenter(this, new UserDatabase(
-                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
-        ));
+        presenter = new SignUpPresenter(this, new UserDatabase());
 
         ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
