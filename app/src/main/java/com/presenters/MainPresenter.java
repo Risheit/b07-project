@@ -30,13 +30,13 @@ public class MainPresenter {
                 @Override
                 public void studentLoginSuccess(User user) {
                     MainActivity.currentUser = user;
-                    view.openStudentHomepage(user.getName());
+                    view.openStudentHomepage(view, user.getName());
                 }
 
                 @Override
                 public void adminLoginSuccess(User user) {
                     MainActivity.currentUser = user;
-                    view.openAdminHomepage(user.getName());
+                    view.openAdminHomepage(view, user.getName());
                 }
 
                 @Override
@@ -53,6 +53,6 @@ public class MainPresenter {
     }
 
     public void onSignUpButtonClicked() {
-        view.openSignUpPage();
+        view.openSignUpPage(view);
     }
 }
