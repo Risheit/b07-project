@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -25,6 +26,11 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         ref.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GenericTypeIndicator<ArrayList<String>> toStringList
+                        = new GenericTypeIndicator<ArrayList<String>>(){};
+                GenericTypeIndicator<ArrayList<Course>> toCourseList
+                        = new GenericTypeIndicator<ArrayList<Course>>(){};
+
                 // if the courses object in the database changes in any way, clear and refill
                 // the local storage
                 courses.clear();
@@ -34,9 +40,11 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                             String name = s.child("name").getValue(String.class);
                             String code = s.child("code").getValue(String.class);
                             ArrayList<String> sessionalDates
-                                    = (ArrayList<String>) s.child("sessionalDates").getValue();
+                                    = (ArrayList<String>) s.child("sessionalDates")
+                                    .getValue(toStringList);
                             ArrayList<Course> prerequisites
-                                    = (ArrayList<Course>) s.child("prerequisites").getValue();
+                                    = (ArrayList<Course>) s.child("prerequisites")
+                                    .getValue(toCourseList);
                             Course course = new Course(name, code, sessionalDates, prerequisites);
                             courses.add(course);
                         });
