@@ -79,14 +79,16 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                 // if we get here, then there has been no error reading "uniqueVal" (ie the task
                 // was successful)
                 // first we read the "uniqueVal" value in the database
-                int un = task.getResult().getValue(Integer.class);
+                Integer uniqueVal = task.getResult().getValue(Integer.class);
 
                 // increment the uniqueVal value in the database so that it will be unique the
                 // next time we call it
-                ref.child("uniqueVal").setValue(un + 1);
+                if (uniqueVal != null) {
+                    ref.child("uniqueVal").setValue(uniqueVal + 1);
+                }
 
                 // now we can add the course with our new unique key
-                ref.child("courses").child(String.valueOf(un)).setValue(course);
+                ref.child("courses").child(String.valueOf(uniqueVal)).setValue(course);
                 /*
                 note: the above line MUST be inside this else{} statement so that we can add
                 the course to the database AFTER we read the uniqueVal value into un.
