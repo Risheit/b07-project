@@ -115,12 +115,13 @@ public class Course {
 
     public void setPrerequisites(List<Course> prerequisites) {
         ArrayList<Course> validPrerequisites = new ArrayList<>();
-        prerequisites.forEach(course -> {
-            if (validPrerequisite(course, 0)) {
-                validPrerequisites.add(course);
-            }
-        });
-
+        if (prerequisites != null) {
+            prerequisites.forEach(course -> {
+                if (validPrerequisite(course, 0)) {
+                    validPrerequisites.add(course);
+                }
+            });
+        }
         addCoursesThatRequire(validPrerequisites);
         this.prerequisites = validPrerequisites;
         notifyAllObservers();
