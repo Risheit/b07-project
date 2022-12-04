@@ -31,7 +31,7 @@ public class Course {
      * @param code is the course code
      * @param sessionalDates is an ArrayList of sessional dates for the course
      */
-    public Course(String name, String code, ArrayList<String> sessionalDates) {
+    public Course(String name, String code, List<String> sessionalDates) {
         this.name = name;
         this.code = code;
         this.sessionalDates = sessionalDates;
