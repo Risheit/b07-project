@@ -1,7 +1,5 @@
 package com.models;
 
-import android.util.Pair;
-
 import com.models.course.Course;
 import com.models.course.CourseDatabaseInterface;
 import com.models.users.User;

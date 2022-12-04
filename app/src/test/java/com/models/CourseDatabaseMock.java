@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 public class CourseDatabaseMock implements CourseDatabaseInterface {
     private List<Course> courses;
 
+    public CourseDatabaseMock() {
+        courses = new ArrayList<>();
+    }
+
     @Override
     public void addCourse(Course course) {
         if (!courses.contains(course)){

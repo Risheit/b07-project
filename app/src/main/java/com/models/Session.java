@@ -1,12 +1,9 @@
 package com.models;
 
-import android.util.Pair;
-
 import com.models.course.Course;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Session implements Comparable<Session>{
     private String season;
@@ -115,8 +112,7 @@ public class Session implements Comparable<Session>{
             newYear++;
         }
 
-        Pair<String, Integer> newSession = new Pair<>(newSeason, newYear);
-        return newSession;
+        return new Pair<>(newSeason, newYear);
     }
 
     @Override
@@ -132,9 +128,7 @@ public class Session implements Comparable<Session>{
         int sessionNum1 = year + seasonNum1;
         int sessionNum2 = year + seasonNum2;
 
-        if(sessionNum1 < sessionNum2)   {return -1;}
-        if(sessionNum1 == sessionNum2)   {return 0;}
-        else    {return 1;}
+        return Integer.compare(sessionNum1, sessionNum2);
     }
 
     public boolean anyCoursesInSession(List<Course> listOfCourses){
