@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -112,9 +111,9 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 for(String code: listOfPrerequisites){
                     if(courseDB.getCourse(code) == null){
-                        Toast.makeText(AddCourseActivity.this,
-                                "One or more of your prerequisite courses is not registered in " +
-                                        "the database. Addition cancelled", Toast.LENGTH_SHORT).show();
+                        ViewActions.displayErrorNotification(AddCourseActivity.this,
+                                "One or more of your prerequisite courses is not "
+                                        + "registered in the database. Addition cancelled");
                         allCoursesExist = false;
                         break;
                     }
@@ -140,13 +139,14 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 //Course new_course = new Course(course_code, name, ses_offer.split(","), prerequisites);
                 if(course_code.isEmpty() || ses_offer.isEmpty() || name.isEmpty()) {
-                    Toast.makeText(AddCourseActivity.this, "Please Enter All Possible Fields", Toast.LENGTH_SHORT).show();
+                    ViewActions.displayErrorNotification(AddCourseActivity.this,
+                            "Please Enter All Possible Fields");
                 }
 
                 //the course is already in the database
                 if(courseDB.getCourse(course_code) != null){
-                    Toast.makeText(AddCourseActivity.this,
-                            "Course already in database", Toast.LENGTH_SHORT).show();
+                    ViewActions.displayErrorNotification(AddCourseActivity.this,
+                            "Course already in database");
                 }
 
                 else if(courseDB.getCourse(course_code) == null) {

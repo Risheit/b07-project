@@ -6,6 +6,7 @@ import com.planner.MainActivity;
 import com.models.users.User;
 import com.models.users.UserLoginActions;
 import com.models.users.UserManagement;
+import com.planner.ViewActions;
 
 public class MainActivityPresenter {
 
@@ -22,7 +23,8 @@ public class MainActivityPresenter {
         String password = view.getPasswordInput().getText().toString();
 
         if (email.isEmpty() || password.isEmpty()) {
-            view.displayErrorNotification("Please Enter All Possible Fields");
+            ViewActions.displayErrorNotification(view,
+                    "Please Enter All Possible Fields");
         } else { // Attempt to Log In
             manager.login(email, password, new UserLoginActions() {
                 @Override
@@ -39,12 +41,12 @@ public class MainActivityPresenter {
 
                 @Override
                 public void incorrectPassword(User user) {
-                    view.displayErrorNotification("Incorrect Password");
+                    ViewActions.displayErrorNotification(view, "Incorrect Password");
                 }
 
                 @Override
                 public void invalidEmail() {
-                    view.displayErrorNotification("Invalid Email");
+                    ViewActions.displayErrorNotification(view, "Invalid Email");
                 }
             });
         }

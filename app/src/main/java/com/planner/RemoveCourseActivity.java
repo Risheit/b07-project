@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -47,15 +46,15 @@ public class RemoveCourseActivity extends AppCompatActivity{
             String courseCode = courseToRemove.getText().toString();
 
             if(courseCode.isEmpty()){
-                Toast.makeText(RemoveCourseActivity.this,
-                        "Please enter the course code", Toast.LENGTH_SHORT).show();
+                ViewActions.displayErrorNotification(RemoveCourseActivity.this,
+                        "Please enter the course code");
             }
 
             Course c =  courseDB.getCourse(courseCode);
 
             if(c == null){
-                Toast.makeText(RemoveCourseActivity.this,
-                        "Course not found in database", Toast.LENGTH_SHORT).show();
+                ViewActions.displayErrorNotification(RemoveCourseActivity.this,
+                        "Course not found in database");
             }
 
             else {

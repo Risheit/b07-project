@@ -4,6 +4,7 @@ import com.models.users.User;
 import com.models.users.UserDatabaseInterface;
 import com.models.users.UserManagement;
 import com.planner.SignUpActivity;
+import com.planner.ViewActions;
 
 public class SignUpActivityPresenter {
 
@@ -27,10 +28,10 @@ public class SignUpActivityPresenter {
 
         if (email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() ||
                 conPass.isEmpty()) {
-            view.displayErrorNotification("Please Enter All Fields");
+            ViewActions.displayErrorNotification(view,"Please Enter All Fields");
         } else {
             if (!password.equals(conPass)) {
-                view.displayErrorNotification("Passwords do not match");
+                ViewActions.displayErrorNotification(view, "Passwords do not match");
             } else {
                 manager.signupUser(new_user);
             }

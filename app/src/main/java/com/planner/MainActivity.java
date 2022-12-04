@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         courseDB = CourseDatabase.getInstance();
 
         super.onCreate(savedInstanceState);
-    
+
         presenter = new MainActivityPresenter(this, new UserDatabase(
                 "https://b07-project-e5893-default-rtdb.firebaseio.com/"
         ));
@@ -95,28 +94,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openStudentHomepage(String studentName) {
-        Intent intent = new Intent(MainActivity.this,
-                HomePageActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         intent.putExtra("name", studentName);
         startActivity(intent);
         finish();
     }
 
     public void openAdminHomepage(String adminName) {
-        Intent intent = new Intent(MainActivity.this,
-                AdminHomePageActivity.class);
+        Intent intent = new Intent(this, AdminHomePageActivity.class);
         intent.putExtra("name", adminName);
         startActivity(intent);
         finish();
     }
 
     public void openSignUpPage() {
-        startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-    }
-
-    public void displayErrorNotification(String errorName) {
-        Toast.makeText(MainActivity.this, errorName,
-                Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 
     public EditText getEmailInput() {

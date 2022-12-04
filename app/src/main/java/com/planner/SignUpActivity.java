@@ -1,28 +1,17 @@
 package com.planner;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.models.users.UserDatabase;
-import com.models.users.UserManagement;
 import com.planner.databinding.ActivitySignUpBinding;
-import com.models.users.User;
 import com.presenters.SignUpActivityPresenter;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -96,10 +85,5 @@ public class SignUpActivity extends AppCompatActivity {
 
     public EditText getConfirmPass() {
         return confirmPass;
-    }
-
-    public void displayErrorNotification(String errorName) {
-        Toast.makeText(SignUpActivity.this, errorName,
-                Toast.LENGTH_SHORT).show();
     }
 }
