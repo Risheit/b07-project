@@ -15,7 +15,7 @@ public class UserManagementTests {
 
     @Before
     public void setUp() {
-        dbMock = new DatabaseMock();
+        dbMock = new UserDatabaseMock();
         management = new UserManagement(dbMock);
 
         user1 = new User("Student", "Charles Mominjay", "charlesmj@gmail.com",
@@ -182,7 +182,7 @@ public class UserManagementTests {
         User user = new User("student", "test student", "newmail@mail.ca",
                 "abc123");
         management.signupUser(user);
-        assertEquals(user, ((DatabaseMock)dbMock).getUserSynchronous(user.getEmail()));
+        assertEquals(user, ((UserDatabaseMock)dbMock).getUserSynchronous(user.getEmail()));
     }
 
     @Test
@@ -190,6 +190,6 @@ public class UserManagementTests {
         User user = new User("student", "test student", user1.getEmail(),
                 "");
         management.signupUser(user);
-        assertNotEquals(user, ((DatabaseMock)dbMock).getUserSynchronous(user.getEmail()));
+        assertNotEquals(user, ((UserDatabaseMock)dbMock).getUserSynchronous(user.getEmail()));
     }
 }

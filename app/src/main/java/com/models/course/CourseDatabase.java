@@ -8,11 +8,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 final public class CourseDatabase implements CourseDatabaseInterface {
     private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
@@ -25,6 +26,11 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         ref.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GenericTypeIndicator<ArrayList<String>> toStringList
+                        = new GenericTypeIndicator<ArrayList<String>>(){};
+                GenericTypeIndicator<ArrayList<Course>> toCourseList
+                        = new GenericTypeIndicator<ArrayList<Course>>(){};
+
                 // if the courses object in the database changes in any way, clear and refill
                 // the local storage
                 courses.clear();
@@ -34,9 +40,11 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                             String name = s.child("name").getValue(String.class);
                             String code = s.child("code").getValue(String.class);
                             ArrayList<String> sessionalDates
-                                    = (ArrayList<String>) s.child("sessionalDates").getValue();
+                                    = (ArrayList<String>) s.child("sessionalDates")
+                                    .getValue(toStringList);
                             ArrayList<Course> prerequisites
-                                    = (ArrayList<Course>) s.child("prerequisites").getValue();
+                                    = (ArrayList<Course>) s.child("prerequisites")
+                                    .getValue(toCourseList);
                             Course course = new Course(name, code, sessionalDates, prerequisites);
                             courses.add(course);
                         });
@@ -71,14 +79,16 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                 // if we get here, then there has been no error reading "uniqueVal" (ie the task
                 // was successful)
                 // first we read the "uniqueVal" value in the database
-                int un = task.getResult().getValue(Integer.class);
+                Integer uniqueVal = task.getResult().getValue(Integer.class);
 
                 // increment the uniqueVal value in the database so that it will be unique the
                 // next time we call it
-                ref.child("uniqueVal").setValue(un + 1);
+                if (uniqueVal != null) {
+                    ref.child("uniqueVal").setValue(uniqueVal + 1);
+                }
 
                 // now we can add the course with our new unique key
-                ref.child("courses").child(String.valueOf(un)).setValue(course);
+                ref.child("courses").child(String.valueOf(uniqueVal)).setValue(course);
                 /*
                 note: the above line MUST be inside this else{} statement so that we can add
                 the course to the database AFTER we read the uniqueVal value into un.
@@ -146,4 +156,12 @@ final public class CourseDatabase implements CourseDatabaseInterface {
             }
         });
     }
+
+    @Override
+    public List<Course> getCourseListFromString(List<String> list) {
+        List<Course> returnList = new ArrayList<>();
+        list.forEach(code -> returnList.add(getCourse(code)));
+        return returnList;
+    }
+
 }

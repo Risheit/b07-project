@@ -1,5 +1,8 @@
 package com.models.course;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface CourseDatabaseInterface {
     /***
      * This method will add a course to the database
@@ -28,4 +31,7 @@ public interface CourseDatabaseInterface {
      * @param key is the key of the target course
      */
     void removeCourse(String key);
+
+    List<Course> getCourseListFromString(List<String> list);
+
 }
