@@ -19,9 +19,12 @@ public class CourseTests {
     public void setUp() {
 
         course1 = new Course("No Prereqs", "NOPREQ", null);
-        course2 = new Course("Prereq on NOPREQ", "1PREQ", null);
-        course3 = new Course("Prereq on 1PREQ", "1PREQ2", null);
-        course4 = new Course("Prereq on 1PREQ and 1PREQ2", "2PREQ", null);
+        course2 = new Course("Prereq on NOPREQ", "1PREQ", null,
+                Collections.singletonList(course1));
+        course3 = new Course("Prereq on 1PREQ", "1PREQ2", null,
+                Collections.singletonList(course2));
+        course4 = new Course("Prereq on 1PREQ and 1PREQ2", "2PREQ", null,
+                Arrays.asList(course2, course3));
     }
 
     @Test
@@ -34,8 +37,7 @@ public class CourseTests {
 
     @Test
     public void testNotAbleToHaveSelfAsPrerequisite() {
-        List<Course> expectedPrereqs = new ArrayList<>(course4.getPrerequisites());
         course4.setPrerequisites(Collections.singletonList(course4));
-        Assert.assertEquals(expectedPrereqs, course4.getPrerequisites());
+        Assert.assertEquals(new ArrayList<>(), course4.getPrerequisites());
     }
 }
