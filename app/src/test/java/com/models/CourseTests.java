@@ -17,17 +17,11 @@ public class CourseTests {
 
     @Before
     public void setUp() {
-//        db = new CourseDatabaseMock();
 
         course1 = new Course("No Prereqs", "NOPREQ", null);
         course2 = new Course("Prereq on NOPREQ", "1PREQ", null);
         course3 = new Course("Prereq on 1PREQ", "1PREQ2", null);
         course4 = new Course("Prereq on 1PREQ and 1PREQ2", "2PREQ", null);
-
-//        db.addCourse(course1);
-//        db.addCourse(course2);
-//        db.addCourse(course3);
-//        db.addCourse(course4);
     }
 
     @Test
