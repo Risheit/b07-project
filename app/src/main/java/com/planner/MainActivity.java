@@ -36,9 +36,6 @@ First9Fragment,Second --
 
 public class MainActivity extends AppCompatActivity implements ViewActions {
 
-    private AppBarConfiguration appBarConfiguration;
-    private NavController navController;
-
     private EditText emailInput;
     private EditText passwordInput;
 
@@ -88,12 +85,6 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 
     public EditText getEmailInput() {
