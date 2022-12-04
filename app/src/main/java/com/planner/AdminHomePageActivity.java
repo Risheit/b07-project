@@ -2,6 +2,7 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,9 +45,16 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
                 AdminHomePageActivity.this));
         deleteCourseButton.setOnClickListener(view -> openRemoveCoursePage(
                 AdminHomePageActivity.this));
-        editCourseButton.setOnClickListener(view -> openEditCoursePage(
-                AdminHomePageActivity.this));
+        //editCourseButton.setOnClickListener(view -> openEditCoursePage(
+         //       AdminHomePageActivity.this));
         signOutButton.setOnClickListener(view -> openLoginPage(AdminHomePageActivity.this));
+
+        editCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminHomePageActivity.this, EditCourseActivity.class));
+            }
+        });
     }
 
 

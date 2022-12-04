@@ -30,11 +30,12 @@ public class EditCourseActivity extends AppCompatActivity implements ViewActions
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         ActivityEditCourseBinding binding = ActivityEditCourseBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         Button backButton = (Button) findViewById(R.id.button10);
         Button doneButton = (Button) findViewById(R.id.button11);
-
-        setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 

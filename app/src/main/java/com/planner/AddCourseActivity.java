@@ -1,6 +1,8 @@
 package com.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -51,7 +53,15 @@ public class AddCourseActivity extends AppCompatActivity implements ViewActions 
         Button doneButton = (Button) findViewById(R.id.button8);
 
         // Setup Listeners
-        backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
+        //backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddCourseActivity.this, AdminHomePageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         doneButton.setOnClickListener(view -> presenter.onDoneButtonClicked());
     }
 
