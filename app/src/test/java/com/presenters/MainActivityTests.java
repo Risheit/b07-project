@@ -1,22 +1,18 @@
 package com.presenters;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.text.Editable;
-import android.view.View;
 import android.widget.EditText;
 
 import com.models.DatabaseMock;
 import com.models.users.User;
 import com.planner.MainActivity;
-import com.planner.ViewActions;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * MainActivity unit tests, which execute on the development machine (host).
