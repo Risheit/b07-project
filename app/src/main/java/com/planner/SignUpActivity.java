@@ -17,8 +17,6 @@ import com.presenters.SignUpPresenter;
 
 public class SignUpActivity extends AppCompatActivity implements ViewActions {
 
-    private AppBarConfiguration appBarConfiguration;
-    private NavController navController;
     private SignUpPresenter presenter;
 
     private EditText new_emailInput;
@@ -40,10 +38,6 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
 
         setSupportActionBar(binding.SignUpHeader);
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         new_emailInput = (EditText) findViewById(R.id.signUpInputEmail);
         first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);
         last_nameInput = (EditText) findViewById(R.id.SignInInputLastName);
@@ -56,12 +50,6 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
         // Setup Listeners
         backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
         signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 
     public EditText getNew_emailInput() {

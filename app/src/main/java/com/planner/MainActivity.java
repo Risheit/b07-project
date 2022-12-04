@@ -56,12 +56,6 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.SignUpHeader);
 
-        navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController,
-                appBarConfiguration);
-
         emailInput = findViewById(R.id.inputEmail2);
         passwordInput = findViewById(R.id.inputPassword2);
         Button logInButton = findViewById(R.id.logInButton3);
