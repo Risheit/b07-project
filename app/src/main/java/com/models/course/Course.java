@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Course {
     private String name;
@@ -114,11 +115,12 @@ public class Course {
 
     public void setPrerequisites(List<Course> prerequisites) {
         ArrayList<Course> validPrerequisites = new ArrayList<>();
-        for (int i = 0; i < prerequisites.size(); i++) {
-            if (validPrerequisite(prerequisites.get(i), 0)) {
-                validPrerequisites.add(prerequisites.get(i));
+        prerequisites.forEach(course -> {
+            if (validPrerequisite(course, 0)) {
+                validPrerequisites.add(course);
             }
-        }
+        });
+
         addCoursesThatRequire(validPrerequisites);
         this.prerequisites = validPrerequisites;
         notifyAllObservers();
