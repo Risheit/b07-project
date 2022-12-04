@@ -39,4 +39,8 @@ public class SignUpPresenter {
             }
         }
     }
+
+    public void onBackButtonClicked() {
+        view.openLoginPage(view);
+    }
 }

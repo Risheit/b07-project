@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RemoveCourse2Activity">
+    tools:context=".AddCourseActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,12 +15,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#ADD8E6"
-            app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
+            android:background="#00008B"
+            app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay"
+            app:title="Add Course" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_remove_course2" />
+    <include layout="@layout/content_add_course" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

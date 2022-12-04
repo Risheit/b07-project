@@ -1,22 +1,18 @@
 package com.presenters;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.text.Editable;
-import android.view.View;
 import android.widget.EditText;
 
 import com.models.DatabaseMock;
 import com.models.users.User;
 import com.planner.MainActivity;
-import com.planner.ViewActions;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * MainActivity unit tests, which execute on the development machine (host).
@@ -69,7 +65,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check that Student Page opened
-        verify(view).openStudentHomepage(user1.getName());
+        verify(view).openStudentHomepage(view, user1.getName());
     }
 
     @Test
@@ -81,7 +77,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check that Admin Page opened
-        verify(view).openAdminHomepage(user2.getName());
+        verify(view).openAdminHomepage(view, user2.getName());
     }
 
     @Test
@@ -125,6 +121,6 @@ public class MainActivityTests {
         presenter.onSignUpButtonClicked();
 
         // Check that Sign Up page opened
-        verify(view).openSignUpPage();
+        verify(view).openSignUpPage(view);
     }
 }

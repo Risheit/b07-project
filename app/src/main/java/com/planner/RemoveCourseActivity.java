@@ -2,6 +2,7 @@ package com.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -11,58 +12,81 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityRemoveCourseBinding;
-import com.models.course.Course;
 
 public class RemoveCourseActivity extends AppCompatActivity implements ViewActions {
 
+    private AppBarConfiguration appBarConfiguration;
+    private ActivityRemoveCourseBinding binding;
+    EditText courseToRemove;
+    Button backButton;
+    Button doneButton;
     CourseDatabase courseDB = CourseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_remove_course);
 
-        com.planner.databinding.ActivityRemoveCourseBinding binding = ActivityRemoveCourseBinding.inflate(getLayoutInflater());
+        binding = ActivityRemoveCourseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_course_list);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_remove_course2);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        backButton = (Button) findViewById(R.id.backButtonRemoveCourse);
+        courseToRemove = (EditText) findViewById(R.id.editTextTextPersonName12);
+        doneButton = (Button) findViewById(R.id.removeCourse2Button);
 
-        EditText courseToRemove = findViewById(R.id.CourseToRemove);
-        Button back = findViewById(R.id.BackButtonRemove);
-
-        back.setOnClickListener(view -> {
-            Intent intent = new Intent(RemoveCourseActivity.this, AdminHomePageActivity.class);
-            startActivity(intent);
-            finish();
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RemoveCourseActivity.this, AdminHomePageActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
-        Button DoneButton = findViewById(R.id.RemoveCourseButton);
-        DoneButton.setOnClickListener(view -> {
-            String courseCode = courseToRemove.getText().toString();
 
-            if(courseCode.isEmpty()){
-                displayErrorNotification(RemoveCourseActivity.this,
-                        "Please enter the course code");
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String courseCode = courseToRemove.getText().toString();
+
+                if(courseCode.isEmpty()){
+                    displayErrorNotification(RemoveCourseActivity.this,
+                            "Please enter the course code");
+                }
+
+                Course c =  courseDB.getCourse(courseCode);
+
+                if(null == c){
+                    displayErrorNotification(RemoveCourseActivity.this,
+                            "Course not found in database");
+                }
+
+                else {
+                    courseDB.removeCourse(courseCode);
+                    displayErrorNotification(RemoveCourseActivity.this,
+                            "Course removed");
+                    Intent intent1 = new Intent(RemoveCourseActivity.this, AdminHomePageActivity.class);
+                    startActivity(intent1);
+                    finish();
+                }
+
             }
-
-            Course c =  courseDB.getCourse(courseCode);
-
-            if(c == null){
-                displayErrorNotification(RemoveCourseActivity.this,
-                        "Course not found in database");
-            }
-
-            else {
-                courseDB.removeCourse(courseCode);
-            }
-
-            Intent intent1 = new Intent(RemoveCourseActivity.this, AdminHomePageActivity.class);
-            startActivity(intent1);
         });
+
+
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_remove_course2);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 }
