@@ -35,7 +35,7 @@ public class SignUpActivityPresenter {
                 ViewActions.displayErrorNotification(view, "Passwords do not match");
             } else {
                 manager.signupUser(new_user);
-                view.displayErrorNotification("User added, Please Log In");
+                ViewActions.displayErrorNotification(view,"User added, Please Log In");
             }
         }
     }
