@@ -13,7 +13,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 final public class CourseDatabase implements CourseDatabaseInterface {
     private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
@@ -156,4 +156,12 @@ final public class CourseDatabase implements CourseDatabaseInterface {
             }
         });
     }
+
+    @Override
+    public List<Course> getCourseListFromString(List<String> list) {
+        List<Course> returnList = new ArrayList<>();
+        list.forEach(code -> returnList.add(getCourse(code)));
+        return returnList;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.models.users;
 
 import com.models.course.Course;
 import com.models.course.CourseDatabase;
+import com.models.course.CourseDatabaseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,20 @@ public class User {
     public User() {
         courseCodesTaken = new ArrayList<>();
         courseCodesPlanned = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an instance of a User by deep copying values of the given user. No references
+     * to the original user are maintained.
+     * @param user the user to deep copy
+     */
+    public User(User user) {
+        this.type = user.type;
+        this.name = user.name;
+        this.email = user.email;
+        this.password = user.password;
+        this.courseCodesTaken = new ArrayList<>(courseCodesTaken);
+        this.courseCodesPlanned = new ArrayList<>(courseCodesPlanned);
     }
 
     /**
@@ -200,8 +215,8 @@ public class User {
      * @return List of String that a user is eligible to take and has not already taken
      */
 
-    public List<String> getTakeableCourses (CourseDatabase cd, List<Course> toCheck) {
-        ArrayList<String> takeableCourses = new ArrayList<>();
+    public List<Course> getTakeableCourses (CourseDatabaseInterface cd, List<Course> toCheck) {
+        ArrayList<Course> takeableCourses = new ArrayList<>();
 
         toCheck.forEach(course -> {
             boolean hasTakenPrerequisites = course.getPrerequisites().stream()
@@ -210,17 +225,11 @@ public class User {
             boolean hasTakenCourse = getCourseCodesTaken().contains(course.getCode());
 
             if (hasTakenPrerequisites && !hasTakenCourse) {
-                takeableCourses.add(course.getCode());
+                takeableCourses.add(course);
             }
 
         });
         return takeableCourses;
-    }
-
-    private static List<Course> getCourseListFromString(CourseDatabase cd, List<String> list) {
-        List<Course> returnList = new ArrayList<>();
-        list.forEach(code -> returnList.add(cd.getCourse(code)));
-        return returnList;
     }
 
     /**
@@ -230,8 +239,8 @@ public class User {
      * @return a List of Strings of course codes the user is eligible to take
      */
 
-    public List<String> getWantedCourseCodes (CourseDatabase cd) {
-        List<Course> courseList = getCourseListFromString(cd, getCourseCodesPlanned());
+    public List<Course> getWantedCourseCodes (CourseDatabaseInterface cd) {
+        List<Course> courseList = cd.getCourseListFromString(getCourseCodesPlanned());
         return getTakeableCourses(cd, courseList);
     }
 }
