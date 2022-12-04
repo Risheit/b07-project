@@ -29,11 +29,7 @@ First7Fragment,Second --
 First8Fragment,Second --
 First9Fragment,Second --
 
-UselessActivities:
-    - AddCourseActivity is useless -> Rename AddCourse2
-    - AdminActivity
-    - RemoveCourseActivity -> Rename RemoveCourse2
- */
+*/
 
 
 public class MainActivity extends AppCompatActivity implements ViewActions {
