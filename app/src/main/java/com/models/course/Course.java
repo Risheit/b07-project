@@ -2,9 +2,10 @@ package com.models.course;
 
 import androidx.annotation.NonNull;
 
+import com.models.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Course {
     private String name;

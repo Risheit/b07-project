@@ -1,10 +1,13 @@
 package com.models.course;
 
+import com.models.Observer;
+
 /***
  * Observer class only to be initiated after the prerequisite course has been already
  * and class that needs the prerequisite is also
  */
-public class PreRequisiteObserver extends Observer {
+public class PreRequisiteObserver implements Observer {
+    private final Course course;
     private final Course baseCourse; // no idea what to call this it's what requires the prerequisite
     private final int courseIndx;
 
