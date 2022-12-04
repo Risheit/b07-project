@@ -13,9 +13,9 @@ public class Session implements Comparable<Session>{
     private int year;
     private List<Course> sessionCourses;
 
-    public static String fall = "Fall";
-    public static String winter = "Winter";
-    public static String summer = "Summer";
+    public static final String fall = "Fall";
+    public static final String winter = "Winter";
+    public static final String summer = "Summer";
 
     public Session(String season, int year, List<Course> sessionCourses){
         this.season = season;
