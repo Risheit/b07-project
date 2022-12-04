@@ -45,9 +45,9 @@ public class CourseListAdd extends AppCompatActivity implements ViewActions {
 
         // fill the noteListArrayList with every course code that has not been taken by the current user
         ArrayList<String> noteListArrayList = new ArrayList<>();
-        for(int i = 0; i < courseDB.courses.size(); i++) {
-            if(!MainActivity.currentUser.getCourseCodesTaken().contains(courseDB.courses.get(i).getCode()))
-                noteListArrayList.add(courseDB.courses.get(i).getCode());
+        for(int i = 0; i < courseDB.getCourses().size(); i++) {
+            if(!MainActivity.currentUser.getCourseCodesTaken().contains(courseDB.getCourses().get(i).getCode()))
+                noteListArrayList.add(courseDB.getCourses().get(i).getCode());
         }
         // then turn that into an array so we can pass it into the adapter
         noteList = noteListArrayList.toArray(new String[0]);
