@@ -6,6 +6,7 @@ import com.models.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Timeline {
     private final List<Session> timeline;
@@ -25,59 +26,38 @@ public class Timeline {
         user.getCourseCodesTaken().forEach(copy::addTakenCourse);
 
         Timeline timeline = new Timeline();
-
-        // Add all planned course prerequisites to the user's list of courses
-        planAllNeededCoursePrerequisites(copy, cd);
-
-        while (!copy.getCourseCodesPlanned().isEmpty()) {
-            copy.getWantedCourseCodes(cd).forEach(course -> {
-                timeline.placeCourseOnTimeline(course);
-                copy.removePlannedCourse(course.getCode());
-                copy.addTakenCourse(course.getCode());
-            });
-        }
+        List<Course> takenCourses = cd.getCourseListFromString(copy.getCourseCodesTaken());
+        user.getCourseCodesPlanned().forEach(code -> {
+                if (!user.getCourseCodesTaken().contains(code)) {
+                    timeline.placeCourseOnTimeline(takenCourses, cd.getCourse(code));
+                }
+        });
 
         return timeline;
     }
 
-    private static void planAllNeededCoursePrerequisites(User user, CourseDatabaseInterface cd) {
-        user.getCourseCodesPlanned().forEach(courseCode -> {
-            List<Course> prerequisiteList = getFullPrerequisiteList(cd.getCourse(courseCode));
-
-            prerequisiteList.stream()
-                    .filter(course ->!user.getCourseCodesTaken().contains(course.getCode()))
-                    .forEach(course -> user.addPlannedCourse(course.getCode()));
-        });
-    }
-
-    private static List<Course> getFullPrerequisiteList(Course course) {
-        List<Course> prerequisiteList = new ArrayList<>(course.getPrerequisites());
-        prerequisiteList.forEach(prerequisite ->
-                prerequisiteList.addAll(getFullPrerequisiteList(prerequisite)));
-        return prerequisiteList;
-    }
-
-    public void placeCourseOnTimeline(Course coursePlanned) {
+    public void placeCourseOnTimeline(List<Course> takenCourses, Course coursePlanned) {
         List<Course> prereqs = coursePlanned.getPrerequisites();
         List<String> seasonsAllowed = coursePlanned.getSessionalDates();
 
-        Pair<String, Integer> i = Session.getCurrentSession();
-        Session iSession = findSessionByName(i.first, i.second);
-
-        if (this.containsCourse(coursePlanned)) {
+        if (this.containsCourse(coursePlanned) || takenCourses.contains(coursePlanned)) {
             return;
         }
 
-        do {
+        coursePlanned.getPrerequisites()
+                .forEach(prerequisite -> placeCourseOnTimeline(takenCourses, prerequisite));
+
+        Pair<String, Integer> i = Session.getCurrentSession();
+        while (true) {
+            Session iSession = findSessionByName(i.first, i.second);
             if ((iSession != null && iSession.anyCoursesInSession(prereqs))
                 || !seasonsAllowed.contains(i.first)) {
                 i = Session.moveToNextSession(i);
-                iSession = findSessionByName(i.first, i.second);
             } else {
                 addToSession(i.first, i.second, coursePlanned);
                 break;
             }
-        } while (true);
+        }
     }
 
     /**
