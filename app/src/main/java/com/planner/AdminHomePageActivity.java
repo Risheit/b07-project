@@ -22,6 +22,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
     Button addCourseButton;
     Button deleteCourseButton;
     Button editCourseButton;
+    Button signOutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class AdminHomePageActivity extends AppCompatActivity {
         addCourseButton = (Button) findViewById(R.id.AddCourseButton);
         deleteCourseButton = (Button) findViewById(R.id.DeleteCourseButton);
         editCourseButton = (Button) findViewById(R.id.button12);
+        signOutButton = (Button) findViewById(R.id.button13);
 
         Intent intent = getIntent();
 
@@ -72,8 +74,16 @@ public class AdminHomePageActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(AdminHomePageActivity.this, MainActivity.class);
+                startActivity(intent3);
+                finish();
+            }
+        });
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
