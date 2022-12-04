@@ -93,17 +93,6 @@ public class Session implements Comparable<Session>{
         return new Pair<>(fall, 2023);
     }
 
-    /*
-    public void moveToNextSession(){
-        if(season.equals(winter))   {setSeason(summer);}
-        if(season.equals(summer))   {setSeason(fall);}
-        else{
-            setSeason(winter);
-            setYear(year+1);
-        }
-    }
-     */
-
     public static Pair<String, Integer> moveToNextSession(Pair<String, Integer> sessionDate){
         String newSeason = sessionDate.first;
         int newYear = sessionDate.second;
