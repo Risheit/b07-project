@@ -54,7 +54,7 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdminHomePageActivity.this, AddCourse2Activity.class);
+                Intent intent = new Intent(AdminHomePageActivity.this, AddCourseActivity.class);
                 startActivity(intent);
                 finish();
             }
