@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Course {
     private String name;
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
+    private final List<Course> requiresThisCourse;
     private final List<Observer> observers;
 
     /***
@@ -25,7 +25,9 @@ public class Course {
         this.code = code;
         this.sessionalDates = sessionalDates;
         this.prerequisites = prerequisites;
+        requiresThisCourse = new ArrayList<>();
         observers = new ArrayList<>();
+        setPrerequisites(prerequisites);
     }
 
     /***
@@ -39,6 +41,7 @@ public class Course {
         this.code = code;
         this.sessionalDates = sessionalDates;
         this.prerequisites = new ArrayList<>();
+        requiresThisCourse = new ArrayList<>();
         observers = new ArrayList<>();
     }
 
@@ -50,6 +53,7 @@ public class Course {
         this.code = "";
         this.sessionalDates = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
+        requiresThisCourse = new ArrayList<>();
         observers = new ArrayList<>();
     }
 
@@ -84,8 +88,39 @@ public class Course {
         return prerequisites;
     }
 
-    public void setPrerequisites(ArrayList<Course> prerequisites) {
-        this.prerequisites = prerequisites;
+    private void addCoursesThatRequire(List<Course> courseList) {
+        for (int i = 0; i < courseList.size(); i++) {
+            courseList.get(i).requiresThisCourse.add(this);
+        }
+    }
+
+    /***
+     * Recursive function to check that a course doesn't circularly add a prerequisite
+     * @param toCheckCourse the prerequisite to check which shouldn't already exist
+     * @param indx should be 0 when this method is called
+     * @return true if the prerequisite is not circular, false if it is
+     */
+    private boolean validPrerequisite(Course toCheckCourse, int indx) {
+        if (this.code.equals(toCheckCourse.code)) {
+            return false;
+        }
+        if (requiresThisCourse.size() > 0) {
+            return requiresThisCourse.get(indx).validPrerequisite(toCheckCourse, indx++);
+        }
+
+
+        return true;
+    }
+
+    public void setPrerequisites(List<Course> prerequisites) {
+        ArrayList<Course> validPrerequisites = new ArrayList<>();
+        for (int i = 0; i < prerequisites.size(); i++) {
+            if (validPrerequisite(prerequisites.get(i), 0)) {
+                validPrerequisites.add(prerequisites.get(i));
+            }
+        }
+        addCoursesThatRequire(validPrerequisites);
+        this.prerequisites = validPrerequisites;
         notifyAllObservers();
     }
 
