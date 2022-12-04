@@ -6,37 +6,55 @@ import android.content.Intent;
 import android.widget.Toast;
 
 public interface ViewActions {
-    default void displayNotification(Context callingActivity, String errorName) {
-        Toast.makeText(callingActivity, errorName,
+    default void displayNotification(Context caller, String errorName) {
+        Toast.makeText(caller, errorName,
                 Toast.LENGTH_SHORT).show();
     }
 
-    default void displayErrorNotification(Context callingActivity, String errorName) {
-        displayNotification(callingActivity, errorName);
+    default void displayErrorNotification(Context caller, String errorName) {
+        displayNotification(caller, errorName);
     }
 
-    default void openStudentHomepage(Activity callingActivity, String studentName) {
-        Intent intent = new Intent(callingActivity, HomePageActivity.class);
+    default void openStudentHomepage(Activity caller, String studentName) {
+        Intent intent = new Intent(caller, HomePageActivity.class);
         intent.putExtra("name", studentName);
-        callingActivity.startActivity(intent);
-        callingActivity.finish();
+        caller.startActivity(intent);
+        caller.finish();
     }
 
-    default void openAdminHomepage(Activity callingActivity, String adminName) {
-        Intent intent = new Intent(callingActivity, AdminHomePageActivity.class);
+    default void openAdminHomepage(Activity caller, String adminName) {
+        Intent intent = new Intent(caller, AdminHomePageActivity.class);
         intent.putExtra("name", adminName);
-        callingActivity.startActivity(intent);
-        callingActivity.finish();
+        caller.startActivity(intent);
+        caller.finish();
     }
 
-    default void openSignUpPage(Activity callingActivity) {
-        callingActivity.startActivity(new Intent(callingActivity, SignUpActivity.class));
-        callingActivity.finish();
+    default void openSignUpPage(Activity caller) {
+        caller.startActivity(new Intent(caller, SignUpActivity.class));
+        caller.finish();
     }
 
-    default void openLoginPage(Activity callingActivity) {
-        Intent intent1 = new Intent(callingActivity, MainActivity.class);
-        callingActivity.startActivity(intent1);
-        callingActivity.finish();
+    default void openLoginPage(Activity caller) {
+        Intent intent1 = new Intent(caller, MainActivity.class);
+        caller.startActivity(intent1);
+        caller.finish();
+    }
+
+    default void openAddCoursePage(Activity caller) {
+        Intent intent = new Intent(caller, AddCourseActivity.class);
+        caller.startActivity(intent);
+        caller.finish();
+    }
+
+    default void openRemoveCoursePage(Activity caller) {
+        Intent intent = new Intent(caller, RemoveCourseActivity.class);
+        caller.startActivity(intent);
+        caller.finish();
+    }
+
+    default void openEditCoursePage(Activity caller) {
+        Intent intent = new Intent(caller, EditCourseActivity.class);
+        caller.startActivity(intent);
+        caller.finish();
     }
 }
