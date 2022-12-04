@@ -37,6 +37,7 @@ UselessActivities:
 
 
 public class MainActivity extends AppCompatActivity implements ViewActions {
+
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
 
