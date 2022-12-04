@@ -16,11 +16,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#ADD8E6"
+            android:background="@color/userDark"
             app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
 
   </com.google.android.material.appbar.AppBarLayout>
 
-  <include layout="@layout/content_edit_course2"/>
+    <include
+        layout="@layout/content_edit_course2"
+        android:layout_height="732dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

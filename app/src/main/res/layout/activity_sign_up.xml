@@ -15,7 +15,7 @@
             android:id="@+id/SignUpHeader"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#00008B"
+            android:background="@color/userDark"
             android:visibility="gone"
             app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay"
             tools:layout_height="0" />

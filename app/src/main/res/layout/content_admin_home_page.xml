@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="@color/adminLight"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <fragment
@@ -26,17 +26,18 @@
         android:layout_width="248dp"
         android:layout_height="206dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="80dp"
-        android:text="WELCOME ADMIN"
+        android:text="Welcome Admin"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_content_admin_home_page"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/AddCourseButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/adminDark"
         android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/adminDark"
         android:text="Remove Course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -61,7 +62,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/adminDark"
         android:text="Edit Course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -71,12 +72,12 @@
     <TextView
         android:id="@+id/textView38"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00008B"
-        android:text="ADMIN HOME PAGE"
+        android:layout_height="93dp"
+        android:background="@color/adminDark"
+        android:text="ADMIN HOME"
         android:textAlignment="center"
         android:textColor="#F8F7F7"
-        android:textSize="40sp"
+        android:textSize="65sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,10 +86,12 @@
         android:id="@+id/button13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/adminDark"
         android:text="Sign Out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_content_admin_home_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_content_admin_home_page"
+        app:layout_constraintTop_toBottomOf="@+id/textView38"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

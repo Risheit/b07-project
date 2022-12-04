@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="@color/userLight"
     tools:context=".SecondFragment">
 
     <TextView
@@ -20,8 +20,8 @@
         android:id="@+id/button_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#00008b"
-        android:backgroundTint="#00008B"
+        android:background="@color/userDark"
+        android:backgroundTint="@color/userDark"
         android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
