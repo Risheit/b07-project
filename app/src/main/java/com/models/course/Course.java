@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Course {
     private String name;
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
-    private List<Course> requiresThisCourse;
+    private final List<Course> requiresThisCourse;
     private final List<Observer> observers;
 
     /***
@@ -109,7 +108,7 @@ public class Course {
         return true;
     }
 
-    public void setPrerequisites(ArrayList<Course> prerequisites) {
+    public void setPrerequisites(List<Course> prerequisites) {
         ArrayList<Course> validPrerequisites = new ArrayList<>();
         for (int i = 0; i < prerequisites.size(); i++) {
             if (validPrerequisite(prerequisites.get(i), 0)) {
