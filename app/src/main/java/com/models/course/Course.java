@@ -2,8 +2,6 @@ package com.models.course;
 
 import androidx.annotation.NonNull;
 
-import com.models.Observer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,6 @@ public class Course {
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
-    private final List<Observer> observers;
 
     /***
      * Default constructor for Course object
@@ -26,7 +23,6 @@ public class Course {
         this.code = code;
         this.sessionalDates = sessionalDates;
         this.prerequisites = prerequisites;
-        observers = new ArrayList<>();
     }
 
     /***
@@ -40,7 +36,6 @@ public class Course {
         this.code = code;
         this.sessionalDates = sessionalDates;
         this.prerequisites = new ArrayList<>();
-        observers = new ArrayList<>();
     }
 
     /***
@@ -51,7 +46,6 @@ public class Course {
         this.code = "";
         this.sessionalDates = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
-        observers = new ArrayList<>();
     }
 
     public String getName() {
@@ -60,7 +54,6 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
-        notifyAllObservers();
     }
 
     public String getCode() {
@@ -69,7 +62,6 @@ public class Course {
 
     public void setCode(String code) {
         this.code = code;
-        notifyAllObservers();
     }
 
     public List<String> getSessionalDates() {
@@ -78,7 +70,6 @@ public class Course {
 
     public void setSessionalDates(ArrayList<String> sessionalDates) {
         this.sessionalDates = sessionalDates;
-        notifyAllObservers();
     }
 
     public List<Course> getPrerequisites() {
@@ -87,21 +78,10 @@ public class Course {
 
     public void setPrerequisites(ArrayList<Course> prerequisites) {
         this.prerequisites = prerequisites;
-        notifyAllObservers();
-    }
-
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
     }
 
     /***
-     * Copies all of the course data from one course to another, not including observers
+     * Copies all of the course data from one course to another.
      * @param course is the course to copy data from
      */
     public void copyCourseData(Course course) {
