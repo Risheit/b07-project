@@ -16,8 +16,9 @@ import com.planner.databinding.ActivitySignUpBinding;
 import com.presenters.SignUpPresenter;
 
 public class SignUpActivity extends AppCompatActivity implements ViewActions {
-    private AppBarConfiguration appBarConfiguration;
 
+    private AppBarConfiguration appBarConfiguration;
+    private NavController navController;
     private SignUpPresenter presenter;
 
     private EditText new_emailInput;
@@ -41,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
 
         setSupportActionBar(binding.SignUpHeader);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -61,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_sign_up);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
