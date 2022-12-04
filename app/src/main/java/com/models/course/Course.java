@@ -27,6 +27,7 @@ public class Course {
         this.prerequisites = prerequisites;
         requiresThisCourse = new ArrayList<>();
         observers = new ArrayList<>();
+        setPrerequisites(prerequisites);
     }
 
     /***
@@ -103,7 +104,10 @@ public class Course {
         if (this.code.equals(toCheckCourse.code)) {
             return false;
         }
-        requiresThisCourse.get(indx).validPrerequisite(toCheckCourse, indx++);
+        if (requiresThisCourse.size() > 0) {
+            return requiresThisCourse.get(indx).validPrerequisite(toCheckCourse, indx++);
+        }
+
 
         return true;
     }
