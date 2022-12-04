@@ -105,9 +105,11 @@ public class Session implements Comparable<Session>{
         String newSeason = sessionDate.first;
         int newYear = sessionDate.second;
 
-        if(newSeason.equals(winter))   {newSeason = summer;}
-        if(newSeason.equals(summer))   {newSeason = fall;}
-        else{
+        if (newSeason.equals(winter)) {
+            newSeason = summer;
+        } else if (newSeason.equals(summer)) {
+            newSeason = fall;
+        } else {
             newSeason = winter;
             newYear++;
         }
