@@ -25,8 +25,11 @@
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#00008B"
         android:text="Back"
+        app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_content_edit_course2"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

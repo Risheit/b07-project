@@ -1,6 +1,8 @@
 package com.planner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.models.course.CourseDatabase;
+import com.planner.databinding.ActivityCourseListBinding;
+import com.planner.databinding.ActivityCourseTimelineAddBinding;
 
 import java.util.ArrayList;
 
 public class CourseTimelineAdd extends AppCompatActivity implements ViewActions {
 
+    private ActivityCourseTimelineAddBinding binding;
     Button backButton;
     Button generateButton;
 
@@ -30,7 +35,12 @@ public class CourseTimelineAdd extends AppCompatActivity implements ViewActions 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_timeline_add);
 
+        //binding = ActivityCourseTimelineAddBinding.inflate(getLayoutInflater());
+        //setContentView(binding.getRoot());
+
         backButton = (Button) findViewById(R.id.button13);
+
+        getSupportActionBar().hide();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

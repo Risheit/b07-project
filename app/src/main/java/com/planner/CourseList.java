@@ -39,12 +39,11 @@ public class CourseList extends AppCompatActivity implements ViewActions {
 
         binding = ActivityCourseListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        noteList = MainActivity.currentUser.getCourseCodesTaken().toArray(new String[0]);
-
-        setSupportActionBar(binding.toolbar);
+        setSupportActionBar(binding.listHeader);
         final NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_course_list);
         final NavController navController = navHostFragment.getNavController();
+
+        noteList = MainActivity.currentUser.getCourseCodesTaken().toArray(new String[0]);
 /*
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_course_list);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
