@@ -21,6 +21,7 @@ public class Timeline {
     }
 
     public static Timeline makeTimeline(User user, CourseDatabaseInterface cd) {
+        // Copy user
         User copy = new User(user.getType(), user.getName(), user.getEmail(), user.getPassword());
         user.getCourseCodesPlanned().forEach(copy::addPlannedCourse);
         user.getCourseCodesTaken().forEach(copy::addTakenCourse);
@@ -66,7 +67,7 @@ public class Timeline {
      * @return True iff the the timeline contains the course.
      */
 
-    private boolean containsCourse(Course course) {
+    public boolean containsCourse(Course course) {
         return timeline.stream().anyMatch(session -> session.getSessionCourses().contains(course));
     }
 
