@@ -13,12 +13,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
-import com.presenters.SignUpActivityPresenter;
+import com.presenters.SignUpPresenter;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements ViewActions {
     private AppBarConfiguration appBarConfiguration;
 
-    private SignUpActivityPresenter presenter;
+    private SignUpPresenter presenter;
 
     private EditText new_emailInput;
     private EditText first_nameInput;
@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new SignUpActivityPresenter(this, new UserDatabase(
+        presenter = new SignUpPresenter(this, new UserDatabase(
                 "https://b07-project-e5893-default-rtdb.firebaseio.com/"
         ));
 

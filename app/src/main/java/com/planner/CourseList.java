@@ -21,7 +21,7 @@ import com.planner.databinding.ActivityCourseListBinding;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class CourseList extends AppCompatActivity {
+public class CourseList extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityCourseListBinding binding;

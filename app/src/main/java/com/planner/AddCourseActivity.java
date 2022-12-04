@@ -21,7 +21,7 @@ import com.models.course.Course;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AddCourseActivity extends AppCompatActivity {
+public class AddCourseActivity extends AppCompatActivity implements ViewActions {
     DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
     private ActivitySignUpBinding binding;
@@ -111,7 +111,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 for(String code: listOfPrerequisites){
                     if(courseDB.getCourse(code) == null){
-                        ViewActions.displayErrorNotification(AddCourseActivity.this,
+                        displayErrorNotification(AddCourseActivity.this,
                                 "One or more of your prerequisite courses is not "
                                         + "registered in the database. Addition cancelled");
                         allCoursesExist = false;
@@ -139,13 +139,13 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 //Course new_course = new Course(course_code, name, ses_offer.split(","), prerequisites);
                 if(course_code.isEmpty() || ses_offer.isEmpty() || name.isEmpty()) {
-                    ViewActions.displayErrorNotification(AddCourseActivity.this,
+                    displayErrorNotification(AddCourseActivity.this,
                             "Please Enter All Possible Fields");
                 }
 
                 //the course is already in the database
                 if(courseDB.getCourse(course_code) != null){
-                    ViewActions.displayErrorNotification(AddCourseActivity.this,
+                    displayErrorNotification(AddCourseActivity.this,
                             "Course already in database");
                 }
 

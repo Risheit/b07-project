@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PrereqListViewActivity extends AppCompatActivity {
+public class PrereqListViewActivity extends AppCompatActivity implements ViewActions {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

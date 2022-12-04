@@ -1,18 +1,22 @@
 package com.presenters;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.text.Editable;
+import android.view.View;
 import android.widget.EditText;
 
 import com.models.DatabaseMock;
 import com.models.users.User;
 import com.planner.MainActivity;
+import com.planner.ViewActions;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * MainActivity unit tests, which execute on the development machine (host).
@@ -21,7 +25,7 @@ import org.junit.Test;
  */
 public class MainActivityTests {
     private MainActivity view;
-    private MainActivityPresenter presenter;
+    private MainPresenter presenter;
 
     private Editable emailReturn;
     private Editable passwordReturn;
@@ -35,11 +39,11 @@ public class MainActivityTests {
         EditText emailInput = mock(EditText.class);
         EditText passwordInput = mock(EditText.class);
 
-        view = mock(MainActivity.class);
         emailReturn = mock(Editable.class);
         passwordReturn = mock(Editable.class);
 
-        presenter = new MainActivityPresenter(view, model);
+        view = mock(MainActivity.class);
+        presenter = new MainPresenter(view, model);
 
         user1 = new User("Student", "Charles Mominjay", "charlesmj@gmail.com",
                 "password123");
@@ -89,7 +93,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check Error displayed
-        verify(view).displayErrorNotification("Invalid Email");
+        verify(view).displayErrorNotification(view, "Invalid Email");
     }
 
     @Test
@@ -101,7 +105,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check Error displayed
-        verify(view).displayErrorNotification("Incorrect Password");
+        verify(view).displayErrorNotification(view,"Incorrect Password");
     }
 
     @Test
@@ -113,7 +117,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check Error displayed
-        verify(view).displayErrorNotification("Please Enter All Possible Fields");
+        verify(view).displayErrorNotification(view,"Please Enter All Possible Fields");
     }
 
     @Test

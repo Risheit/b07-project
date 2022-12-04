@@ -20,24 +20,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class AddCourse2Activity extends AppCompatActivity {
+public class AddCourse2Activity extends AppCompatActivity implements ViewActions {
 
-    EditText nameInput;
-    EditText course_codeInput;
-    EditText ses_offerInput;
-    EditText prereqInput;
-    Button BackButton;
-    Button DoneButton;
-    String name, ses_offer, prerequisite, course_code;
+    private EditText nameInput;
+    private EditText course_codeInput;
+    private EditText ses_offerInput;
+    private EditText prereqInput;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityAddCourse2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CourseDatabase courseDB = CourseDatabase.getInstance();
-
         super.onCreate(savedInstanceState);
+
+        CourseDatabase courseDB = CourseDatabase.getInstance();
 
         binding = ActivityAddCourse2Binding.inflate(getLayoutInflater());
 
@@ -53,26 +50,23 @@ public class AddCourse2Activity extends AppCompatActivity {
         course_codeInput = (EditText) findViewById(R.id.editTextTextPersonName14);
         ses_offerInput = (EditText) findViewById(R.id.editTextTextPersonName15);
         prereqInput = (EditText) findViewById(R.id.editTextTextPersonName16);
-        BackButton = (Button) findViewById(R.id.button7);
-        DoneButton = (Button) findViewById(R.id.button8);
+        Button backButton = (Button) findViewById(R.id.button7);
+        Button doneButton = (Button) findViewById(R.id.button8);
 
-        BackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddCourse2Activity.this, AdminHomePageActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AddCourse2Activity.this, AdminHomePageActivity.class);
+            startActivity(intent);
+            finish();
         });
 
-        DoneButton.setOnClickListener(new View.OnClickListener() {
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                course_code = course_codeInput.getText().toString();
-                name = nameInput.getText().toString();
+                String course_code = course_codeInput.getText().toString();
+                String name = nameInput.getText().toString();
 
                 //have the different session offerings be split by a comma
-                ses_offer = ses_offerInput.getText().toString();
+                String ses_offer = ses_offerInput.getText().toString();
                 //creates an array of strings separated by comma
                 //ses_offer.split(",") returns an array of strings, which is what the Course constructor needs?
 
@@ -87,9 +81,9 @@ public class AddCourse2Activity extends AppCompatActivity {
 
                 //prerequisite = prereqInput.getText().toString();
 
-                prerequisite = prereqInput.getText().toString();
+                String prerequisite = prereqInput.getText().toString();
                 if(course_code.isEmpty() || ses_offer.isEmpty() || name.isEmpty()) {
-                    ViewActions.displayErrorNotification(
+                    displayErrorNotification(
                             AddCourse2Activity.this,
                             "Please Enter All Possible Fields");
                 }else{
@@ -109,7 +103,7 @@ public class AddCourse2Activity extends AppCompatActivity {
 
                     for(String code: listOfPrerequisites){
                         if(null == courseDB.getCourse(code) && !code.equals("")){
-                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                            displayErrorNotification(AddCourse2Activity.this,
                                     "One or more of your prerequisite courses is not " +
                                             "registered in the database. Addition cancelled");
                             allCoursesExist = false;
@@ -138,14 +132,14 @@ public class AddCourse2Activity extends AppCompatActivity {
 
                         //the course is already in the database
                         if(courseDB.getCourse(course_code) != null){
-                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                            displayErrorNotification(AddCourse2Activity.this,
                                     "Course already in database");
                         }
 
                         else if(courseDB.getCourse(course_code) == null) {
                             //add the course to the database
                             courseDB.addCourse(new_course);
-                            ViewActions.displayErrorNotification(AddCourse2Activity.this,
+                            displayErrorNotification(AddCourse2Activity.this,
                                     "Course Added");
 
                         }
