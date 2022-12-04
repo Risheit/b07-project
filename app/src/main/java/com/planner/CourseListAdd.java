@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class CourseListAdd extends AppCompatActivity {
     Button backButton;
 
+    CourseDatabase courseDB = CourseDatabase.getInstance();
+
     // Listview
     ListView listView;
-
-    CourseDatabase courseDB = CourseDatabase.getInstance();
     String[] noteList;
 
     @Override

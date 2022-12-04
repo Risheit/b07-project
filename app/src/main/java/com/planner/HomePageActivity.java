@@ -92,7 +92,7 @@ public class HomePageActivity extends AppCompatActivity {
         courseTimelineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(HomePageActivity.this, CourseTimelineActivity.class);
+                Intent intent2 = new Intent(HomePageActivity.this, CourseTimelineAdd.class);
                 startActivity(intent2);
                 finish();
             }

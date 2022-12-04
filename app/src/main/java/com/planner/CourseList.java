@@ -19,7 +19,6 @@ import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseListBinding;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class CourseList extends AppCompatActivity {
 
