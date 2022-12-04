@@ -192,53 +192,46 @@ public class User {
         return courseCodesPlanned.remove(courseCode);
     }
 
-    /***
+    /**
      * Returns a List of Strings that contains the course codes of courses that a user
      * has the necessary prerequisites to take.
      * @param cd is the CourseDatabase
-     * @param currentUser is the currentUser
-     * @param toCheck is the List of courses to check user eligibility
+     * @param toCheck is the List of courses that will be checked against to check user eligibility
      * @return List of String that a user is eligible to take and has not already taken
      */
-    public static List<String> getTakeableCourses (CourseDatabase cd, User currentUser,
-                                                   List<Course> toCheck) {
+
+    public List<String> getTakeableCourses (CourseDatabase cd, List<Course> toCheck) {
         ArrayList<String> takeableCourses = new ArrayList<>();
-        boolean takeable;
-        for (int i = 0; i < cd.courses.size(); i++) {
-            takeable = true;
-            ArrayList<Course> currentPreRequisites = new ArrayList<>(toCheck.get(i).getPrerequisites());
-            for (int j = 0; j < currentPreRequisites.size(); j++) {
-                if (!currentUser.getCourseCodesTaken().contains(currentPreRequisites.get(j).getCode())
-                        || currentUser.getCourseCodesTaken().contains(toCheck.get(i).getCode())) {
-                    // user does is not eligible to take this course
-                    takeable = false;
-                }
+
+        toCheck.forEach(course -> {
+            boolean hasTakenPrerequisites = course.getPrerequisites().stream()
+                    .allMatch(prerequisite ->
+                            getCourseCodesTaken().contains(prerequisite.getCode()));
+            boolean hasTakenCourse = getCourseCodesTaken().contains(course.getCode());
+
+            if (hasTakenPrerequisites && !hasTakenCourse) {
+                takeableCourses.add(course.getCode());
             }
-            if (takeable) {
-                takeableCourses.add(cd.courses.get(i).getCode());
-            }
-        }
+
+        });
         return takeableCourses;
     }
 
-    private static List<Course> getListFromString(CourseDatabase cd, List<String> list) {
-        ArrayList<Course> returnList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            returnList.add(cd.getCourse(list.get(i)));
-        }
+    private static List<Course> getCourseListFromString(CourseDatabase cd, List<String> list) {
+        List<Course> returnList = new ArrayList<>();
+        list.forEach(code -> returnList.add(cd.getCourse(code)));
         return returnList;
     }
 
-    /***
-     * Returns a List of course code Strings corresponding to the currentUser's list of courses
-     * planning to take.
+    /**
+     * Returns a List of course code Strings corresponding to the user's list of courses
+     * planned to take.
      * @param cd is the CourseDatabase
-     * @param currentUser is the user who's courses planning to take are to be used
      * @return a List of Strings of course codes the user is eligible to take
      */
-    public static List<String> getWantedCourseCodes (CourseDatabase cd, User currentUser) {
-        ArrayList<Course> courseList = new ArrayList<>(getListFromString(cd,
-                currentUser.getCourseCodesPlanned()));
-        return getTakeableCourses(cd, currentUser, courseList);
+
+    public List<String> getWantedCourseCodes (CourseDatabase cd) {
+        List<Course> courseList = getCourseListFromString(cd, getCourseCodesPlanned());
+        return getTakeableCourses(cd, courseList);
     }
 }
