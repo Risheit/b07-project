@@ -1,5 +1,6 @@
 package com.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,14 +11,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivitySignUpBinding;
 import com.presenters.SignUpActivityPresenter;
 
 public class SignUpActivity extends AppCompatActivity {
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://b07-project-e5893-default-rtdb.firebaseio.com/");
     private AppBarConfiguration appBarConfiguration;
 
     private SignUpActivityPresenter presenter;
@@ -55,13 +53,10 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton = (Button) findViewById(R.id.NewAccountButton);
         backButton = (Button) findViewById(R.id.ReturnToLogIn);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(SignUpActivity.this, MainActivity.class);
-                startActivity(intent1);
-                finish();
-            }
+        backButton.setOnClickListener(view -> {
+            Intent intent1 = new Intent(SignUpActivity.this, MainActivity.class);
+            startActivity(intent1);
+            finish();
         });
 
         signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
