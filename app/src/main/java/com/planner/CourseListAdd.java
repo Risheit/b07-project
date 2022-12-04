@@ -18,7 +18,7 @@ import com.models.users.UserDatabase;
 
 import java.util.ArrayList;
 
-public class CourseListAdd extends AppCompatActivity {
+public class CourseListAdd extends AppCompatActivity implements ViewActions {
     Button backButton;
 
     CourseDatabase courseDB = CourseDatabase.getInstance();

@@ -3,12 +3,14 @@ package com.models;
 import android.util.Pair;
 
 import com.models.course.Course;
+import com.models.course.CourseDatabase;
+import com.models.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Timeline {
-    List<Session> timeline;
+    private final List<Session> timeline;
 
     public Timeline() {
         this.timeline = new ArrayList<>();
@@ -20,12 +22,6 @@ public class Timeline {
 
     public static Timeline makeTimeline(List<Course> coursesTaken,
                                         List<Course> coursesPlanned) {
-        /*
-
-        NOTE: This method currently allows for inf courses in one semester.
-                    Do we want cap on courses per sem?
-
-         */
 
         Timeline timeline = new Timeline();
 

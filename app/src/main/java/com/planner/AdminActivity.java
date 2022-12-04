@@ -12,7 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.snackbar.Snackbar;
 import com.planner.databinding.ActivityAdminBinding;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityAdminBinding binding;

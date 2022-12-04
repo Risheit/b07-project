@@ -6,12 +6,12 @@ import com.models.users.UserManagement;
 import com.planner.SignUpActivity;
 import com.planner.ViewActions;
 
-public class SignUpActivityPresenter {
+public class SignUpPresenter {
 
     UserManagement manager;
     SignUpActivity view;
 
-    public SignUpActivityPresenter(SignUpActivity view, UserDatabaseInterface db) {
+    public SignUpPresenter(SignUpActivity view, UserDatabaseInterface db) {
         this.manager = new UserManagement(db);
         this.view = view;
     }
@@ -29,13 +29,13 @@ public class SignUpActivityPresenter {
 
         if (email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() ||
                 conPass.isEmpty()) {
-            ViewActions.displayErrorNotification(view,"Please Enter All Fields");
+            view.displayErrorNotification(view,"Please Enter All Fields");
         } else {
             if (!password.equals(conPass)) {
-                ViewActions.displayErrorNotification(view, "Passwords do not match");
+                view.displayErrorNotification(view, "Passwords do not match");
             } else {
                 manager.signupUser(new_user);
-                ViewActions.displayErrorNotification(view,"User added, Please Log In");
+                view.displayErrorNotification(view,"User added, Please Log In");
             }
         }
     }

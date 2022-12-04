@@ -15,7 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivityCourseTimelineBinding;
 
-public class CourseTimelineActivity extends AppCompatActivity {
+public class CourseTimelineActivity extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityCourseTimelineBinding binding;

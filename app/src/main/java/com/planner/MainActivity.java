@@ -17,9 +17,27 @@ import com.models.course.CourseDatabase;
 import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
-import com.presenters.MainActivityPresenter;
 
-public class MainActivity extends AppCompatActivity {
+/* TODO: Refactor all this
+
+FirstFragment,Second -- MainActivity
+First2Fragment,Second -- SignUpActivity
+First3Fragment,Second -- HomepageActivity
+First4Fragment,Second -- AdminHomepageActivity
+First5Fragment,Second --
+First6Fragment,Second --
+First7Fragment,Second --
+First8Fragment,Second --
+First9Fragment,Second --
+
+UselessActivities:
+    - AddCourseActivity is useless -> Rename AddCourse2
+    - AdminActivity
+    - RemoveCourseActivity -> Rename RemoveCourse2
+ */
+
+
+public class MainActivity extends AppCompatActivity implements ViewActions {
     private AppBarConfiguration appBarConfiguration;
     ActivityMainBinding binding;
 

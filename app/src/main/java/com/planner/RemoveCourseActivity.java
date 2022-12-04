@@ -15,7 +15,7 @@ import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityRemoveCourseBinding;
 import com.models.course.Course;
 
-public class RemoveCourseActivity extends AppCompatActivity{
+public class RemoveCourseActivity extends AppCompatActivity implements ViewActions {
 
     CourseDatabase courseDB = CourseDatabase.getInstance();
 
@@ -46,14 +46,14 @@ public class RemoveCourseActivity extends AppCompatActivity{
             String courseCode = courseToRemove.getText().toString();
 
             if(courseCode.isEmpty()){
-                ViewActions.displayErrorNotification(RemoveCourseActivity.this,
+                displayErrorNotification(RemoveCourseActivity.this,
                         "Please enter the course code");
             }
 
             Course c =  courseDB.getCourse(courseCode);
 
             if(c == null){
-                ViewActions.displayErrorNotification(RemoveCourseActivity.this,
+                displayErrorNotification(RemoveCourseActivity.this,
                         "Course not found in database");
             }
 

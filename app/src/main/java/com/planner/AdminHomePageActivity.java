@@ -14,7 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.planner.databinding.ActivityAdminHomePageBinding;
 
-public class AdminHomePageActivity extends AppCompatActivity {
+public class AdminHomePageActivity extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityAdminHomePageBinding binding;

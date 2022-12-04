@@ -16,7 +16,7 @@ import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityRemoveCourse2Binding;
 
-public class RemoveCourse2Activity extends AppCompatActivity {
+public class RemoveCourse2Activity extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityRemoveCourse2Binding binding;
@@ -56,20 +56,20 @@ public class RemoveCourse2Activity extends AppCompatActivity {
                 String courseCode = courseToRemove.getText().toString();
 
                 if(courseCode.isEmpty()){
-                    ViewActions.displayErrorNotification(RemoveCourse2Activity.this,
+                    displayErrorNotification(RemoveCourse2Activity.this,
                             "Please enter the course code");
                 }
 
                 Course c =  courseDB.getCourse(courseCode);
 
                 if(null == c){
-                    ViewActions.displayErrorNotification(RemoveCourse2Activity.this,
+                    displayErrorNotification(RemoveCourse2Activity.this,
                             "Course not found in database");
                 }
 
                 else {
                     courseDB.removeCourse(courseCode);
-                    ViewActions.displayErrorNotification(RemoveCourse2Activity.this,
+                    displayErrorNotification(RemoveCourse2Activity.this,
                             "Course removed");
                     Intent intent1 = new Intent(RemoveCourse2Activity.this, AdminHomePageActivity.class);
                     startActivity(intent1);

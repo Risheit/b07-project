@@ -19,7 +19,7 @@ import com.planner.databinding.ActivityEditCourseBinding;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EditCourseActivity extends AppCompatActivity {
+public class EditCourseActivity extends AppCompatActivity implements ViewActions {
 
     private AppBarConfiguration appBarConfiguration;
     private EditText input1, input2, input3, input4, input5;
@@ -72,7 +72,7 @@ public class EditCourseActivity extends AppCompatActivity {
 
             if (courseInput.isEmpty() || newCourseInput.isEmpty()
                     || titleInput.isEmpty() || sessionInput.isEmpty()) {
-                ViewActions.displayErrorNotification(EditCourseActivity.this,
+                displayErrorNotification(EditCourseActivity.this,
                         "Please Enter All Fields");
             } else {
                 ArrayList<String> listSessions = new ArrayList<>(
@@ -88,7 +88,7 @@ public class EditCourseActivity extends AppCompatActivity {
                 }else{
                     for(String prereq : prereqArray){
                         if(null == courseDB.getCourse(prereq)){
-                            ViewActions.displayErrorNotification(EditCourseActivity.this,
+                            displayErrorNotification(EditCourseActivity.this,
                                     "One or more of your prerequisite courses is not "
                                             + "registered in \" +\n"
                                             + "                                            \""
@@ -106,7 +106,7 @@ public class EditCourseActivity extends AppCompatActivity {
                     }
                     //if course is not in database
                     if(null == courseDB.getCourse(courseInput)){
-                        ViewActions.displayErrorNotification(EditCourseActivity.this,
+                        displayErrorNotification(EditCourseActivity.this,
                                 "Course does not exist");
                     }else{
                         Course course = courseDB.getCourse(courseInput);
@@ -121,7 +121,7 @@ public class EditCourseActivity extends AppCompatActivity {
                             course.setPrerequisites(prereqList);
                         }
                         courseDB.addCourse(course);
-                        ViewActions.displayErrorNotification(EditCourseActivity.this,
+                        displayErrorNotification(EditCourseActivity.this,
                                 "Course edited");
                         Intent intent1 = new Intent(EditCourseActivity.this, AdminHomePageActivity.class);
                         startActivity(intent1);
