@@ -22,6 +22,10 @@ public class UserDatabase implements UserDatabaseInterface {
         this.ref =  FirebaseDatabase.getInstance(dbRefString).getReference();
     }
 
+    public UserDatabase() {
+        this.ref =  FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
+    }
+
 //    public void addUser(User user){
 //        /*
 //        addUser() adds a user with the given properties to the database with a unique key
@@ -104,6 +108,7 @@ public class UserDatabase implements UserDatabaseInterface {
         editUser() edits the user with the corresponding emailKey with the properties
         of user
          */
+
         Query userQuery = ref.child(userSection).orderByChild("email").equalTo(emailKey);
 
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {

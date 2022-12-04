@@ -29,7 +29,7 @@ public class Course {
     }
 
     /***
-     * Alternate constructor for courses with no prerequisites
+     * Constructor for courses with no prerequisites
      * @param name is the name of the course
      * @param code is the course code
      * @param sessionalDates is an ArrayList of sessional dates for the course
@@ -38,6 +38,17 @@ public class Course {
         this.name = name;
         this.code = code;
         this.sessionalDates = sessionalDates;
+        this.prerequisites = new ArrayList<>();
+        observers = new ArrayList<>();
+    }
+
+    /***
+     * Constructor for courses with no parameters
+     */
+    public Course() {
+        this.name = "";
+        this.code = "";
+        this.sessionalDates = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
         observers = new ArrayList<>();
     }

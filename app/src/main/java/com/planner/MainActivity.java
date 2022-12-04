@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.models.course.Course;
+import com.models.course.CourseDatabase;
 import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // dont delete this line
+        // called at the start of the program so we can load all the courses into the arraylist
+        CourseDatabase.getInstance();
 
         presenter = new MainPresenter(this, new UserDatabase(
                 "https://b07-project-e5893-default-rtdb.firebaseio.com/"
