@@ -9,6 +9,14 @@ import java.util.List;
 
 public class CourseTimelineMethods {
 
+    /***
+     * Returns a List of Strings that contains the course codes of courses that a user
+     * has the necessary prerequisites to take
+     * @param cd is the CourseDatabase
+     * @param currentUser is the currentUser
+     * @param toCheck is the List of courses to check user eligibility
+     * @return List of String that a user is eligible to take and has not already taken
+     */
     public static List<String> getTakeableCourses (CourseDatabase cd, User currentUser, List<Course> toCheck) {
         ArrayList<String> takeableCourses = new ArrayList<>();
         boolean takeable;
@@ -16,7 +24,8 @@ public class CourseTimelineMethods {
             takeable = true;
             ArrayList<Course> currentPreRequisites = new ArrayList<>(toCheck.get(i).getPrerequisites());
             for (int j = 0; j < currentPreRequisites.size(); j++) {
-                if (!currentUser.getCourseCodesTaken().contains(currentPreRequisites.get(j).getCode())) {
+                if (!currentUser.getCourseCodesTaken().contains(currentPreRequisites.get(j).getCode())
+                || currentUser.getCourseCodesTaken().contains(toCheck.get(i).getCode())) {
                     // user does is not eligible to take this course
                     takeable = false;
                 }
@@ -36,6 +45,12 @@ public class CourseTimelineMethods {
         return returnList;
     }
 
+    /***
+     * Returns a List of course code Strings corresponding to the currentUser's list of courses planning to take
+     * @param cd is the CourseDatabase
+     * @param currentUser is the user who's courses planning to take are to be used
+     * @return a List of Strings of course codes the user is eligible to take
+     */
     public static List<String> getWantedCourses (CourseDatabase cd, User currentUser) {
         ArrayList<Course> courseList = new ArrayList<>(getListFromString(cd, currentUser.getCourseCodesPlanned()));
         return getTakeableCourses(cd, currentUser, courseList);
