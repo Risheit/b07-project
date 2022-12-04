@@ -23,26 +23,11 @@
         android:id="@+id/backButtonRemoveCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="64dp"
         android:backgroundTint="#00008B"
         android:text="BACK"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00008B"
-        android:text="REMOVE COURSE"
-        android:textAlignment="center"
-        android:textColor="#FBF9F9"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView25"
@@ -80,4 +65,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:text="Remove Course"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

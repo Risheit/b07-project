@@ -25,6 +25,7 @@ public class SignUpActivityPresenter {
         String type = "Student"; //assume all users are students?
 
         User new_user = new User(type,first_name + " " + last_name, email, password);
+        System.out.println(email);
 
         if (email.isEmpty() || first_name.isEmpty() || last_name.isEmpty() || password.isEmpty() ||
                 conPass.isEmpty()) {
@@ -34,6 +35,7 @@ public class SignUpActivityPresenter {
                 ViewActions.displayErrorNotification(view, "Passwords do not match");
             } else {
                 manager.signupUser(new_user);
+                view.displayErrorNotification("User added, Please Log In");
             }
         }
     }

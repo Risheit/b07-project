@@ -28,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passInput;
     private EditText confirmPass;
     Button signUpButton;
+    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,16 @@ public class SignUpActivity extends AppCompatActivity {
         passInput = (EditText) findViewById(R.id.editTextTextPassword2);
         confirmPass = (EditText) findViewById(R.id.ConfirmPassword);
         signUpButton = (Button) findViewById(R.id.NewAccountButton);
+        backButton = (Button) findViewById(R.id.ReturnToLogIn);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(SignUpActivity.this, MainActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
 
         signUpButton.setOnClickListener(view -> presenter.onSignUpButtonClicked());
     }
