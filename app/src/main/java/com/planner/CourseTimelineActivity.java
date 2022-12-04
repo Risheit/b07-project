@@ -3,7 +3,9 @@ package com.planner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,12 +20,42 @@ public class CourseTimelineActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityCourseTimelineBinding binding;
     Button backButton;
+
+    // Listview for Sessions
+    ListView listViewSes;
+    // Listview for Course codes
+    ListView listViewCode;
+
+    // Data to be displayed in the list
+    String[] sesList = {"Winter 2022", "Summer 2023"};
+    String[] codeList = {"CSCB07", "MATA31"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityCourseTimelineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // syncing to the xml file
+        listViewSes = findViewById(R.id.listview_ses);
+        listViewCode = findViewById(R.id.listview_code);
+
+        // Adapters
+        ArrayAdapter adapter1 = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                sesList
+        );
+
+        ArrayAdapter adapter2 = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                codeList
+        );
+
+        listViewSes.setAdapter(adapter1);
+        listViewCode.setAdapter(adapter2);
 
         setSupportActionBar(binding.toolbar);
 
