@@ -70,7 +70,7 @@ public class CourseTimelineAddActivity extends AppCompatActivity implements View
                 // add all the selected codes to the courses the user wants to take
                 MainActivity.currentUser.setCourseCodesPlanned(selectedCodes);
 
-                Intent timeline_intent = new Intent(CourseTimelineAddActivity.this, CourseTimelineActivity.class);
+                Intent timeline_intent = new Intent(CourseTimelineAdd.this, CourseTimelineRActivity.class);
                 startActivity(timeline_intent);
                 finish();
             }

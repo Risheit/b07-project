@@ -138,6 +138,18 @@ public class Session implements Comparable<Session>{
         return false;
     }
 
+    public String presentCourses(){
+        String s = "";
+
+        if(sessionCourses.size() > 0) {
+            s = sessionCourses.get(0).getCode();
+            for (Course c : sessionCourses) {
+                s = s.concat(", " + c.getCode());
+            }
+        }
+        return s;
+    }
+
     @Override
     public int hashCode() {
         int result = 1;
