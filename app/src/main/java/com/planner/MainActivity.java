@@ -7,32 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
 import com.presenters.MainPresenter;
-
-/* TODO: Refactor all this
-
-FirstFragment,Second -- REMOVED (MainActivity)
-First2Fragment,Second -- REMOVED (SignUpActivity)
-First3Fragment,Second -- REMOVED (HomepageActivity)
-First4Fragment,Second -- REMOVED (AdminHomepageActivity)
-First5Fragment,Second -- REMOVED
-First6Fragment,Second -- REMOVED
-First7Fragment,Second --
-First8Fragment,Second --
-First9Fragment,Second --
-
-*/
-
 
 public class MainActivity extends AppCompatActivity implements ViewActions {
 
