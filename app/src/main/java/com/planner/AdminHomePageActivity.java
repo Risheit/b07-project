@@ -49,12 +49,7 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
          //       AdminHomePageActivity.this));
         signOutButton.setOnClickListener(view -> openLoginPage(AdminHomePageActivity.this));
 
-        editCourseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminHomePageActivity.this, EditCourseActivity.class));
-            }
-        });
+        editCourseButton.setOnClickListener(view -> openEditCoursePage(AdminHomePageActivity.this));
     }
 
 
@@ -65,14 +60,10 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
     }
 
     private void displayWelcomeText() {
-        String name2 = MainActivity.currentUser.getName();
-
-//        Intent givenIntent = getIntent();
         TextView welcomeText = (TextView) findViewById(R.id.textView14);
-//
-//        String name = givenIntent.getStringExtra("name") == null ? ""
-//                : ": " + givenIntent.getStringExtra("name");
+        String name = MainActivity.currentUser.getName() == null ? ""
+                : ": " + MainActivity.currentUser.getName();
 
-        welcomeText.setText("Welcome Admin: " + name2);
+        welcomeText.setText(String.format(getResources().getString(R.string.welcome_admin), name));
     }
 }
