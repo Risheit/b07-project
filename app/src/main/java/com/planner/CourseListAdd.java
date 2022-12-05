@@ -4,30 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.UserData;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.models.course.CourseDatabase;
-import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseListAddBinding;
-import com.planner.databinding.ActivityCourseListBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseListAdd extends AppCompatActivity implements ViewActions {
-    Button backButton;
 
-    CourseDatabase courseDB = CourseDatabase.getInstance();
-
-    // Listview
-    ListView listView;
-    String[] noteList;
+    private final CourseDatabase courseDB = CourseDatabase.getInstance();
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,48 +28,41 @@ public class CourseListAdd extends AppCompatActivity implements ViewActions {
                 ActivityCourseListAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        backButton = (Button) findViewById(R.id.button);
+        // Fill the noteListArrayList with every course code that has not
+        // been taken by the current user
+        ArrayList<String> noteList = new ArrayList<>();
+        courseDB.getCourses().stream()
+                .filter(course ->
+                        !MainActivity.currentUser.getCourseCodesTaken().contains(course.getCode()))
+                .forEach(course -> noteList.add(course.getCode()));
 
-        backButton.setOnClickListener(view -> {
-            Intent intent = new Intent(CourseListAdd.this, CourseList.class);
-            startActivity(intent);
-            finish();
-        });
-
-        // fill the noteListArrayList with every course code that has not been taken by the current user
-        ArrayList<String> noteListArrayList = new ArrayList<>();
-        for(int i = 0; i < courseDB.getCourses().size(); i++) {
-            if(!MainActivity.currentUser.getCourseCodesTaken().contains(courseDB.getCourses().get(i).getCode()))
-                noteListArrayList.add(courseDB.getCourses().get(i).getCode());
-        }
-        // then turn that into an array so we can pass it into the adapter
-        noteList = noteListArrayList.toArray(new String[0]);
+        // Then turn that into an array so we can pass it into the adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                noteList.toArray(new String[0]));
 
         listView = findViewById(R.id.listviewz);
-
-        // Array Adapter
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                noteList);
-
         listView.setAdapter(adapter);
         listView.setClickable(true);
+
+        Button backButton = (Button) findViewById(R.id.button);
+
+        // Setup Listeners
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             String code = (String) listView.getItemAtPosition(i);
 
-            // update the current user's courseCodesTaken with the new course code
-            ArrayList<String> newTaken = (ArrayList) MainActivity.currentUser.getCourseCodesTaken();
+            // Update the current user's courseCodesTaken with the new course code
+            List<String> newTaken = MainActivity.currentUser.getCourseCodesTaken();
             newTaken.add(code);
             MainActivity.currentUser.setCourseCodesTaken(newTaken);
 
-            // edit the user in the database
+            // Edit the user in the database
             UserDatabase u = new UserDatabase();
             u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
 
-            // go back to CourseList.java having now updated the current user
-            Intent intent = new Intent(CourseListAdd.this, CourseList.class);
-            startActivity(intent);
-            finish();
+            // Go back to CourseList.java having now updated the current user
+            openCourseListPage(CourseListAdd.this);
         });
+        backButton.setOnClickListener(view -> openCourseListPage(CourseListAdd.this));
     }
 }
