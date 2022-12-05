@@ -24,8 +24,8 @@ import com.presenters.MainPresenter;
 FirstFragment,Second -- REMOVED (MainActivity)
 First2Fragment,Second -- REMOVED (SignUpActivity)
 First3Fragment,Second -- REMOVED (HomepageActivity)
-First4Fragment,Second -- AdminHomepageActivity
-First5Fragment,Second --
+First4Fragment,Second -- REMOVED (AdminHomepageActivity)
+First5Fragment,Second -- REMOVED
 First6Fragment,Second --
 First7Fragment,Second --
 First8Fragment,Second --
