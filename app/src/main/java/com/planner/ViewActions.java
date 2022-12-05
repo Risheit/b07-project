@@ -69,7 +69,7 @@ public interface ViewActions {
     }
 
     default void openCourseTimelineAddPage(Activity caller) {
-        Intent intent = new Intent(caller, CourseTimelineAdd.class);
+        Intent intent = new Intent(caller, CourseTimelineAddActivity.class);
         caller.startActivity(intent);
         caller.finish();
     }

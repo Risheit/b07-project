@@ -14,7 +14,7 @@ import com.models.course.CourseDatabase;
 
 import java.util.ArrayList;
 
-public class CourseTimelineAdd extends AppCompatActivity implements ViewActions {
+public class CourseTimelineAddActivity extends AppCompatActivity implements ViewActions {
 
     Button backButton;
     Button generateButton;
@@ -35,7 +35,7 @@ public class CourseTimelineAdd extends AppCompatActivity implements ViewActions 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CourseTimelineAdd.this, HomePageActivity.class);
+                Intent intent = new Intent(CourseTimelineAddActivity.this, HomePageActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -60,7 +60,7 @@ public class CourseTimelineAdd extends AppCompatActivity implements ViewActions 
                 // add all the selected codes to the courses the user wants to take
                 MainActivity.currentUser.setCourseCodesPlanned(selectedCodes);
 
-                Intent timeline_intent = new Intent(CourseTimelineAdd.this, CourseTimelineActivity.class);
+                Intent timeline_intent = new Intent(CourseTimelineAddActivity.this, CourseTimelineActivity.class);
                 startActivity(timeline_intent);
                 finish();
             }

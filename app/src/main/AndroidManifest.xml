@@ -13,7 +13,7 @@
         android:theme="@style/Theme.GenericTemplate"
         tools:targetApi="31">
         <activity
-            android:name=".CourseTimelineAdd"
+            android:name=".CourseTimelineAddActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
