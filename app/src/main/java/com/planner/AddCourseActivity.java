@@ -1,16 +1,10 @@
 package com.planner;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityAddCourseBinding;
@@ -18,9 +12,6 @@ import com.presenters.AddCoursePresenter;
 
 
 public class AddCourseActivity extends AppCompatActivity implements ViewActions {
-
-    private AppBarConfiguration appBarConfiguration;
-    private NavController navController;
 
     private EditText nameInput;
     private EditText courseCodeInput;
@@ -39,12 +30,6 @@ public class AddCourseActivity extends AppCompatActivity implements ViewActions 
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_add_course2);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController,
-                appBarConfiguration);
-
         nameInput = (EditText) findViewById(R.id.editTextTextPersonName17);
         courseCodeInput = (EditText) findViewById(R.id.editTextTextPersonName14);
         sessionsOfferedInput = (EditText) findViewById(R.id.editTextTextPersonName15);
@@ -53,22 +38,8 @@ public class AddCourseActivity extends AppCompatActivity implements ViewActions 
         Button doneButton = (Button) findViewById(R.id.button8);
 
         // Setup Listeners
-        //backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddCourseActivity.this, AdminHomePageActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        backButton.setOnClickListener(view -> presenter.onBackButtonClicked());
         doneButton.setOnClickListener(view -> presenter.onDoneButtonClicked());
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 
     public EditText getNameInput() {

@@ -26,7 +26,7 @@ First2Fragment,Second -- REMOVED (SignUpActivity)
 First3Fragment,Second -- REMOVED (HomepageActivity)
 First4Fragment,Second -- REMOVED (AdminHomepageActivity)
 First5Fragment,Second -- REMOVED
-First6Fragment,Second --
+First6Fragment,Second -- REMOVED
 First7Fragment,Second --
 First8Fragment,Second --
 First9Fragment,Second --
