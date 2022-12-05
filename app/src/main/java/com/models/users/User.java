@@ -132,7 +132,7 @@ public class User {
      * @param courseCodesTaken  The codes of the courses the user plans to take
      */
 
-    public void setCourseCodesTaken(ArrayList<String> courseCodesTaken) {
+    public void setCourseCodesTaken(List<String> courseCodesTaken) {
         this.courseCodesTaken = courseCodesTaken;
     }
 
@@ -172,7 +172,7 @@ public class User {
      * @param courseCodesPlanned  The course codes representing new courses planned for the user
      */
 
-    public void setCourseCodesPlanned(ArrayList<String> courseCodesPlanned) {
+    public void setCourseCodesPlanned(List<String> courseCodesPlanned) {
         this.courseCodesPlanned = courseCodesPlanned;
     }
 
