@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.models.Timeline;
+import com.models.course.Course;
+import com.models.course.CourseDatabase;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseTimelineBinding;
 
@@ -35,8 +38,8 @@ public class CourseTimelineActivity extends AppCompatActivity implements ViewAct
     ListView listViewCode;
 
     // Data to be displayed in the list
-    String[] sesList = {"Winter 2022", "Summer 2023"};
-    String[] codeList = {"CSCB07", "MATA31"};
+    String[] sesList = {"Session Test1", "Session Test2", "Session Test3", "Session Test4"};
+    String[] codeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,13 @@ public class CourseTimelineActivity extends AppCompatActivity implements ViewAct
 
         binding = ActivityCourseTimelineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // all the courses that need to be displayed are in CourseCodesPlanned
+        codeList = MainActivity.currentUser.getCourseCodesPlanned().toArray(new String[0]);
+
+        // need a way to display the sessions that the above courses are offered
+        // put this into sesList
+
 
         // syncing to the xml file
         listViewSes = findViewById(R.id.listview_ses);
