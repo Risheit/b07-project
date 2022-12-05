@@ -19,10 +19,12 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
         );
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
+        getSupportActionBar().hide();
 
         Button addCourseButton = (Button) findViewById(R.id.AddCourseButton);
         Button deleteCourseButton = (Button) findViewById(R.id.DeleteCourseButton);
         Button editCourseButton = (Button) findViewById(R.id.button12);
+        Button courseListButton = (Button) findViewById(R.id.courseListButton);
         Button signOutButton = (Button) findViewById(R.id.button13);
 
         displayWelcomeText();
@@ -34,6 +36,7 @@ public class AdminHomePageActivity extends AppCompatActivity implements ViewActi
                 AdminHomePageActivity.this));
         signOutButton.setOnClickListener(view -> openLoginPage(AdminHomePageActivity.this));
         editCourseButton.setOnClickListener(view -> openEditCoursePage(AdminHomePageActivity.this));
+        courseListButton.setOnClickListener(view -> openAdminCourseListPage(AdminHomePageActivity.this));
     }
 
     private void displayWelcomeText() {

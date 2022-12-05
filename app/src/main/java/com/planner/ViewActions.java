@@ -56,6 +56,12 @@ public interface ViewActions {
         caller.finish();
     }
 
+    default void openAdminCourseListPage(Activity caller) {
+        Intent intent = new Intent(caller, AdminCourseListActivity.class);
+        caller.startActivity(intent);
+        caller.finish();
+    }
+
     default void openCourseListPage(Activity caller) {
         Intent intent = new Intent(caller, CourseListActivity.class);
         caller.startActivity(intent);

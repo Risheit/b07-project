@@ -28,7 +28,7 @@ public class CourseListAddActivity extends AppCompatActivity implements ViewActi
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
 
-        // Fill the noteListArrayList with every course code that has not
+        // Fill the noteList with every course code that has not
         // been taken by the current user
         ArrayList<String> noteList = new ArrayList<>();
         courseDB.getCourses().stream()
@@ -36,7 +36,7 @@ public class CourseListAddActivity extends AppCompatActivity implements ViewActi
                         !MainActivity.currentUser.getCourseCodesTaken().contains(course.getCode()))
                 .forEach(course -> noteList.add(course.getCode()));
 
-        // Then turn that into an array so we can pass it into the adapter
+        // Turn it into a string array when we pass it into the adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 noteList.toArray(new String[0]));
@@ -46,6 +46,7 @@ public class CourseListAddActivity extends AppCompatActivity implements ViewActi
         listView.setClickable(true);
 
         Button backButton = (Button) findViewById(R.id.button);
+        backButton.setOnClickListener(view -> openCourseListPage(CourseListAddActivity.this));
 
         // Setup Listeners
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -60,9 +61,8 @@ public class CourseListAddActivity extends AppCompatActivity implements ViewActi
             UserDatabase u = new UserDatabase();
             u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
 
-            // Go back to CourseList.java having now updated the current user
+            // Go back to CourseListActivity.java having now updated the current user
             openCourseListPage(CourseListAddActivity.this);
         });
-        backButton.setOnClickListener(view -> openCourseListPage(CourseListAddActivity.this));
     }
 }
