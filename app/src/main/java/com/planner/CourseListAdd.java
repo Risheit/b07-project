@@ -15,6 +15,8 @@ import android.widget.ListView;
 import com.models.course.CourseDatabase;
 import com.models.users.User;
 import com.models.users.UserDatabase;
+import com.planner.databinding.ActivityCourseListAddBinding;
+import com.planner.databinding.ActivityCourseListBinding;
 
 import java.util.ArrayList;
 
@@ -30,17 +32,17 @@ public class CourseListAdd extends AppCompatActivity implements ViewActions {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_list_add);
+
+        ActivityCourseListAddBinding binding =
+                ActivityCourseListAddBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         backButton = (Button) findViewById(R.id.button);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseListAdd.this, CourseList.class);
-                startActivity(intent);
-                finish();
-            }
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(CourseListAdd.this, CourseList.class);
+            startActivity(intent);
+            finish();
         });
 
         // fill the noteListArrayList with every course code that has not been taken by the current user
@@ -61,25 +63,22 @@ public class CourseListAdd extends AppCompatActivity implements ViewActions {
 
         listView.setAdapter(adapter);
         listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String code = (String) listView.getItemAtPosition(i);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            String code = (String) listView.getItemAtPosition(i);
 
-                // update the current user's courseCodesTaken with the new course code
-                ArrayList<String> newTaken = (ArrayList) MainActivity.currentUser.getCourseCodesTaken();
-                newTaken.add(code);
-                MainActivity.currentUser.setCourseCodesTaken(newTaken);
+            // update the current user's courseCodesTaken with the new course code
+            ArrayList<String> newTaken = (ArrayList) MainActivity.currentUser.getCourseCodesTaken();
+            newTaken.add(code);
+            MainActivity.currentUser.setCourseCodesTaken(newTaken);
 
-                // edit the user in the database
-                UserDatabase u = new UserDatabase();
-                u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
+            // edit the user in the database
+            UserDatabase u = new UserDatabase();
+            u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
 
-                // go back to CourseList.java having now updated the current user
-                Intent intent = new Intent(CourseListAdd.this, CourseList.class);
-                startActivity(intent);
-                finish();
-            }
+            // go back to CourseList.java having now updated the current user
+            Intent intent = new Intent(CourseListAdd.this, CourseList.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

@@ -21,9 +21,9 @@ import com.presenters.MainPresenter;
 
 /* TODO: Refactor all this
 
-FirstFragment,Second -- MainActivity
-First2Fragment,Second -- SignUpActivity
-First3Fragment,Second -- HomepageActivity
+FirstFragment,Second -- REMOVED (MainActivity)
+First2Fragment,Second -- REMOVED (SignUpActivity)
+First3Fragment,Second -- REMOVED (HomepageActivity)
 First4Fragment,Second -- AdminHomepageActivity
 First5Fragment,Second --
 First6Fragment,Second --
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // dont delete this line
-        // called at the start of the program so we can load all the courses into the arraylist
+        // Don't delete this line
+        // Called at the start of the program so we can load all the courses into the arraylist
         CourseDatabase.getInstance();
 
         presenter = new MainPresenter(this, new UserDatabase());
