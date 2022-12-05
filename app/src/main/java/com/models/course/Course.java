@@ -2,8 +2,14 @@ package com.models.course;
 
 import androidx.annotation.NonNull;
 
+import com.models.Session;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Course {
     private String name;
@@ -73,8 +79,28 @@ public class Course {
         return sessionalDates;
     }
 
-    public void setSessionalDates(List<String> sessionalDates) {
-        this.sessionalDates = sessionalDates;
+    /**
+     * Sets the this courses sessional dates given a list of seasons that it'll be available in.
+     *
+     * The method replaces any invalid seasons in the given list with {@code Session.fall} and
+     * only stores distinct seasons.
+     * @param seasons The list of new seasons that the course will be occur on.
+     */
+    public void setSessionalDates(List<String> seasons) {
+        this.sessionalDates = seasons.stream()
+                .map(season -> isValidSeason(season) ? season : Session.fall)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private boolean isValidSeason(String season) {
+        List<String> validSessions = Arrays.asList(
+                Session.fall.toLowerCase(),
+                Session.winter.toLowerCase(),
+                Session.summer.toLowerCase()
+        );
+
+        return season != null && validSessions.contains(season.toLowerCase());
     }
 
     public List<Course> getPrerequisites() {
