@@ -21,10 +21,9 @@ public class CourseListActivity extends AppCompatActivity implements ViewActions
 
         ActivityCourseListBinding binding = ActivityCourseListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar);
 
-        Button backButton = (Button) findViewById(R.id.button6);
-        Button nextButton = (Button) findViewById(R.id.button2);
+        Button backButton = findViewById(R.id.button6);
+        Button nextButton = findViewById(R.id.button2);
         listView = findViewById(R.id.listviewy);
         noteList = MainActivity.currentUser.getCourseCodesTaken().toArray(new String[0]);
 
