@@ -2,7 +2,6 @@ package com.planner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import com.planner.databinding.ActivityCourseListAddBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseListAdd extends AppCompatActivity implements ViewActions {
+public class CourseListAddActivity extends AppCompatActivity implements ViewActions {
 
     private final CourseDatabase courseDB = CourseDatabase.getInstance();
     private ListView listView;
@@ -61,8 +60,8 @@ public class CourseListAdd extends AppCompatActivity implements ViewActions {
             u.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
 
             // Go back to CourseList.java having now updated the current user
-            openCourseListPage(CourseListAdd.this);
+            openCourseListPage(CourseListAddActivity.this);
         });
-        backButton.setOnClickListener(view -> openCourseListPage(CourseListAdd.this));
+        backButton.setOnClickListener(view -> openCourseListPage(CourseListAddActivity.this));
     }
 }

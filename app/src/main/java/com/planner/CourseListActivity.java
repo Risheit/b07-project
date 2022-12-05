@@ -7,14 +7,10 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.GenericTypeIndicator;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseListBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CourseList extends AppCompatActivity implements ViewActions {
+public class CourseListActivity extends AppCompatActivity implements ViewActions {
 
     private ListView listView;
     private String[] noteList; // Data that is to be displayed on the list
@@ -58,7 +54,7 @@ public class CourseList extends AppCompatActivity implements ViewActions {
         });
 
         // Setup Listeners
-        backButton.setOnClickListener(view -> openStudentHomepage(CourseList.this));
-        nextButton.setOnClickListener(view -> openCourseListAddPage(CourseList.this));
+        backButton.setOnClickListener(view -> openStudentHomepage(CourseListActivity.this));
+        nextButton.setOnClickListener(view -> openCourseListAddPage(CourseListActivity.this));
     }
 }

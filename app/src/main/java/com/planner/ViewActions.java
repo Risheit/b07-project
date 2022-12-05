@@ -57,13 +57,13 @@ public interface ViewActions {
     }
 
     default void openCourseListPage(Activity caller) {
-        Intent intent = new Intent(caller, CourseList.class);
+        Intent intent = new Intent(caller, CourseListActivity.class);
         caller.startActivity(intent);
         caller.finish();
     }
 
     default void openCourseListAddPage(Activity caller) {
-        Intent intent = new Intent(caller, CourseListAdd.class);
+        Intent intent = new Intent(caller, CourseListAddActivity.class);
         caller.startActivity(intent);
         caller.finish();
     }
