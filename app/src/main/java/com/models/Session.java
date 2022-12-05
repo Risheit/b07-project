@@ -143,8 +143,8 @@ public class Session implements Comparable<Session>{
 
         if(sessionCourses.size() > 0) {
             s = sessionCourses.get(0).getCode();
-            for (Course c : sessionCourses) {
-                s = s.concat(", " + c.getCode());
+            for (int i = 1; i < sessionCourses.size(); i++) {
+                s = s.concat(", " + sessionCourses.get(i).getCode());
             }
         }
         return s;
