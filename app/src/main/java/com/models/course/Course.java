@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Course {
     private String name;
@@ -22,7 +23,8 @@ public class Course {
         this.name = name;
         this.code = code;
         this.sessionalDates = sessionalDates;
-        this.prerequisites = prerequisites;
+        requiresThisCourse = new ArrayList<>();
+        setPrerequisites(prerequisites);
     }
 
     /***
@@ -36,6 +38,7 @@ public class Course {
         this.code = code;
         this.sessionalDates = sessionalDates;
         this.prerequisites = new ArrayList<>();
+        requiresThisCourse = new ArrayList<>();
     }
 
     /***
@@ -46,6 +49,7 @@ public class Course {
         this.code = "";
         this.sessionalDates = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
+        requiresThisCourse = new ArrayList<>();
     }
 
     public String getName() {
@@ -76,8 +80,51 @@ public class Course {
         return prerequisites;
     }
 
+    private void addCoursesThatRequire(List<Course> courseList) {
+        for (int i = 0; i < courseList.size(); i++) {
+            courseList.get(i).requiresThisCourse.add(this);
+        }
+    }
+
+    /***
+     * Recursive function to check that a course doesn't circularly add a prerequisite
+     * @param toCheckCourse the prerequisite to check which shouldn't already exist
+     * @param indx should be 0 when this method is called
+     * @return true if the prerequisite is not circular, false if it is
+     */
+    private boolean validPrerequisite(Course toCheckCourse, int indx) {
+        if (this.code.equals(toCheckCourse.code)) {
+            return false;
+        }
+        if (requiresThisCourse.size() > 0) {
+            return requiresThisCourse.get(indx).validPrerequisite(toCheckCourse, indx++);
+        }
+
+        return true;
+    }
+
     public void setPrerequisites(List<Course> prerequisites) {
-        this.prerequisites = prerequisites;
+        ArrayList<Course> validPrerequisites = new ArrayList<>();
+        if (prerequisites != null) {
+            prerequisites.forEach(course -> {
+                if (validPrerequisite(course, 0)) {
+                    validPrerequisites.add(course);
+                }
+            });
+        }
+        addCoursesThatRequire(validPrerequisites);
+        this.prerequisites = validPrerequisites;
+        notifyAllObservers();
+    }
+
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
     /***

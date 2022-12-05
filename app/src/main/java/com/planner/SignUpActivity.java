@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity implements ViewActions {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.SignUpHeader);
+        //getSupportActionBar().hide();
 
         new_emailInput = (EditText) findViewById(R.id.signUpInputEmail);
         first_nameInput = (EditText) findViewById(R.id.editTextTextPersonName);

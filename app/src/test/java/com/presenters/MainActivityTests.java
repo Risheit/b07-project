@@ -106,10 +106,46 @@ public class MainActivityTests {
     }
 
     @Test
+    public void testInvalidEmailAndInvalidPassword() {
+        // Setup Mocks
+        when(emailReturn.toString()).thenReturn("invalidEmail@mail");
+        when(passwordReturn.toString()).thenReturn("invalidPassword");
+
+        presenter.onLoginButtonClicked();
+
+        // Check Error displayed
+        verify(view).displayErrorNotification(view,"Invalid Email");
+    }
+
+    @Test
     public void testLoginWithEmptyEmail() {
         // Setup Mocks
         when(emailReturn.toString()).thenReturn("");
         when(passwordReturn.toString()).thenReturn(user1.getPassword());
+
+        presenter.onLoginButtonClicked();
+
+        // Check Error displayed
+        verify(view).displayErrorNotification(view,"Please Enter All Possible Fields");
+    }
+
+    @Test
+    public void testLoginWithEmptyPassword() {
+        // Setup Mocks
+        when(emailReturn.toString()).thenReturn(user1.getEmail());
+        when(passwordReturn.toString()).thenReturn("");
+
+        presenter.onLoginButtonClicked();
+
+        // Check Error displayed
+        verify(view).displayErrorNotification(view,"Please Enter All Possible Fields");
+    }
+
+    @Test
+    public void testLoginWithEmptyEmailAndPassword() {
+        // Setup Mocks
+        when(emailReturn.toString()).thenReturn("");
+        when(passwordReturn.toString()).thenReturn("");
 
         presenter.onLoginButtonClicked();
 

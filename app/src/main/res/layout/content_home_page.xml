@@ -5,7 +5,7 @@
     android:id="@+id/backbutton3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="@color/userLight"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TextView
@@ -25,7 +25,7 @@
         android:id="@+id/textView23"
         android:layout_width="411dp"
         android:layout_height="93dp"
-        android:background="#00008B"
+        android:background="@color/userDark"
         android:text="HOME PAGE"
         android:textAlignment="center"
         android:textColor="#FBFBFB"
@@ -37,27 +37,26 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_marginStart="52dp"
-        android:layout_marginEnd="59dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/userDark"
         android:text="Course Timeline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.597" />
+        app:layout_constraintVertical_bias="0.591" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="55dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="56dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/userDark"
         android:text="Course List"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -67,13 +66,12 @@
         android:id="@+id/backbutton23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="224dp"
-        android:backgroundTint="#00008B"
+        android:backgroundTint="@color/userDark"
         android:text="Sign Out"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

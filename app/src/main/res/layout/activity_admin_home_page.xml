@@ -10,7 +10,7 @@
         android:id="@+id/AdminHeader"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#00008B"
+        android:background="@color/userDark"
         android:theme="@style/Theme.GenericTemplate.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
