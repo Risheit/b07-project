@@ -68,7 +68,7 @@ public class Course {
         return sessionalDates;
     }
 
-    public void setSessionalDates(ArrayList<String> sessionalDates) {
+    public void setSessionalDates(List<String> sessionalDates) {
         this.sessionalDates = sessionalDates;
     }
 
@@ -76,7 +76,7 @@ public class Course {
         return prerequisites;
     }
 
-    public void setPrerequisites(ArrayList<Course> prerequisites) {
+    public void setPrerequisites(List<Course> prerequisites) {
         this.prerequisites = prerequisites;
     }
 
