@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Course {
     private String name;
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
+    private final List<Course> requiresThisCourse;
 
     /***
      * Default constructor for Course object
@@ -22,6 +22,7 @@ public class Course {
     public Course(String name, String code, List<String> sessionalDates, List<Course> prerequisites) {
         this.name = name;
         this.code = code;
+        this.prerequisites = prerequisites;
         this.sessionalDates = sessionalDates;
         requiresThisCourse = new ArrayList<>();
         setPrerequisites(prerequisites);
@@ -89,15 +90,16 @@ public class Course {
     /***
      * Recursive function to check that a course doesn't circularly add a prerequisite
      * @param toCheckCourse the prerequisite to check which shouldn't already exist
-     * @param indx should be 0 when this method is called
+     * @param index should be 0 when this method is called
      * @return true if the prerequisite is not circular, false if it is
      */
-    private boolean validPrerequisite(Course toCheckCourse, int indx) {
+    private boolean validPrerequisite(Course toCheckCourse, int index) {
         if (this.code.equals(toCheckCourse.code)) {
             return false;
         }
-        if (requiresThisCourse.size() > 0) {
-            return requiresThisCourse.get(indx).validPrerequisite(toCheckCourse, indx++);
+
+        if (!requiresThisCourse.isEmpty()) {
+            return requiresThisCourse.get(index).validPrerequisite(toCheckCourse, index++);
         }
 
         return true;
@@ -114,17 +116,6 @@ public class Course {
         }
         addCoursesThatRequire(validPrerequisites);
         this.prerequisites = validPrerequisites;
-        notifyAllObservers();
-    }
-
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
     }
 
     /***
