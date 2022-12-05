@@ -15,16 +15,14 @@ public interface ViewActions {
         displayNotification(caller, errorName);
     }
 
-    default void openStudentHomepage(Activity caller, String studentName) {
+    default void openStudentHomepage(Activity caller) {
         Intent intent = new Intent(caller, HomePageActivity.class);
-        intent.putExtra("name", studentName);
         caller.startActivity(intent);
         caller.finish();
     }
 
-    default void openAdminHomepage(Activity caller, String adminName) {
+    default void openAdminHomepage(Activity caller) {
         Intent intent = new Intent(caller, AdminHomePageActivity.class);
-        intent.putExtra("name", adminName);
         caller.startActivity(intent);
         caller.finish();
     }

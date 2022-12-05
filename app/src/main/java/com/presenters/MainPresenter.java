@@ -30,13 +30,13 @@ public class MainPresenter {
                 @Override
                 public void studentLoginSuccess(User user) {
                     MainActivity.currentUser = user;
-                    view.openStudentHomepage(view, user.getName());
+                    view.openStudentHomepage(view);
                 }
 
                 @Override
                 public void adminLoginSuccess(User user) {
                     MainActivity.currentUser = user;
-                    view.openAdminHomepage(view, user.getName());
+                    view.openAdminHomepage(view);
                 }
 
                 @Override

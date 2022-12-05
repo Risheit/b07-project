@@ -19,7 +19,7 @@ public class AddCoursePresenter {
     }
 
     public void onBackButtonClicked() {
-        view.openAdminHomepage(view, MainActivity.currentUser.getName());
+        view.openAdminHomepage(view);
     }
 
     public void onDoneButtonClicked() {
@@ -68,7 +68,7 @@ public class AddCoursePresenter {
                 getCoursesFromCodes(prerequisiteCodes)
         ));
         view.displayNotification(view, "Course Added");
-        view.openAdminHomepage(view, MainActivity.currentUser.getName());
+        view.openAdminHomepage(view);
     }
 
     private List<String> getSessionDatesFromString(String sessionsOffered) {

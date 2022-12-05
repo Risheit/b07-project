@@ -66,7 +66,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check that Student Page opened
-        verify(view).openStudentHomepage(view, user1.getName());
+        verify(view).openStudentHomepage(view);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class MainActivityTests {
         presenter.onLoginButtonClicked();
 
         // Check that Admin Page opened
-        verify(view).openAdminHomepage(view, user2.getName());
+        verify(view).openAdminHomepage(view);
     }
 
     @Test
