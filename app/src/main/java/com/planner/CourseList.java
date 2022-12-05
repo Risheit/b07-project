@@ -75,7 +75,7 @@ public class CourseList extends AppCompatActivity implements ViewActions {
         listView = findViewById(R.id.listviewy);
 
         // Array Adapter
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 noteList);
 
@@ -87,7 +87,7 @@ public class CourseList extends AppCompatActivity implements ViewActions {
                 String code = (String) listView.getItemAtPosition(i);
 
                 // update the current user's courseCodesTaken by removing the course
-                ArrayList<String> newTaken = (ArrayList) MainActivity.currentUser.getCourseCodesTaken();
+                ArrayList<String> newTaken = (ArrayList<String>) MainActivity.currentUser.getCourseCodesTaken();
                 newTaken.remove(code);
                 MainActivity.currentUser.setCourseCodesTaken(newTaken);
 

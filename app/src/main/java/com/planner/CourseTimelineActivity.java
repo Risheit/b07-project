@@ -7,19 +7,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityCourseTimelineBinding;
 
@@ -50,13 +43,13 @@ public class CourseTimelineActivity extends AppCompatActivity implements ViewAct
         listViewCode = findViewById(R.id.listview_code);
 
         // Adapters
-        ArrayAdapter adapter1 = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 sesList
         );
 
-        ArrayAdapter adapter2 = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 codeList
