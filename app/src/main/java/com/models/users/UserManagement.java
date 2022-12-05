@@ -1,12 +1,15 @@
 package com.models.users;
 
+import android.util.Log;
+
 import com.models.onGetDataListener;
 
 public class UserManagement {
 
+    public static final String studentConnection = "Student";
+    public static final String adminConnection = "Admin";
+
     private final UserDatabaseInterface connection;
-    private final String studentConnection = "Student";
-    private final String adminConnection = "Admin";
 
     /**
      * Instantiates a new UserManagement class.
@@ -41,26 +44,30 @@ public class UserManagement {
                             return;
                         }
 
-                        if (user.getType().equals(studentConnection)){ // Student Account
-                            actions.studentLoginSuccess(user);
-                        } else if (user.getType().equals(adminConnection)) { // Admin Account
-                            actions.adminLoginSuccess(user);
-                        } else {
-                            System.out.println("Database type that isn't student or admin exists.");
+                        switch (user.getType()) {
+                            case studentConnection:  // Student Account
+                                actions.studentLoginSuccess(user);
+                                break;
+                            case adminConnection:  // Admin Account
+                                actions.adminLoginSuccess(user);
+                                break;
+                            default:
+                                Log.e("UserManagement",
+                                        "Database type that isn't student or admin exists.");
+                                break;
                         }
-
                     }
 
                     @Override
                     public void onFailure() {
-
+                        Log.e("UserManagement", "Failed to login.");
                     }
                 }
         );
     }
 
     /**
-     * This function adds an user to the database if it does not exist already, otherwise does
+     * This method adds an user to the database if it does not exist already, otherwise does
      * nothing.
      * @param user is the object to be added.
      */
@@ -68,16 +75,14 @@ public class UserManagement {
         connection.getUser(user.getEmail(), new onGetDataListener<User>() {
             @Override
             public void onSuccess(User data) {
-                if (data != null) {
-                    return;
+                if (data == null) {
+                    connection.addUser(user);
                 }
-
-                connection.addUser(user);
             }
 
             @Override
             public void onFailure() {
-
+                Log.e("UserManagement", "Failed to signup user.");
             }
         });
     }

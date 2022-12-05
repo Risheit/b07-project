@@ -3,14 +3,11 @@ package com.models.users;
 import androidx.annotation.NonNull;
 
 import com.models.course.Course;
-import com.models.course.CourseDatabase;
 import com.models.course.CourseDatabaseInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class User {
     private String type;
@@ -22,7 +19,7 @@ public class User {
 
 
     public User() {
-        type = "Student";
+        type = UserManagement.studentConnection;
         name = "";
         email = "";
         password = "";
@@ -135,7 +132,7 @@ public class User {
      * @param courseCodesTaken  The codes of the courses the user plans to take
      */
 
-    public void setCourseCodesTaken(ArrayList<String> courseCodesTaken) {
+    public void setCourseCodesTaken(List<String> courseCodesTaken) {
         this.courseCodesTaken = courseCodesTaken;
     }
 
@@ -143,21 +140,21 @@ public class User {
      * This method adds a course to the list containing the courses this user has taken if that
      * course is not already in the list.
      * @param courseCode  The code of the course to be added
-     * @return True iff the course is added to the list.
      */
 
-    public boolean addTakenCourse(String courseCode) {
-        return !courseCodesTaken.contains(courseCode) && courseCodesTaken.add(courseCode);
+    public void addTakenCourse(String courseCode) {
+        if (!courseCodesTaken.contains(courseCode)) {
+            courseCodesTaken.add(courseCode);
+        }
     }
 
     /**
      * This method removes a course from the list containing the courses this user has taken.
      * @param courseCode  The code of the course to be added
-     * @return True if the course is removed successfully, false otherwise.
      */
 
-    public boolean removeTakenCourse(String courseCode) {
-        return courseCodesTaken.remove(courseCode);
+    public void removeTakenCourse(String courseCode) {
+        courseCodesTaken.remove(courseCode);
     }
 
     /**
@@ -175,7 +172,7 @@ public class User {
      * @param courseCodesPlanned  The course codes representing new courses planned for the user
      */
 
-    public void setCourseCodesPlanned(ArrayList<String> courseCodesPlanned) {
+    public void setCourseCodesPlanned(List<String> courseCodesPlanned) {
         this.courseCodesPlanned = courseCodesPlanned;
     }
 
@@ -183,23 +180,22 @@ public class User {
     /**
      * This method adds a course to the set containing the courses this user has planned to take.
      * @param courseCode  The code of the course to be added
-     * @return True if the course is added, false if the user has already planned to take
-     *         this course.
      */
 
-    public boolean addPlannedCourse(String courseCode) {
-        return !courseCodesPlanned.contains(courseCode) && courseCodesPlanned.add(courseCode);
+    public void addPlannedCourse(String courseCode) {
+        if (courseCodesPlanned.contains(courseCode)) {
+            courseCodesPlanned.add(courseCode);
+        }
     }
 
     /**
      * This method removes a course from the set containing the courses this user has planned to
      * take.
      * @param courseCode  The code of the course to be added
-     * @return True if the course is removed successfully, false otherwise.
      */
 
-    public boolean removePlannedCourse(String courseCode) {
-        return courseCodesPlanned.remove(courseCode);
+    public void removePlannedCourse(String courseCode) {
+        courseCodesPlanned.remove(courseCode);
     }
 
     /**
@@ -238,8 +234,6 @@ public class User {
         List<Course> courseList = cd.getCourseListFromString(getCourseCodesPlanned());
         return getTakeableCourses(cd, courseList);
     }
-
-
 
     @Override
     public int hashCode() {

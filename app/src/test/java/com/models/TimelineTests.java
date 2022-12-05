@@ -3,6 +3,7 @@ package com.models;
 import com.models.course.Course;
 import com.models.course.CourseDatabaseInterface;
 import com.models.users.User;
+import com.models.users.UserManagement;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,8 +27,8 @@ public class TimelineTests {
         db = new CourseDatabaseMock();
         expectedTimeline = new ArrayList<>();
         currentSession = Session.getCurrentSession();
-        user = new User("Student", "Test McTesterface", "luvtests@testmail.ca",
-                "testmebaby");
+        user = new User(UserManagement.studentConnection, "Test McTesterface",
+                "luvtests@testmail.ca", "testmebaby");
 
         course1 = new Course("Introduction To Basic Testing", "TST101",
                 Collections.singletonList(Session.fall));

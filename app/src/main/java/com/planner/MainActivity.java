@@ -7,37 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.models.users.User;
 import com.models.users.UserDatabase;
 import com.planner.databinding.ActivityMainBinding;
 import com.presenters.MainPresenter;
 
-/* TODO: Refactor all this
-
-FirstFragment,Second -- MainActivity
-First2Fragment,Second -- SignUpActivity
-First3Fragment,Second -- HomepageActivity
-First4Fragment,Second -- AdminHomepageActivity
-First5Fragment,Second --
-First6Fragment,Second --
-First7Fragment,Second --
-First8Fragment,Second --
-First9Fragment,Second --
-
-*/
-
-
 public class MainActivity extends AppCompatActivity implements ViewActions {
-
-    private AppBarConfiguration appBarConfiguration;
-    private NavController navController;
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -49,23 +26,15 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // dont delete this line
-        // called at the start of the program so we can load all the courses into the arraylist
+        // Don't delete this line
+        // Called at the start of the program so we can load all the courses into the arraylist
         CourseDatabase.getInstance();
 
-        presenter = new MainPresenter(this, new UserDatabase(
-                "https://b07-project-e5893-default-rtdb.firebaseio.com/"
-        ));
+        presenter = new MainPresenter(this, new UserDatabase());
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.SignUpHeader);
-
-        navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController,
-                appBarConfiguration);
 
         emailInput = findViewById(R.id.inputEmail2);
         passwordInput = findViewById(R.id.inputPassword2);
@@ -90,12 +59,6 @@ public class MainActivity extends AppCompatActivity implements ViewActions {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 
     public EditText getEmailInput() {

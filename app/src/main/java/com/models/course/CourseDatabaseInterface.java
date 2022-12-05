@@ -32,6 +32,13 @@ public interface CourseDatabaseInterface {
      */
     void removeCourse(String key);
 
+
+    /**
+     * This method takes in a list of course codes and returns the applicable courses in the
+     * database. Invalid course codes are replaced with null.
+     * @param list The list of course codes
+     * @return A list of corresponding courses.
+     */
     List<Course> getCourseListFromString(List<String> list);
 
 }

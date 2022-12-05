@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 final public class CourseDatabase implements CourseDatabaseInterface {
-    private final DatabaseReference ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/").getReference();
+    private final DatabaseReference ref;
     private static CourseDatabase courseDB;
-    public ArrayList<Course> courses;
+    private final List<Course> courses;
 
     private CourseDatabase() {
         courses = new ArrayList<>();
+        ref = FirebaseDatabase.getInstance("https://b07-project-e5893-default-rtdb.firebaseio.com/")
+                .getReference();
 
         ref.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
@@ -39,11 +41,11 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                             // parsing the name, code, sessionalDates, prerequisites
                             String name = s.child("name").getValue(String.class);
                             String code = s.child("code").getValue(String.class);
-                            ArrayList<String> sessionalDates
-                                    = (ArrayList<String>) s.child("sessionalDates")
+                            ArrayList<String> sessionalDates = (ArrayList<String>) s
+                                    .child("sessionalDates")
                                     .getValue(toStringList);
-                            ArrayList<Course> prerequisites
-                                    = (ArrayList<Course>) s.child("prerequisites")
+                            ArrayList<Course> prerequisites = (ArrayList<Course>) s
+                                    .child("prerequisites")
                                     .getValue(toCourseList);
                             Course course = new Course(name, code, sessionalDates, prerequisites);
                             courses.add(course);
@@ -52,7 +54,7 @@ final public class CourseDatabase implements CourseDatabaseInterface {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("CourseDatabase", "Error updating the local arraylist");
+                Log.e("CourseDatabase", "Error updating the local course list");
             }
         });
     }
@@ -63,34 +65,39 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         return courseDB;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    /**
+     * Adds a course with the given properties to the database with a unique key.
+     *
+     * The unique key is read from the database's "uniqueVal" value that is then incremented to
+     * ensure that it will always have a different value each time it is read.
+     * @param course is the course to be added
+     */
+
     @Override
     public void addCourse(Course course) {
-        /*
-        addCourse() adds a course with the given properties to the database with a unique key
-
-        the unique key is read from the database's "uniqueVal" value that is then incremented to
-        ensure that it will always have a different value each time it is read
-         */
-
         ref.child("uniqueVal").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("CourseDatabase", "Error reading uniqueVal", task.getException());
             } else {
-                // if we get here, then there has been no error reading "uniqueVal" (ie the task
+                // If we get here, then there has been no error reading "uniqueVal" (ie the task
                 // was successful)
-                // first we read the "uniqueVal" value in the database
+                // First we read the "uniqueVal" value in the database
                 Integer uniqueVal = task.getResult().getValue(Integer.class);
 
-                // increment the uniqueVal value in the database so that it will be unique the
+                // Increment the uniqueVal value in the database so that it will be unique the
                 // next time we call it
                 if (uniqueVal != null) {
                     ref.child("uniqueVal").setValue(uniqueVal + 1);
                 }
 
-                // now we can add the course with our new unique key
+                // Now we can add the course with our new unique key
                 ref.child("courses").child(String.valueOf(uniqueVal)).setValue(course);
                 /*
-                note: the above line MUST be inside this else{} statement so that we can add
+                Note: The above line MUST be inside this else{} statement so that we can add
                 the course to the database AFTER we read the uniqueVal value into un.
 
                 i.e., if the line is outside of the onComplete() method, the course will likely
@@ -124,20 +131,19 @@ final public class CourseDatabase implements CourseDatabaseInterface {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("CourseDatabase", "Error editing " + code);
+                Log.e("CourseDatabase", "Error editing " + course);
             }
         });
     }
 
     @Override
     public Course getCourse(String code) {
-        for(int index=0; index<courses.size(); index++) {
-            // we return the first instance of the course in courses
-            // although there should only be one course with that code so its all good hopefully :)
-            if(courses.get(index).getCode().equals(code))
-                return courses.get(index);
-        }
-        return null;
+        // We return the first instance of the course in courses
+        // although there should only be one course with that code so its all good hopefully :)
+        return courses.stream()
+                .filter(course -> course.getCode().equals(code))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -163,5 +169,4 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         list.forEach(code -> returnList.add(getCourse(code)));
         return returnList;
     }
-
 }
