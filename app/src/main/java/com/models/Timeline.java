@@ -21,13 +21,8 @@ public class Timeline {
     }
 
     public static Timeline makeTimeline(User user, CourseDatabaseInterface cd) {
-        // Copy user
-        User copy = new User(user.getType(), user.getName(), user.getEmail(), user.getPassword());
-        user.getCourseCodesPlanned().forEach(copy::addPlannedCourse);
-        user.getCourseCodesTaken().forEach(copy::addTakenCourse);
-
         Timeline timeline = new Timeline();
-        List<Course> takenCourses = cd.getCourseListFromString(copy.getCourseCodesTaken());
+        List<Course> takenCourses = cd.getCourseListFromString(user.getCourseCodesTaken());
         user.getCourseCodesPlanned().forEach(code -> {
                 if (!user.getCourseCodesTaken().contains(code)) {
                     timeline.placeCourseOnTimeline(takenCourses, cd.getCourse(code));
@@ -39,7 +34,9 @@ public class Timeline {
 
     public void placeCourseOnTimeline(List<Course> takenCourses, Course coursePlanned) {
         List<Course> prereqs = coursePlanned.getPrerequisites();
-        List<String> seasonsAllowed = coursePlanned.getSessionalDates();
+        List<String> seasonsAllowed = coursePlanned.getSessionalDates()
+                .stream().map(String::toLowerCase)
+                .collect(Collectors.toList());
 
         if (this.containsCourse(coursePlanned) || takenCourses.contains(coursePlanned)) {
             return;
@@ -52,7 +49,7 @@ public class Timeline {
         while (true) {
             Session iSession = findSessionByName(i.first, i.second);
             if ((iSession != null && iSession.anyCoursesInSession(prereqs))
-                || !seasonsAllowed.contains(i.first)) {
+                || !seasonsAllowed.contains(i.first.toLowerCase())) {
                 i = Session.moveToNextSession(i);
             } else {
                 addToSession(i.first, i.second, coursePlanned);
