@@ -26,6 +26,7 @@ public class CourseListAddActivity extends AppCompatActivity implements ViewActi
         ActivityCourseListAddBinding binding =
                 ActivityCourseListAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().hide();
 
         // Fill the noteListArrayList with every course code that has not
         // been taken by the current user
