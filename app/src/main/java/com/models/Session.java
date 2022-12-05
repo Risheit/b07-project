@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import com.models.course.Course;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,8 +91,27 @@ public class Session implements Comparable<Session>{
         sessionCourses.clear();
     }
 
+    /* old hardcoded implementation in case the dynamic one doesn't work
     public static Pair<String, Integer> getCurrentSession() {
         return new Pair<>(fall, 2023);
+    }*/
+
+    // dynamic implementation that updates with the actual date
+    public static Pair<String, Integer> getCurrentSession() {
+        Calendar today = new GregorianCalendar();
+        int year = today.get(Calendar.YEAR);
+        int month = today.get(Calendar.MONTH);
+        String season = null; // this will represent the section, not the actual season
+
+        // if its between january or april
+        if(month >= Calendar.JANUARY &&  month <= Calendar.APRIL)
+            season = winter;
+        else if(month >= Calendar.MAY && month <= Calendar.AUGUST)
+            season = summer;
+        else if(month >= Calendar.SEPTEMBER && month <= Calendar.DECEMBER)
+            season = fall;
+
+        return new Pair<>(season, year);
     }
 
     public static Pair<String, Integer> moveToNextSession(Pair<String, Integer> sessionDate){
