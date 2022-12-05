@@ -108,9 +108,7 @@ public class Course {
     }
 
     private void addCoursesThatRequire(List<Course> courseList) {
-        for (int i = 0; i < courseList.size(); i++) {
-            courseList.get(i).requiresThisCourse.add(this);
-        }
+        courseList.forEach(course -> course.requiresThisCourse.add(this));
     }
 
     /***
