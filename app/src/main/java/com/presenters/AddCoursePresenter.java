@@ -34,7 +34,7 @@ public class AddCoursePresenter {
             return;
         }
 
-        if (getValidSessionDatesFromString(sessionsOffered).isEmpty()) {
+        if (Session.getValidSessionDatesFromString(sessionsOffered).isEmpty()) {
             view.displayErrorNotification(view, "Invalid course has been offered");
             return;
         }
@@ -71,44 +71,10 @@ public class AddCoursePresenter {
         courseDB.addCourse(new Course(
                 name,
                 course_code,
-                getValidSessionDatesFromString(sessionsOffered),
-                getCoursesFromCodes(prerequisiteCodes)
+                Session.getValidSessionDatesFromString(sessionsOffered),
+                courseDB.getCourseListFromString(prerequisiteCodes)
         ));
         view.displayNotification(view, "Course Added");
         view.openAdminHomepage(view);
-    }
-
-    private List<String> getValidSessionDatesFromString(String sessionsOffered) {
-        List<String> validSeasons = Arrays.asList(Session.summer.toLowerCase(),
-                Session.winter.toLowerCase(), Session.fall.toLowerCase());
-
-        List<String> sessions = Arrays.stream(sessionsOffered.split(","))
-                .map(String::toLowerCase)
-                .map(String::trim)
-                .collect(Collectors.toList());
-
-        return sessions.stream()
-                .filter(validSeasons::contains)
-                .map(season -> {
-                    if (Session.fall.toLowerCase().equals(season))
-                        return Session.fall;
-                    if (Session.winter.toLowerCase().equals(season))
-                        return Session.winter;
-                    if (Session.summer.toLowerCase().equals(season))
-                        return Session.summer;
-                    return Session.fall;
-                })
-                .collect(Collectors.toList());
-    }
-
-    private List<Course> getCoursesFromCodes(List<String> codes) {
-        List<Course> courses = new ArrayList<>();
-        codes.forEach(code -> {
-            Course course = courseDB.getCourse(code);
-            if (course != null)
-                courses.add(course);
-        });
-
-        return courses;
     }
 }

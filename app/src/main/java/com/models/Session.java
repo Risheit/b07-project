@@ -5,10 +5,12 @@ import androidx.annotation.NonNull;
 import com.models.course.Course;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Session implements Comparable<Session>{
     private String season;
@@ -169,6 +171,29 @@ public class Session implements Comparable<Session>{
             }
         }
         return s;
+    }
+
+    public static List<String> getValidSessionDatesFromString(String sessionsOffered) {
+        List<String> validSeasons = Arrays.asList(Session.summer.toLowerCase(),
+                Session.winter.toLowerCase(), Session.fall.toLowerCase());
+
+        List<String> sessions = Arrays.stream(sessionsOffered.split(","))
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .collect(Collectors.toList());
+
+        return sessions.stream()
+                .filter(validSeasons::contains)
+                .map(season -> {
+                    if (Session.fall.toLowerCase().equals(season))
+                        return Session.fall;
+                    if (Session.winter.toLowerCase().equals(season))
+                        return Session.winter;
+                    if (Session.summer.toLowerCase().equals(season))
+                        return Session.summer;
+                    return Session.fall;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
