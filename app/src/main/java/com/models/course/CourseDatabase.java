@@ -196,9 +196,14 @@ final public class CourseDatabase implements CourseDatabaseInterface {
     }
 
     @Override
-    public List<Course> getCourseListFromString(List<String> list) {
-        List<Course> returnList = new ArrayList<>();
-        list.forEach(code -> returnList.add(getCourse(code)));
-        return returnList;
+    public List<Course> getCourseListFromString(List<String> codes) {
+        List<Course> courses = new ArrayList<>();
+        codes.forEach(code -> {
+            Course course = getCourse(code);
+            if (course != null)
+                courses.add(course);
+        });
+
+        return courses;
     }
 }
