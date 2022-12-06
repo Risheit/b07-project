@@ -1,5 +1,7 @@
 package com.models.course;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.models.Session;
@@ -7,8 +9,6 @@ import com.models.Session;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Course {
@@ -16,7 +16,7 @@ public class Course {
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
-    private List<Course> requiresThisCourse;
+    private final List<Course> requiresThisCourse;
 
     /***
      * Default constructor for Course object
@@ -31,6 +31,7 @@ public class Course {
         this.prerequisites = prerequisites;
         this.sessionalDates = sessionalDates;
         requiresThisCourse = new ArrayList<>();
+        Log.i("FixingRequired", "requiresThisCourse made Empty in Line 36.");
         setPrerequisites(prerequisites);
     }
 
@@ -46,6 +47,7 @@ public class Course {
         this.sessionalDates = sessionalDates;
         this.prerequisites = new ArrayList<>();
         requiresThisCourse = new ArrayList<>();
+        Log.i("FixingRequired", "requiresThisCourse made Empty in Line 52.");
     }
 
     /***
@@ -57,6 +59,7 @@ public class Course {
         this.sessionalDates = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
         requiresThisCourse = new ArrayList<>();
+        Log.i("FixingRequired", "requiresThisCourse made Empty in Line 64.");
     }
 
     public String getName() {
@@ -108,7 +111,7 @@ public class Course {
     }
 
     private void addCoursesThatRequire(Course c, List<Course> courseList) {
-        courseList.forEach(course -> course.obtainRequires().add(this));
+        courseList.forEach(course -> course.addRequiredCourse(c));
     }
 
     /***
@@ -142,6 +145,11 @@ public class Course {
         this.prerequisites = validPrerequisites;
     }
 
+    /**
+     * Getter for {@code requiresThisCourse}. Named like it is to avoid Firebase from attempting
+     * to store it.
+     * @return A list of courses who have this course in their prerequisites.
+     */
     public List<Course> obtainRequires() {
         return requiresThisCourse;
     }
@@ -162,7 +170,11 @@ public class Course {
      * @param course The required course to be added
      */
     public void addRequiredCourse(Course course) {
-        requiresThisCourse.add(course);
+        if (!requiresThisCourse.contains(course)) {
+            Log.i("FixingRequired", "adding " + course + " to requiresThisCourse in "
+                    + this + ". \n The required course list is currently" + requiresThisCourse);
+            requiresThisCourse.add(course);
+        }
     }
 
     /**
@@ -170,6 +182,7 @@ public class Course {
      * @param course The required course to be removed
      */
     public void removeRequiredCourse(Course course) {
+        Log.i("FixingRequired", "removing " + course + " from requiresThisCourse");
         requiresThisCourse.remove(course);
     }
 

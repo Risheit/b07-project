@@ -28,32 +28,10 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         ref.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<String>> toStringList
-                        = new GenericTypeIndicator<ArrayList<String>>(){};
-                GenericTypeIndicator<ArrayList<Course>> toCourseList
-                        = new GenericTypeIndicator<ArrayList<Course>>(){};
-
-                // if the courses object in the database changes in any way, clear and refill
+                // If the courses object in the database changes in any way, clear and refill
                 // the local storage
                 courses.clear();
-                snapshot.getChildren()
-                        .forEach(s -> {
-                            // parsing the name, code, sessionalDates, prerequisites
-                            String name = s.child("name").getValue(String.class);
-                            String code = s.child("code").getValue(String.class);
-                            ArrayList<String> sessionalDates = (ArrayList<String>) s
-                                    .child("sessionalDates")
-                                    .getValue(toStringList);
-                            ArrayList<Course> prerequisites = (ArrayList<Course>) s
-                                    .child("prerequisites")
-                                    .getValue(toCourseList);
-                            Course course = new Course(name, code, sessionalDates, prerequisites);
-                            courses.add(course);
-                        });
-
-                courses.forEach(course ->
-                        course.getPrerequisites().forEach(prerequisite ->
-                                prerequisite.addRequiredCourse(course)));
+                resetDatabase(snapshot);
             }
 
             @Override
@@ -61,6 +39,56 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                 Log.e("CourseDatabase", "Error updating the local course list");
             }
         });
+    }
+
+    private void resetDatabase(@NonNull DataSnapshot snapshot) {
+        Log.i("FixingRequired", "Database Reset.");
+
+        GenericTypeIndicator<ArrayList<String>> toStringList
+                = new GenericTypeIndicator<ArrayList<String>>(){};
+        GenericTypeIndicator<ArrayList<Course>> toCourseList
+                = new GenericTypeIndicator<ArrayList<Course>>(){};
+
+        snapshot.getChildren()
+                .forEach(s -> {
+                    // Parsing the name, code, sessionalDates, prerequisites
+                    String name = s.child("name").getValue(String.class);
+                    String code = s.child("code").getValue(String.class);
+                    ArrayList<String> sessionalDates = (ArrayList<String>) s
+                            .child("sessionalDates")
+                            .getValue(toStringList);
+                    Course course = new Course(name, code, sessionalDates, null);
+                    courses.add(course);
+                });
+
+        // Prerequisites end up being copies of courses and not references.
+        // The fix to that is to go through the snapshot after all the courses have been
+        // instantiated and find each prerequisite's references.
+        snapshot.getChildren()
+                .forEach(s -> {
+                    String code = s.child("code").getValue(String.class);
+                    Course course = getCourse(code);
+                    ArrayList<Course> prerequisiteCopies = (ArrayList<Course>) s
+                            .child("prerequisites")
+                            .getValue(toCourseList);
+
+                    // Load up array of references from array of copies.
+                    ArrayList<Course> prerequisiteReferences = new ArrayList<>();
+                    if (prerequisiteCopies != null) {
+                        prerequisiteCopies.forEach(copy -> {
+                            Course referencedCourse = getCourse(copy.getCode());
+                            if (referencedCourse != null) {
+                                prerequisiteReferences.add(referencedCourse);
+                            }
+                        });
+                    }
+
+                    // Add this as a required course for all prereqs
+                    prerequisiteReferences.forEach(prerequisite ->
+                            prerequisite.addRequiredCourse(course));
+
+                    course.setPrerequisites(prerequisiteReferences);
+                });
     }
 
     public static CourseDatabase getInstance() {
