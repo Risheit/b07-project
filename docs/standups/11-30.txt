@@ -1,0 +1,72 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Refactored the user login page to apply MVP design patterns.
+
+What are you planning on doing today?
+	- Rewriting tests to work with the refactored MVP design.
+
+Any impediments or stumbling blocks?
+	- None.
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished AddCourseActivity
+
+What are you planning on doing today?
+	- Start brainstorming 3rd sprint/help around/create RemoveCourseActivity
+
+Any impediments or stumbling blocks?
+	-  Need getCourse()/addCourse()
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- None
+
+What are you planning on doing today?
+	- Implement addCourse(), removeCourse(), editCourse(), and getCourse() using local storage
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Created the edit course view
+Worked fixing the login pages for admins
+
+What are you planning on doing today?
+Fix login pages for admin
+Implement navigation for back and done buttons for edit course
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+Added several more activities, redid addUser to fit the new key
+
+What are you planning on doing today?
+	- Looking at fragments, implementing a drop down list	
+
+Any impediments or stumbling blocks?
+When passing information from one activity to another, it is hard to keep that information
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- almost finished editCourse
+
+What are you planning on doing today?
+Finish it and also impediments so need to work around them
+
+Any impediments or stumbling blocks?
+	- I think i need to use observers

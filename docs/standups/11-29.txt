@@ -1,0 +1,71 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Researched how to transfer data to and from a Fragment.
+
+What are you planning on doing today?
+	- Designing a view for displaying courses in a list method and continuing the fragment implementation.
+
+Any impediments or stumbling blocks?
+	- None.
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finish removeUser()
+
+What are you planning on doing today?
+	-  Figure out how to parse strings in AddCourseActivity
+
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+	- Planned some stuff for getUser() in case we need it
+
+What are you planning on doing today?
+	- None
+
+Any impediments or stumbling blocks?
+	- Waiting for our decision on the getUser() implementation
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Implemented the navigation for the back button and done button in AddCourseActivity
+Modified AddCourseActivity to store its inputs in the database
+
+What are you planning on doing today?
+Modifying AddCourseActivity so that it actually adds a new course to the database, struggling with how to convert the input of the prerequisites into an array of courses
+
+Any impediments or stumbling blocks?
+	- None
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+
+
+What are you planning on doing today?
+	- Discuss and meet with group tomorrow
+
+Any impediments or stumbling blocks?
+N/A
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+	- created a skeleton of getCourse by key inside an activity
+
+What are you planning on doing today?
+Prepare code for editing course
+
+Any impediments or stumbling blocks?
+	- we are changing our structure so have to wait for the change likely
