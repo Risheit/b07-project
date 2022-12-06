@@ -79,4 +79,10 @@ public interface ViewActions {
         caller.startActivity(intent);
         caller.finish();
     }
+
+    default void openCourseTimelineRActivity(Activity caller) {
+        Intent intent = new Intent(caller, CourseTimelineRActivity.class);
+        caller.startActivity(intent);
+        caller.finish();
+    }
 }
