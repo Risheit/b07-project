@@ -14,4 +14,4 @@ Standup Meeting Time:
 
 Project Version Control System: Github (https://github.com/Risheit/b07-project)
 
-Branching Strategy: One branch per user story
+Branching Strategy: One branch per sprint
