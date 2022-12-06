@@ -41,8 +41,8 @@ public class EditCourseActivity extends AppCompatActivity implements ViewActions
         EditText sessionInput = (EditText) findViewById(R.id.editTextTextPersonName20);
         EditText prereqInput = (EditText) findViewById(R.id.editTextTextPersonName21);
 
-        String courseCode = courseCodeInput.getText().toString();
-        String newCourseCode = newCourseCodeInput.getText().toString();
+        String courseCode = courseCodeInput.getText().toString().toUpperCase();
+        String newCourseCode = newCourseCodeInput.getText().toString().toUpperCase();
         String title = titleInput.getText().toString();
         String session = sessionInput.getText().toString();
         String prerequisiteString = prereqInput.getText().toString();
