@@ -46,6 +46,13 @@ public class RemoveCourseActivity extends AppCompatActivity implements ViewActio
                 displayErrorNotification(RemoveCourseActivity.this,
                         "Course not found in database");
             } else {
+                course.getPrerequisites().forEach(c -> {
+                    c.removeRequiredCourse(course);
+                });
+                course.obtainRequires().forEach(c -> {
+                    c.getPrerequisites().remove(course);
+                    courseDB.editCourse(c, c.getCode());
+                });
                 courseDB.removeCourse(courseCode);
                 displayNotification(RemoveCourseActivity.this,
                         "Course removed");

@@ -16,7 +16,7 @@ public class Course {
     private String code;
     private List<String> sessionalDates;
     private List<Course> prerequisites;
-    private final List<Course> requiresThisCourse;
+    private List<Course> requiresThisCourse;
 
     /***
      * Default constructor for Course object
@@ -107,8 +107,8 @@ public class Course {
         return prerequisites;
     }
 
-    private void addCoursesThatRequire(List<Course> courseList) {
-        courseList.forEach(course -> course.requiresThisCourse.add(this));
+    private void addCoursesThatRequire(Course c, List<Course> courseList) {
+        courseList.forEach(course -> course.obtainRequires().add(this));
     }
 
     /***
@@ -138,8 +138,12 @@ public class Course {
                 }
             });
         }
-        addCoursesThatRequire(validPrerequisites);
+        addCoursesThatRequire(this, validPrerequisites);
         this.prerequisites = validPrerequisites;
+    }
+
+    public List<Course> obtainRequires() {
+        return requiresThisCourse;
     }
 
     /***
@@ -158,9 +162,7 @@ public class Course {
      * @param course The required course to be added
      */
     public void addRequiredCourse(Course course) {
-        if (!requiresThisCourse.contains(course)) {
-            requiresThisCourse.add(course);
-        }
+        requiresThisCourse.add(course);
     }
 
     /**
