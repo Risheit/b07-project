@@ -144,7 +144,7 @@ final public class CourseDatabase implements CourseDatabaseInterface {
 
     @Override
     public void editCourse(Course course, String code) {
-        Query courseQuery = ref.child("courses").orderByChild("code").equalTo(code);
+        Query courseQuery = ref.child("courses").orderByChild("code").equalTo(code.toUpperCase());
 
         courseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -180,7 +180,7 @@ final public class CourseDatabase implements CourseDatabaseInterface {
 
     @Override
     public void removeCourse(String code) {
-        Query courseQuery = ref.child("courses").orderByChild("code").equalTo(code);
+        Query courseQuery = ref.child("courses").orderByChild("code").equalTo(code.toUpperCase());
 
         courseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

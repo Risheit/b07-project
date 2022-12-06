@@ -35,7 +35,7 @@ public class AddCoursePresenter {
         }
 
         if (Session.getValidSessionDatesFromString(sessionsOffered).isEmpty()) {
-            view.displayErrorNotification(view, "Invalid course has been offered");
+            view.displayErrorNotification(view, "Please enter valid session names separated by commas");
             return;
         }
 

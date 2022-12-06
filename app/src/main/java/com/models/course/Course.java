@@ -75,7 +75,7 @@ public class Course {
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.code = code.toUpperCase();
     }
 
     public List<String> getSessionalDates() {

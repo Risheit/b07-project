@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.models.Session;
 import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.planner.databinding.ActivityEditCourseBinding;
@@ -13,6 +14,7 @@ import com.planner.databinding.ActivityEditCourseBinding;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EditCourseActivity extends AppCompatActivity implements ViewActions {
 
@@ -44,50 +46,56 @@ public class EditCourseActivity extends AppCompatActivity implements ViewActions
         String courseCode = courseCodeInput.getText().toString();
         String newCourseCode = newCourseCodeInput.getText().toString();
         String title = titleInput.getText().toString();
-        String session = sessionInput.getText().toString();
+        String sessionString = sessionInput.getText().toString();
         String prerequisiteString = prereqInput.getText().toString();
 
-        if (courseCode.isEmpty() || newCourseCode.isEmpty()
-                || title.isEmpty() || session.isEmpty()) {
+        if (courseCode.isEmpty()) {
             displayErrorNotification(EditCourseActivity.this,
-                    "Please Enter All Fields");
-        } else {
-            ArrayList<String> listSessions = new ArrayList<>(
-                    Arrays.asList(session.split(","))
-            );
-            List<String> prerequisiteCodes = Arrays.asList(prerequisiteString.split(","));
-
-            if (courseDB.getCourse(courseCode) == null) {
-                displayErrorNotification(EditCourseActivity.this,
-                        "Course does not exist");
-                return;
-            }
-
-            boolean hasPrereq = !prerequisiteCodes.get(0).isEmpty();
-            if (hasPrereq && invalidPrerequisiteGiven(prerequisiteCodes)) {
-                displayErrorNotification(EditCourseActivity.this,
-                        "One or more of your prerequisite courses is not "
-                                + "registered in the database. Addition cancelled");
-                return;
-            }
-
-            Course course = courseDB.getCourse(courseCode);
-            course.setCode(newCourseCode);
-            course.setName(title);
-            course.setSessionalDates(listSessions);
-            courseDB.removeCourse(courseCode);
-
-            List<Course> prerequisites = new ArrayList<>();
-            if (hasPrereq) {
-                prerequisiteCodes.forEach(code -> prerequisites.add(courseDB.getCourse(code)));
-            }
-            course.setPrerequisites(prerequisites);
-
-            courseDB.addCourse(course);
-
-            displayNotification(EditCourseActivity.this, "Course edited");
-            openAdminHomepage(EditCourseActivity.this);
+                    "Please Enter a course code.");
+            return;
         }
+
+        List<String> prerequisiteCodes = Arrays.asList(prerequisiteString.split(","));
+
+        Course course = courseDB.getCourse(courseCode);
+        if (course == null) {
+            displayErrorNotification(EditCourseActivity.this,
+                    "Course does not exist");
+            return;
+        }
+
+        boolean hasPrereq = !prerequisiteCodes.get(0).isEmpty();
+        if (hasPrereq && invalidPrerequisiteGiven(prerequisiteCodes)) {
+            displayErrorNotification(EditCourseActivity.this,
+                    "One or more of your prerequisite courses is not "
+                            + "registered in the database. Addition cancelled");
+            return;
+        }
+
+        List<String> unValidatedSessions = Arrays.stream(sessionString.split(","))
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .collect(Collectors.toList());
+        List<String> sessions = Session.getValidSessionDatesFromString(sessionString);
+        // Invalid sessions given
+        if (!sessionString.isEmpty() && (unValidatedSessions.size() > sessions.size())) {
+            displayErrorNotification(EditCourseActivity.this,
+                    "Please enter valid session names separated by commas");
+            return;
+        }
+
+        List<Course> prerequisites = courseDB.getCourseListFromString(prerequisiteCodes);
+
+        course.setCode(newCourseCode.isEmpty() ? course.getCode() : newCourseCode);
+        course.setName(title.isEmpty() ? course.getName() : title);
+        course.setSessionalDates(sessions.isEmpty() ? course.getSessionalDates() : sessions);
+        course.setPrerequisites(!hasPrereq ? course.getPrerequisites() : prerequisites);
+
+        courseDB.removeCourse(courseCode);
+        courseDB.addCourse(course);
+
+        displayNotification(EditCourseActivity.this, "Course edited");
+        openAdminHomepage(EditCourseActivity.this);
     }
 
     private boolean invalidPrerequisiteGiven(List<String> prerequisiteCodes) {
