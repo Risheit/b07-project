@@ -173,7 +173,7 @@ final public class CourseDatabase implements CourseDatabaseInterface {
         // We return the first instance of the course in courses
         // although there should only be one course with that code so its all good hopefully :)
         return courses.stream()
-                .filter(course -> course.getCode().equals(code))
+                .filter(course -> course.getCode().equals(code.toUpperCase()))
                 .findFirst()
                 .orElse(null);
     }

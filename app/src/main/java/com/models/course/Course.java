@@ -27,7 +27,7 @@ public class Course {
      */
     public Course(String name, String code, List<String> sessionalDates, List<Course> prerequisites) {
         this.name = name;
-        this.code = code;
+        this.code = code == null ? "" : code.toUpperCase();
         this.prerequisites = prerequisites;
         this.sessionalDates = sessionalDates;
         requiresThisCourse = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Course {
      */
     public Course(String name, String code, List<String> sessionalDates) {
         this.name = name;
-        this.code = code;
+        this.code = code.toUpperCase();
         this.sessionalDates = sessionalDates;
         this.prerequisites = new ArrayList<>();
         requiresThisCourse = new ArrayList<>();

@@ -8,6 +8,7 @@ import com.models.course.CourseDatabaseInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class User {
     private String type;
@@ -133,7 +134,9 @@ public class User {
      */
 
     public void setCourseCodesTaken(List<String> courseCodesTaken) {
-        this.courseCodesTaken = courseCodesTaken;
+        this.courseCodesTaken = courseCodesTaken.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -143,8 +146,8 @@ public class User {
      */
 
     public void addTakenCourse(String courseCode) {
-        if (!courseCodesTaken.contains(courseCode)) {
-            courseCodesTaken.add(courseCode);
+        if (!courseCodesTaken.contains(courseCode.toUpperCase())) {
+            courseCodesTaken.add(courseCode.toUpperCase());
         }
     }
 
@@ -154,7 +157,7 @@ public class User {
      */
 
     public void removeTakenCourse(String courseCode) {
-        courseCodesTaken.remove(courseCode);
+        courseCodesTaken.remove(courseCode.toUpperCase());
     }
 
     /**
@@ -173,7 +176,9 @@ public class User {
      */
 
     public void setCourseCodesPlanned(List<String> courseCodesPlanned) {
-        this.courseCodesPlanned = courseCodesPlanned;
+        this.courseCodesPlanned = courseCodesPlanned.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
     }
 
 
@@ -183,8 +188,8 @@ public class User {
      */
 
     public void addPlannedCourse(String courseCode) {
-        if (courseCodesPlanned.contains(courseCode)) {
-            courseCodesPlanned.add(courseCode);
+        if (courseCodesPlanned.contains(courseCode.toUpperCase())) {
+            courseCodesPlanned.add(courseCode.toUpperCase());
         }
     }
 
@@ -195,7 +200,7 @@ public class User {
      */
 
     public void removePlannedCourse(String courseCode) {
-        courseCodesPlanned.remove(courseCode);
+        courseCodesPlanned.remove(courseCode.toUpperCase());
     }
 
     /**
