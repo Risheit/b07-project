@@ -1,6 +1,7 @@
 package com.planner;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ public class CourseTimelineRActivity extends AppCompatActivity implements ViewAc
     private final UserDatabase userDatabase = new UserDatabase();
     private final CourseDatabase c = CourseDatabase.getInstance();
 
+    Button backButton;
+
     // Made the timeline
     Timeline t = Timeline.makeTimeline(MainActivity.currentUser, c);
 
@@ -33,15 +36,15 @@ public class CourseTimelineRActivity extends AppCompatActivity implements ViewAc
         recyclerView = findViewById(R.id.recycler_view);
 
         setRecyclerView();
-        setSupportActionBar(binding.toolbar);
+        //setSupportActionBar(binding.toolbar);
+        //getSupportActionBar().hide();
 
-//        backButton = (Button) findViewById(R.id.);
-        // I can't seem to implement a back button from the table view screen
-//        backButton.setOnClickListener(view -> {
-//            userDatabase.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
-//
-//            openStudentHomepage(CourseTimelineRActivity.this);
-//        });
+        backButton = (Button) findViewById(R.id.button15);
+        backButton.setOnClickListener(view -> {
+            userDatabase.editUser(MainActivity.currentUser, MainActivity.currentUser.getEmail());
+
+            openStudentHomepage(CourseTimelineRActivity.this);
+        });
     }
 
     // This connects the activity to the adapter that fills the table
