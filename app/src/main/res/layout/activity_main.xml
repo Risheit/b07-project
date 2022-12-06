@@ -1,46 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.GenericTemplate.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/SignUpHeader"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/black"
-            app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include
-        layout="@layout/content_main"
-        android:layout_width="match_parent"
-        android:layout_height="744dp" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:theme="@style/Theme.GenericTemplate.AppBarOverlay">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/LogInButton"
-        android:layout_width="27dp"
-        android:layout_height="8dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginBottom="28dp"
-        android:background="#00008B"
-        android:backgroundTint="#00008B"
-        android:text=""
-        android:textColor="#FDFDFD"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+    <androidx.appcompat.widget.Toolbar android:layout_height="0dp" android:layout_width="match_parent" app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" android:background="@color/black" android:id="@+id/SignUpHeader"/>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+    <include android:layout_height="744dp" android:layout_width="match_parent" android:id="@+id/ActivityMain" app:layout_anchorGravity="center" app:layout_anchor="@+id/ActivityMain" layout="@layout/content_main"/>
+
+    <androidx.appcompat.widget.AppCompatButton android:layout_height="8dp" android:layout_width="27dp" android:background="@color/userDark" android:id="@+id/LogInButton" app:layout_constraintTop_toBottomOf="@+id/inputPassword" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.181" app:layout_constraintBottom_toTopOf="@+id/SignUpButton" android:textSize="14sp" android:textColor="#FDFDFD" android:text="" android:backgroundTint="@color/userDark" android:layout_marginBottom="28dp" android:layout_marginTop="38dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

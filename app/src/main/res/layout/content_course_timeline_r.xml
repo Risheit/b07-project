@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:stretchColumns="1,2">
+
+    <TableRow tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_column="1"
+            android:background="@color/userDark"
+            android:gravity="center"
+            android:text="Session"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:layout_column="2"
+            android:background="@color/userDark"
+            android:gravity="center"
+            android:text="Course(s)"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+    </TableRow>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+
+</TableLayout>

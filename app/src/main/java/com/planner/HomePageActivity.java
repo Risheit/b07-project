@@ -1,51 +1,72 @@
 package com.planner;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import com.planner.databinding.ActivityHomePageBinding;
 
-public class HomePageActivity extends AppCompatActivity {
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityHomePageBinding binding;
+public class HomePageActivity extends AppCompatActivity implements ViewActions {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // some example uses are commented here
+        
+//        MainActivity.courseDB.addCourse(new Course(
+//                "Techniques of the Calculus of Several Variables I",
+//                "MATB41",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.addCourse(new Course(
+//                "Introduction to Computer Science II",
+//                "CSCA48",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.addCourse(new Course(
+//                "The Politics of Equality and Inequality in Canada",
+//                "POLD55",
+//                new ArrayList<String>()));
+//
+//        MainActivity.courseDB.editCourse(new Course(
+//                "Introduction to Computer Science II",
+//                "CSCA48",
+//                new ArrayList<String>()), "MATB41");
 
+//        String o = "";
+//        for(int i = 0; i<MainActivity.courseDB.courses.size(); i++) {
+//            if(i < MainActivity.courseDB.courses.size() - 1)
+//                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode()) + ", ";
+//            else
+//                o = o + String.valueOf(MainActivity.courseDB.courses.get(i).getCode());
+//        }
+//        Log.e("courses in the database", o);
+
+        ActivityHomePageBinding binding = ActivityHomePageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        Button courseListButton = (Button) findViewById(R.id.button5);
+        Button courseTimelineButton = (Button) findViewById(R.id.button4);
+        Button loginBackButton = (Button) findViewById(R.id.backbutton23);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        displayWelcomeText();
+
+        // Setup Listeners
+        courseListButton.setOnClickListener(view -> openCourseListPage(HomePageActivity.this));
+        courseTimelineButton.setOnClickListener(view ->
+                openCourseTimelineAddPage(HomePageActivity.this));
+        loginBackButton.setOnClickListener(view -> openLoginPage(HomePageActivity.this));
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    private void displayWelcomeText() {
+        TextView welcomeText = (TextView) findViewById(R.id.textView4);
+        String name = MainActivity.currentUser.getName() == null ? ""
+                : ": " + MainActivity.currentUser.getName();
+
+        welcomeText.setText(String.format(getResources().getString(R.string.welcome_student), name));
     }
 }

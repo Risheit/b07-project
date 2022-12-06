@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivity">
+    tools:context=".RemoveCourseActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,11 +15,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/userDark"
+            android:background="@color/adminDark"
             app:popupTheme="@style/Theme.GenericTemplate.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_home_page" />
+    <include layout="@layout/content_remove_course" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
