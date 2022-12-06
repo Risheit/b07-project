@@ -50,6 +50,10 @@ final public class CourseDatabase implements CourseDatabaseInterface {
                             Course course = new Course(name, code, sessionalDates, prerequisites);
                             courses.add(course);
                         });
+
+                courses.forEach(course ->
+                        course.getPrerequisites().forEach(prerequisite ->
+                                prerequisite.addRequiredCourse(course)));
             }
 
             @Override

@@ -153,6 +153,24 @@ public class Course {
         prerequisites = course.getPrerequisites();
     }
 
+    /**
+     * Adds a new required course, which is a course that contains this course as a prerequisite.
+     * @param course The required course to be added
+     */
+    public void addRequiredCourse(Course course) {
+        if (!requiresThisCourse.contains(course)) {
+            requiresThisCourse.add(course);
+        }
+    }
+
+    /**
+     * Removes a required course, which is a course that contains this course as a prerequisite.
+     * @param course The required course to be removed
+     */
+    public void removeRequiredCourse(Course course) {
+        requiresThisCourse.remove(course);
+    }
+
     @Override
     public int hashCode() {
         return code.hashCode();
