@@ -1,0 +1,83 @@
+Name: Risheit Munshi
+
+What have you done since yesterday?
+	- Refactored All activities and Models, reducing code duplication, simplifying methods, and removing unused and unneeded code.
+	- Fixed bugs and annoyances in AddCourseActivity and EditCourseActivity
+	- Made all Course Codes case-insensitive (they default to uppercase)
+
+What are you planning on doing today?
+	- Nothing
+
+Any impediments or stumbling blocks?
+	- None.
+
+
+Name: Francis Gajitos
+
+What have you done since yesterday?
+	- Finished implementing Session class
+	- Implemented Timetable view
+
+What are you planning on doing today?
+Nothing!
+Any impediments or stumbling blocks?
+	-  None
+
+
+Name: Theo Landart
+
+What have you done since yesterday?
+Updated CourseList to interact with the backend
+Implemented the “add course” view for students (including adding/removing courses)
+Implemented the checklist that comes before the timeline is generated
+Upgraded the GUI (lined up buttons consistently, added colour resources, removed FABs, etc.)
+Implemented the ability for admins to view a list of all courses
+Implemented getCurrentSession() interacting with the real date
+
+What are you planning on doing today?
+Finalize the UI for timeline page (and the whole app)
+
+Any impediments or stumbling blocks?
+None
+
+
+Name: <Ethan Chan>
+
+What have you done since yesterday?
+Fixed implementation of button navigation in SignUpActivity
+Implemented listviews in CourseListTimeline
+Fixed more navigation bugs
+Wrote some tests for MainActivity (login screen)
+Spent time trying to generate the timeline in CourseTimelineActivity, but a better implementation was completed
+
+What are you planning on doing today?
+NA
+
+Any impediments or stumbling blocks?
+NA
+
+
+Name: 	Jerry Chen
+
+What have you done since yesterday?		
+End-to-End Testing
+Polishing UI
+
+What are you planning on doing today?
+N/A
+Any impediments or stumbling blocks?
+N/A
+
+
+Name: Nicholas Louie
+
+What have you done since yesterday?
+Fixed circular prerequisite issue
+Tried to fix removing a course doesn’t remove it from a prerequisite
+Get eligible courses for user
+
+What are you planning on doing today?
+Final touches
+
+Any impediments or stumbling blocks?
+	- none
