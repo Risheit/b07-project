@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:stretchColumns="1,2"
-    android:layout_margin="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:stretchColumns="1,2">
 
     <TableRow tools:ignore="UselessParent">
+
         <TextView
             android:id="@+id/sessionPrime"
-            android:textSize="16dp"
-            android:padding="10dp"
+            android:layout_column="1"
             android:gravity="center"
-            android:layout_column="1">
-        </TextView>
+            android:padding="10dp"
+            android:textSize="16dp"></TextView>
+
         <TextView
             android:id="@+id/coursePrime"
-            android:textSize="16dp"
-            android:padding="10dp"
+            android:layout_column="2"
             android:gravity="center"
-            android:layout_column="2">
-        </TextView>
+            android:padding="10dp"
+            android:textSize="16dp"></TextView>
     </TableRow>
 
 </TableLayout>
