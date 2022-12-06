@@ -33,7 +33,7 @@ public class RemoveCourseActivity extends AppCompatActivity implements ViewActio
         // Setup Listeners
         backButton.setOnClickListener(view -> openAdminHomepage(RemoveCourseActivity.this));
         doneButton.setOnClickListener(view -> {
-            String courseCode = courseToRemove.getText().toString();
+            String courseCode = courseToRemove.getText().toString().toUpperCase();
 
             if (courseCode.isEmpty()){
                 displayErrorNotification(RemoveCourseActivity.this,
