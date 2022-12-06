@@ -1,13 +1,15 @@
 package com.presenters;
 
+import com.models.Session;
 import com.models.course.Course;
 import com.models.course.CourseDatabase;
 import com.planner.AddCourseActivity;
-import com.planner.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class AddCoursePresenter {
     CourseDatabase courseDB;
@@ -23,12 +25,17 @@ public class AddCoursePresenter {
     }
 
     public void onDoneButtonClicked() {
-        String course_code = view.getCourseCodeInput().getText().toString();
-        String name = view.getNameInput().getText().toString();
+        String course_code = view.getNameInput().getText().toString();
+        String name = view.getCourseCodeInput().getText().toString();
         String sessionsOffered = view.getSessionsOfferedInput().getText().toString();
 
         if (course_code.isEmpty() || sessionsOffered.isEmpty() || name.isEmpty()) {
             view.displayErrorNotification(view, "Please Enter All Possible Fields");
+            return;
+        }
+
+        if (getValidSessionDatesFromString(sessionsOffered).isEmpty()) {
+            view.displayErrorNotification(view, "Invalid course has been offered");
             return;
         }
 
@@ -62,17 +69,36 @@ public class AddCoursePresenter {
         }
 
         courseDB.addCourse(new Course(
-                course_code,
                 name,
-                getSessionDatesFromString(sessionsOffered),
+                course_code,
+                getValidSessionDatesFromString(sessionsOffered),
                 getCoursesFromCodes(prerequisiteCodes)
         ));
         view.displayNotification(view, "Course Added");
         view.openAdminHomepage(view);
     }
 
-    private List<String> getSessionDatesFromString(String sessionsOffered) {
-        return Arrays.asList(sessionsOffered.split(","));
+    private List<String> getValidSessionDatesFromString(String sessionsOffered) {
+        List<String> validSeasons = Arrays.asList(Session.summer.toLowerCase(),
+                Session.winter.toLowerCase(), Session.fall.toLowerCase());
+
+        List<String> sessions = Arrays.stream(sessionsOffered.split(","))
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .collect(Collectors.toList());
+
+        return sessions.stream()
+                .filter(validSeasons::contains)
+                .map(season -> {
+                    if (Session.fall.toLowerCase().equals(season))
+                        return Session.fall;
+                    if (Session.winter.toLowerCase().equals(season))
+                        return Session.winter;
+                    if (Session.summer.toLowerCase().equals(season))
+                        return Session.summer;
+                    return Session.fall;
+                })
+                .collect(Collectors.toList());
     }
 
     private List<Course> getCoursesFromCodes(List<String> codes) {
