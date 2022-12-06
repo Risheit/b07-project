@@ -13,6 +13,7 @@ import com.planner.databinding.ActivityEditCourseBinding;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class EditCourseActivity extends AppCompatActivity implements ViewActions {
 
@@ -57,36 +58,38 @@ public class EditCourseActivity extends AppCompatActivity implements ViewActions
             );
             List<String> prerequisiteCodes = Arrays.asList(prerequisiteString.split(","));
 
+            boolean hasPrereq = !prerequisiteCodes.get(0).isEmpty();
+
             if (courseDB.getCourse(courseCode) == null) {
                 displayErrorNotification(EditCourseActivity.this,
                         "Course does not exist");
                 return;
             }
-
-            boolean hasPrereq = !prerequisiteCodes.get(0).isEmpty();
-            if (hasPrereq && invalidPrerequisiteGiven(prerequisiteCodes)) {
+            else if (hasPrereq && invalidPrerequisiteGiven(prerequisiteCodes)) {
                 displayErrorNotification(EditCourseActivity.this,
                         "One or more of your prerequisite courses is not "
                                 + "registered in the database. Addition cancelled");
                 return;
             }
+            else {
 
-            Course course = courseDB.getCourse(courseCode);
-            course.setCode(newCourseCode);
-            course.setName(title);
-            course.setSessionalDates(listSessions);
-            courseDB.removeCourse(courseCode);
+                Course course = courseDB.getCourse(courseCode);
+                course.setCode(newCourseCode);
+                course.setName(title);
+                course.setSessionalDates(listSessions);
+                courseDB.removeCourse(courseCode);
 
-            List<Course> prerequisites = new ArrayList<>();
-            if (hasPrereq) {
-                prerequisiteCodes.forEach(code -> prerequisites.add(courseDB.getCourse(code)));
+                List<Course> prerequisites = new ArrayList<>();
+                if (hasPrereq) {
+                    prerequisiteCodes.forEach(code -> prerequisites.add(courseDB.getCourse(code)));
+                }
+                course.setPrerequisites(prerequisites);
+
+                courseDB.addCourse(course);
+
+                displayNotification(EditCourseActivity.this, "Course edited");
+                openAdminHomepage(EditCourseActivity.this);
             }
-            course.setPrerequisites(prerequisites);
-
-            courseDB.addCourse(course);
-
-            displayNotification(EditCourseActivity.this, "Course edited");
-            openAdminHomepage(EditCourseActivity.this);
         }
     }
 
